@@ -25,6 +25,7 @@ namespace LudoGame
         public MainPage()
         {
             this.InitializeComponent();
+
         }
     }
 }
