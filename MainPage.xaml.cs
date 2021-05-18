@@ -31,8 +31,8 @@ namespace LudoGame
     {
         CanvasBitmap backgroundImage;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-        public static float GameWidth = 720;
-        public static float GameHeight = 1280;
+        public static float GameWidth = 1920;
+        public static float GameHeight = 1200;
         public static float scaleWidth, scaleHeight;
 
         public MainPage()
@@ -59,7 +59,7 @@ namespace LudoGame
 
         private void GameCanvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Scaler.Img(backgroundImage));
+            args.DrawingSession.DrawImage(Scaler.FillImg(backgroundImage));
             GameCanvas.Invalidate();
 
         }
