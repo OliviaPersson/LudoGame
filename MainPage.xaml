@@ -10,6 +10,6 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Button Content="Press me" Height="111" Width="220" FontSize="30" HorizontalAlignment="Center"/>
+        <canvas:CanvasControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
     </Grid>
 </Page>
