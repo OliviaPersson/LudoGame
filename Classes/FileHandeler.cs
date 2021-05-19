@@ -10,7 +10,7 @@ namespace LudoGame.Classes
     static class FileHandeler
     {
         /// <summary>
-        /// Not yet implemented load images class
+        /// Not yet implemented load images method
         /// </summary>
         public static CanvasBitmap LoadSprites (string filelocation)
         {//Return NYI
@@ -18,7 +18,7 @@ namespace LudoGame.Classes
             return null;
         }
         /// <summary>
-        /// Not yet implemented load sound class
+        /// Not yet implemented load sound method
         /// </summary>
         //public static Sound LoadSounds(string filelocation)
         //{//Return NYI
@@ -26,14 +26,14 @@ namespace LudoGame.Classes
         //    return null; 
         //}
         /// <summary>
-        /// Not yet implemented save game class
+        /// Not yet implemented save game method
         /// </summary>
         public static void Save()
         {
 
         }
         /// <summary>
-        /// Not yet implemented load game class
+        /// Not yet implemented load game method
         /// </summary>
         public static void Load()
         {
