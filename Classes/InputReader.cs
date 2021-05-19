@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace LudoGame.Classes
 {
     class InputReader
-    {
-       //public input ReadInput()
-       //{
+    { /// <summary>
+      /// Not yet implemented Read input methood
+      /// </summary>
+        //public input ReadInput()
+        //{
 
-       //}
+        //}
     }
 }

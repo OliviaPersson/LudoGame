@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Classes\AIPlayer.cs" />
     <Compile Include="Classes\Cards.cs" />
+    <Compile Include="Classes\FileHandeler.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameEngine.cs" />
     <Compile Include="Classes\GamePiece.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Classes\InputReader.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
+    <Compile Include="Classes\Win2DHandeler.cs" />
     <Compile Include="Classes\Wormhole.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
