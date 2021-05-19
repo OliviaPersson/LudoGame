@@ -9,15 +9,11 @@ namespace LudoGame
 {
     public class Scaler
     {
-        private static float _uniformScale;
-        private static float _fillScale;
         public static void SetScale()
         {
             //Gather display information
             MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.GameWidth;
             MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.GameHeight;
-            _uniformScale = MathF.Min(MainPage.scaleWidth, MainPage.scaleHeight);
-            _fillScale = MathF.Max(MainPage.scaleWidth, MainPage.scaleHeight);
         }
 
         /// <summary>
@@ -25,31 +21,46 @@ namespace LudoGame
         /// </summary>
         public static Transform2DEffect Img(CanvasBitmap source)
         {
-            Transform2DEffect image;
-            image = new Transform2DEffect() { Source = source };
-            image.TransformMatrix = Matrix3x2.CreateScale(MainPage.scaleWidth, MainPage.scaleHeight);
-            return image;
+            return ScaleImage(source, MainPage.scaleWidth, MainPage.scaleHeight);
         }
 
         /// <summary>
-        /// Scale image file uniformly based on display information
+        /// Stretch image to fill in the whole window
         /// </summary>
-        public static Transform2DEffect UniformImg(CanvasBitmap source)
+        public static Transform2DEffect Stretch(CanvasBitmap source)
         {
-            Transform2DEffect image;
-            image = new Transform2DEffect() { Source = source };
-            image.TransformMatrix = Matrix3x2.CreateScale(_uniformScale, _uniformScale);
-            return image;
+            return ScaleImage(source, (float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
         }
 
         /// <summary>
-        /// Scale image file uniformly based on display information
+        /// Scale image to fit in the current window
         /// </summary>
-        public static Transform2DEffect FillImg(CanvasBitmap source)
+        public static Transform2DEffect Fit(CanvasBitmap source)
         {
-            Transform2DEffect image;
-            image = new Transform2DEffect() { Source = source };
-            image.TransformMatrix = Matrix3x2.CreateScale(_fillScale, _fillScale);
+            float scale = MathF.Min((float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
+            return ScaleImage(source, scale, scale);
+        }
+
+        /// <summary>
+        /// Scale image to fill the whole window
+        /// </summary>
+        public static Transform2DEffect Fill(CanvasBitmap source)
+        {
+            float scale = MathF.Max((float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
+            return ScaleImage(source, scale, scale);
+        }
+        
+        /// <summary>
+        /// Scales the image according to scaleX and Y
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="scaleY"></param>
+        /// <param name="scaleX"></param>
+        /// <returns></returns>
+        private static Transform2DEffect ScaleImage(CanvasBitmap source, float scaleX, float scaleY)
+        {
+            Transform2DEffect image = new Transform2DEffect() { Source = source };
+            image.TransformMatrix = Matrix3x2.CreateScale(scaleX, scaleY);
             return image;
         }
     }

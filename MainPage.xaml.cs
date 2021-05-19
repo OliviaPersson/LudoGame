@@ -9,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -63,7 +64,6 @@ namespace LudoGame
             args.DrawingSession.DrawImage(Scaler.FillImg(backgroundImage));
             args.DrawingSession.DrawImage(Scaler.FillImg(blackholeImage),50,50);
             GameCanvas.Invalidate();
-
         }
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
         {
