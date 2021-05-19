@@ -62,7 +62,7 @@ namespace LudoGame
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             args.DrawingSession.DrawImage(Scaler.Fill(backgroundImage));
-            args.DrawingSession.DrawImage(Scaler.ImgUniform(blackholeImage),50,50);
+            args.DrawingSession.DrawImage(Scaler.ImgUniform(blackholeImage, 2),50,50);
             GameCanvas.Invalidate();
         }
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
