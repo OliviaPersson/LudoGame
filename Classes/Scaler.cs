@@ -25,6 +25,15 @@ namespace LudoGame
         }
 
         /// <summary>
+        /// Scale image file uniformly based on display information
+        /// </summary>
+        public static Transform2DEffect ImgUniform(CanvasBitmap source)
+        {
+            float scale = MathF.Min(MainPage.scaleWidth, MainPage.scaleHeight);
+            return ScaleImage(source, scale, scale);
+        }
+
+        /// <summary>
         /// Stretch image to fill in the whole window
         /// </summary>
         public static Transform2DEffect Stretch(CanvasBitmap source)
