@@ -119,7 +119,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\AIPlayer.cs" />
+    <Compile Include="Classes\Cards.cs" />
+    <Compile Include="Classes\GameEngine.cs" />
+    <Compile Include="Classes\GamePiece.cs" />
+    <Compile Include="Classes\GameTile.cs" />
+    <Compile Include="Classes\InputReader.cs" />
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
+    <Compile Include="Classes\Wormhole.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
