@@ -30,14 +30,14 @@ namespace LudoGame
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static CanvasBitmap backgroundImage, blackholeImage;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float GameWidth = 1920;
         public static float GameHeight = 1080;
         public static float scaleWidth, scaleHeight;
 
-        // Create instance of GameEngine
+        // Create instance of GameEngine & Win2DHandeler
         GameEngine gsm = new GameEngine();
+        Win2DHandler win2DHandler = new Win2DHandler();
 
         public MainPage()
         {
@@ -57,34 +57,37 @@ namespace LudoGame
 
         private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            gsm.Update();
+            win2DHandler.Update();
         }
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            gsm.Draw(args);
+            win2DHandler.Draw(args);
         }
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            if(gsm.CurrentGameState == 0)
+            Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
+            Ymouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
+            gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
+            if (GameEngine.CurrentGameState == 0)
             {
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
-                    gsm.CurrentGameState = 1;
+                    GameEngine.CurrentGameState = 1;
                 });
             }
-            if (gsm.CurrentGameState == 1)
+            if (GameEngine.CurrentGameState == 1)
             {
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
-                    gsm.CurrentGameState = 0;
+                    GameEngine.CurrentGameState = 0;
                 });
             }
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
-            args.TrackAsyncAction(gsm.CreateResources(sender).AsAsyncAction());
+            args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
         }
 
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
