@@ -129,7 +129,7 @@
     <Compile Include="Classes\InputReader.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
-    <Compile Include="Classes\Win2DHandeler.cs" />
+    <Compile Include="Classes\Win2DHandler.cs" />
     <Compile Include="Classes\Wormhole.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -145,6 +145,7 @@
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
     <Content Include="Assets\Images\menubg.png" />
+    <Content Include="Assets\Images\standardtile.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
