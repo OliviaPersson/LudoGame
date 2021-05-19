@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Classes\AIPlayer.cs" />
     <Compile Include="Classes\Cards.cs" />
+    <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameEngine.cs" />
     <Compile Include="Classes\GamePiece.cs" />
     <Compile Include="Classes\GameTile.cs" />
@@ -141,6 +142,7 @@
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
+    <Content Include="Assets\Images\menubg.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

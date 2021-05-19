@@ -30,17 +30,23 @@ namespace LudoGame
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        CanvasBitmap backgroundImage, blackholeImage;
+        public static CanvasBitmap backgroundImage, blackholeImage;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float GameWidth = 1920;
         public static float GameHeight = 1080;
         public static float scaleWidth, scaleHeight;
+
+        // Create instance of GameEngine
+        GameEngine gsm = new GameEngine();
 
         public MainPage()
         {
             this.InitializeComponent();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
+
+            // Init all GameStates
+            gsm.GameStateInit();
         }
 
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -49,25 +55,38 @@ namespace LudoGame
             Scaler.SetScale();
         }
 
-        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
+        private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
         {
-            args.TrackAsyncAction(CreateResources(sender).AsAsyncAction());
+            gsm.Update();
         }
-        async Task CreateResources(CanvasAnimatedControl sender)
-        {
-            backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
-            blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
-        }
-
         private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Scaler.Fill(backgroundImage));
-            args.DrawingSession.DrawImage(Scaler.Img(blackholeImage),50,50);
-            GameCanvas.Invalidate();
+            gsm.Draw(args);
         }
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
-        {
 
+        private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if(gsm.CurrentGameState == 0)
+            {
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                {
+                    gsm.CurrentGameState = 1;
+                });
+            }
+            if (gsm.CurrentGameState == 1)
+            {
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                {
+                    gsm.CurrentGameState = 0;
+                });
+            }
         }
+
+        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
+        {
+            args.TrackAsyncAction(gsm.CreateResources(sender).AsAsyncAction());
+        }
+
+        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
     }
 }

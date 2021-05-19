@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
     </Grid>
     
 </Page>
