@@ -67,7 +67,7 @@ namespace LudoGame
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
-            Ymouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
+            Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
             if (GameEngine.CurrentGameState == 0)
             {
