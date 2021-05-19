@@ -30,7 +30,7 @@ namespace LudoGame
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        CanvasBitmap backgroundImage;
+        CanvasBitmap backgroundImage, blackholeImage;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float GameWidth = 1920;
         public static float GameHeight = 1080;
@@ -49,20 +49,21 @@ namespace LudoGame
             Scaler.SetScale();
         }
 
-        private void GameCanvas_CreateResources(CanvasControl sender, CanvasCreateResourcesEventArgs args)
+        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(CreateResources(sender).AsAsyncAction());
         }
-        async Task CreateResources(CanvasControl sender)
+        async Task CreateResources(CanvasAnimatedControl sender)
         {
             backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
+            blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
         }
 
-        private void GameCanvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
+        private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Scaler.Fill(backgroundImage));
+            args.DrawingSession.DrawImage(Scaler.FillImg(backgroundImage));
+            args.DrawingSession.DrawImage(Scaler.FillImg(blackholeImage),50,50);
             GameCanvas.Invalidate();
-
         }
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
         {
