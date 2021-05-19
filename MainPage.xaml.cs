@@ -9,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -32,7 +33,7 @@ namespace LudoGame
         CanvasBitmap backgroundImage;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float GameWidth = 1920;
-        public static float GameHeight = 1200;
+        public static float GameHeight = 1080;
         public static float scaleWidth, scaleHeight;
 
         public MainPage()
@@ -59,7 +60,7 @@ namespace LudoGame
 
         private void GameCanvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
         {
-            args.DrawingSession.DrawImage(Scaler.FillImg(backgroundImage));
+            args.DrawingSession.DrawImage(Scaler.Fill(backgroundImage));
             GameCanvas.Invalidate();
 
         }
