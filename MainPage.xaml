@@ -12,4 +12,5 @@
     <Grid>
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
     </Grid>
+    
 </Page>
