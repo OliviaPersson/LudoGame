@@ -90,6 +90,27 @@ namespace LudoGame
             args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)
+            {
+                if (GameEngine.CurrentGameState == 1)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 2;
+                    });
+                }
+                if (GameEngine.CurrentGameState == 2)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 1;
+                    });
+                }
+            }
+        }
+
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
     }
 }

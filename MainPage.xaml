@@ -14,6 +14,7 @@
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" HorizontalAlignment="Left" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
+        <Button Content="Pause" Margin="10,109,0,0" VerticalAlignment="Top" Height="54" Width="76" Click="Button_Click"/>
 
     </Grid>
 
