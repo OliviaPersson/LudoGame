@@ -14,7 +14,7 @@
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20"  VerticalAlignment="Top" Height="103" HorizontalAlignment="Left" Width="300"/>
-        <Button x:Name="PauseBtn" Visibility="Collapsed"  Content="Pause" Margin="15,65,0,0" Height="164" Width="164" Click="PauseButton_Click" VerticalAlignment="Top"/>
+        <Button x:Name="PauseBtn" Visibility="Collapsed"  Content="⏸️" Margin="15,65,0,0" Height="75" Width="75" Click="PauseButton_Click" VerticalAlignment="Top" FontSize="40"/> <!-- Unicode pause Btn link: https://emojipedia.org/pause-button/ -->
         <Grid x:Name="PauseMenu" Visibility="Collapsed">
             <Rectangle x:Name="popup" Stroke="white" Fill="Red" Opacity="0.3" Width="1921"  Height="1059" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Button x:Name="BtnExit" Content="EXIT" Margin="0,568,0,0" VerticalAlignment="Top" Height="75" Width="378" FontSize="40" HorizontalAlignment="Center" Click="BtnExit_Click"/>
