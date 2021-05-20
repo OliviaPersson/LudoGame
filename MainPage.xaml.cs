@@ -52,7 +52,6 @@ namespace LudoGame
             playing = false;
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
-
             // Init all GameStates
             gsm.GameStateInit();
         }
