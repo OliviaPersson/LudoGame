@@ -96,7 +96,7 @@ namespace LudoGame
             args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)
             {
@@ -106,6 +106,8 @@ namespace LudoGame
                     {
                         GameEngine.CurrentGameState = 2; // Pause
                     });
+                    PauseBtn.Visibility = Visibility.Collapsed;
+                    PauseMenu.Visibility = Visibility.Visible;
                 }
                 if (GameEngine.CurrentGameState == 2)
                 {
@@ -113,8 +115,15 @@ namespace LudoGame
                     {
                         GameEngine.CurrentGameState = 1; //Play
                     });
+                    PauseMenu.Visibility = Visibility.Collapsed;
+                    PauseBtn.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
 
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
