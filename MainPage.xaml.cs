@@ -74,6 +74,7 @@ namespace LudoGame
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 1;
+                   
                 });
             }
             if (GameEngine.CurrentGameState == 1)
