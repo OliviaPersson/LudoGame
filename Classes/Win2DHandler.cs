@@ -14,8 +14,6 @@ namespace LudoGame
 {
     public class Win2DHandler
     {
-        public CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, greenBaseImg, blueBaseImg, redBaseImg, yellowBaseImg, whiteTileImg, yellowTileImg, blueTileImg, greenTileImg, redTileImg;
-
         public void Update()
         {
             switch (GameEngine.CurrentGameState)
@@ -39,7 +37,7 @@ namespace LudoGame
                     args.DrawingSession.DrawImage(Scaler.Img(GameEngine.backgroundImage));
                     DrawMap(args);
                     break;
-                case 2: break;
+                case 2: args.DrawingSession.DrawImage(Scaler.Img(GameEngine.backgroundImage)); break;
                 case 3: break;
             }
         }
@@ -70,11 +68,15 @@ namespace LudoGame
                 switch (i)
                 {
                     case 5:
-                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.redTileImg), x, y);
+                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.redTileImg), x, y); 
 
+                        /// <summary>
+                        /// Not yet working Draw final tiles to center
+                        /// </summary>
+                        /*
                         Point redPosition = new Point(x, y);
                         Vector2 direction = new Vector2(redPosition.X - center.X, redPosition.Y - center.Y);
-                        /*
+                       
                         for (int j = 0; j < 4; j++)
                         {
                             double redAngle = Math.Abs(Math.Atan2((x - center.X), (y - center.Y)) * (180.0 / Math.PI));
@@ -84,7 +86,7 @@ namespace LudoGame
                             args.DrawingSession.DrawImage(Scaler.Img(redTileImg), redX, redY);
                         }
                         */
-                            break;
+                        break;
                     case 15:
                         args.DrawingSession.DrawImage(Scaler.Img(GameEngine.blueTileImg), x, y);
                         break;
@@ -100,30 +102,6 @@ namespace LudoGame
                 }
                     
             }
-        }
-
-        // Load Asset
-        public async Task CreateResources(CanvasAnimatedControl sender)
-        {
-            /*
-            // Menu
-            menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));
-
-            // Playing
-            backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
-            blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
-
-            //Load map
-            greenBaseImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/GreenBase.png"));
-            blueBaseImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/BlueBase.png"));
-            redBaseImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/RedBase.png"));
-            yellowBaseImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/YellowBase.png"));
-            whiteTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/WhiteTile.png"));
-            yellowTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/YellowTile.png"));
-            blueTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/BlueTile.png"));
-            greenTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/GreenTile.png"));
-            redTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/RedTile.png"));
-            */
         }
     }
 }
