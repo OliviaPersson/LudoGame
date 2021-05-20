@@ -12,7 +12,7 @@ namespace LudoGame
     public class GameEngine
     {
         CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage;
-        private CanvasBitmap[] _sprites;
+        private Dictionary<string, CanvasBitmap> _sprites;
         //private Sound[] _sounds;
         private GameTile[] _gameTiles;
         private Player _player;
@@ -49,11 +49,11 @@ namespace LudoGame
             switch (CurrentGameState)
             {
                 case 0:
-                    args.DrawingSession.DrawImage(Scaler.Img(menuBackGroundImage));
+                    args.DrawingSession.DrawImage(Scaler.Fit(_sprites["menuBackground"]));
                     break;
                 case 1:
-                    args.DrawingSession.DrawImage(Scaler.Img(backgroundImage));
-                    args.DrawingSession.DrawImage(Scaler.Img(blackholeImage), 50, 50);
+                    args.DrawingSession.DrawImage(Scaler.Fill(_sprites["background"]));
+                    args.DrawingSession.DrawImage(Scaler.ImgUniform(_sprites["blackhole"], 1), 50, 50);
                     break;
                 case 2: break;
                 case 3: break;
@@ -62,12 +62,17 @@ namespace LudoGame
         // Load Asset
         public async Task CreateResources(CanvasAnimatedControl sender)
         {
-            // Menu
-            menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));
+            _sprites = await FileHandeler.LoadSprites(sender, "Images");
+            menuBackGroundImage = _sprites["menuBackground"];
+            backgroundImage = _sprites["background"];
+            blackholeImage = _sprites["blackhole"];
 
-            // Playing
-            backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
-            blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
+            //// Menu
+            //menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));
+
+            //// Playing
+            //backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
+            //blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
         }
         //public void LoadAssets()
         //{
