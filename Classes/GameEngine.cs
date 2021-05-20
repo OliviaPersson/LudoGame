@@ -12,7 +12,7 @@ namespace LudoGame
     public class GameEngine
     {
         CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage;
-        private CanvasBitmap[] _sprites;
+        private Dictionary<string, CanvasBitmap> _sprites;
         //private Sound[] _sounds;
         private GameTile[] _gameTiles;
         private Player _player;
@@ -32,5 +32,25 @@ namespace LudoGame
             GameStates.Add(new GameState() { name = "Paused" });
             GameStates.Add(new GameState() { name = "GameOver" });
         }
+
+        // Load Asset
+        public async Task CreateResources(CanvasAnimatedControl sender)
+        {
+            _sprites = await FileHandeler.LoadSprites(sender, "Images");
+            menuBackGroundImage = _sprites["menuBackground"];
+            backgroundImage = _sprites["background"];
+            blackholeImage = _sprites["blackhole"];
+
+            //// Menu
+            //menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));
+
+            //// Playing
+            //backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
+            //blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
+        }
+        //public void LoadAssets()
+        //{
+
+        //}
     }
 }
