@@ -90,6 +90,15 @@ namespace LudoGame
             args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
         }
 
+        private void BtnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            switch(test.Visibility)
+            {
+                case Visibility.Collapsed: test.Visibility = Visibility.Visible; break;
+                case Visibility.Visible: test.Visibility = Visibility.Collapsed; break;
+            }
+        }
+
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
     }
 }

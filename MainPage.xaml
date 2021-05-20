@@ -14,7 +14,13 @@
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" HorizontalAlignment="Left" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
+        <Button x:Name ="BtnHelp" Content="?" Margin="64,145,0,0" VerticalAlignment="Top" FontSize="50" Height="75" Width="96" Click="BtnHelp_Click"/>
 
+        <Grid x:Name="test" Visibility="Collapsed">
+            <Rectangle x:Name="popup" Height="594" Margin="0,110,0,0" Stroke="white" VerticalAlignment="Top" Width="481" Fill="BlueViolet"/>
+            <Button x:Name="BtnExit" Content="EXIT" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Height="137" Width="378" FontSize="40"/>
+        </Grid>
     </Grid>
+
 
 </Page>
