@@ -35,7 +35,7 @@ namespace LudoGame
                     args.DrawingSession.DrawImage(Scaler.Img(backgroundImage));
                     args.DrawingSession.DrawImage(Scaler.Img(blackholeImage), 50, 50);
                     break;
-                case 2: break;
+                case 2: args.DrawingSession.DrawImage(Scaler.Img(backgroundImage)); break;
                 case 3: break;
             }
         }
