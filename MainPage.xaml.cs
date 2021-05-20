@@ -70,17 +70,23 @@ namespace LudoGame
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
             if (GameEngine.CurrentGameState == 0)
             {
+               
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 1;
+                   
                 });
+                PauseBtn.Visibility = Visibility.Visible;
             }
             if (GameEngine.CurrentGameState == 1)
             {
+               
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 0;
+                   
                 });
+                PauseBtn.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -89,6 +95,36 @@ namespace LudoGame
             args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)//If the game is paused or is playing
+            {
+                if (GameEngine.CurrentGameState == 1)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 2; // Pause
+                    });
+                    PauseBtn.Visibility = Visibility.Collapsed;
+                    PauseMenu.Visibility = Visibility.Visible;
+                }
+                if (GameEngine.CurrentGameState == 2)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 1; //Play
+                    });
+                    PauseMenu.Visibility = Visibility.Collapsed;
+                    PauseBtn.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
     }
 }
