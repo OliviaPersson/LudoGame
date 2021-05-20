@@ -6,12 +6,49 @@
       "NameID": "background"
     },
     {
+      "FileName": "menubg.png",
+      "NameID": "menubg"
+    },
+    {
       "FileName": "blackhole.png",
       "NameID": "blackhole"
     },
     {
-      "FileName": "menubg.png",
-      "NameID": "menuBackground"
+      "FileName": "BlueBase.png",
+      "NameID": "blueBase"
+    },
+    {
+      "FileName": "GreenBase.png",
+      "NameID": "greenBase"
+    },
+    {
+      "FileName": "RedBase.png",
+      "NameID": "redBase"
+    },
+    {
+      "FileName": "YellowBase.png",
+      "NameID": "yellowBase"
+    },
+    {
+      "FileName": "BlueTile.png",
+      "NameID": "blueTile"
+    },
+    {
+      "FileName": "GreenTile.png",
+      "NameID": "greenTile"
+    },
+    {
+      "FileName": "WhiteTile.png",
+      "NameID": "whiteTile"
+    },
+    {
+      "FileName": "YellowTile.png",
+      "NameID": "yellowTile"
+    },
+    {
+      "FileName": "RedTile.png",
+      "NameID": "redTile"
     }
+
   ]
 }
