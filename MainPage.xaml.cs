@@ -91,7 +91,7 @@ namespace LudoGame
         }
 
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             switch(test.Visibility)
             {
                 case Visibility.Collapsed: test.Visibility = Visibility.Visible; break;
