@@ -125,7 +125,7 @@ namespace LudoGame
             System.Environment.Exit(0);
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
+       
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
         { 
             switch(test.Visibility)
