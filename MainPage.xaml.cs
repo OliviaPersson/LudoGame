@@ -98,14 +98,14 @@ namespace LudoGame
                 {
                     var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                     {
-                        GameEngine.CurrentGameState = 2;
+                        GameEngine.CurrentGameState = 2; // Pause
                     });
                 }
                 if (GameEngine.CurrentGameState == 2)
                 {
                     var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                     {
-                        GameEngine.CurrentGameState = 1;
+                        GameEngine.CurrentGameState = 1; //Play
                     });
                 }
             }
