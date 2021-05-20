@@ -97,7 +97,7 @@ namespace LudoGame
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)
+            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)//If the game is paused or is playing
             {
                 if (GameEngine.CurrentGameState == 1)
                 {
