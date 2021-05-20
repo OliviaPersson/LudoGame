@@ -20,6 +20,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,6 +32,9 @@ namespace LudoGame
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        
+        MediaPlayer player;
+        bool playing;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float GameWidth = 1920;
         public static float GameHeight = 1080;
@@ -41,7 +46,10 @@ namespace LudoGame
 
         public MainPage()
         {
+
             this.InitializeComponent();
+            player = new MediaPlayer();
+            playing = false;
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
 
@@ -88,6 +96,47 @@ namespace LudoGame
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
+        }
+
+        private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+        {
+        }
+
+
+
+        private async void playBGM(object sender, RoutedEventArgs e)
+        {
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
+            Windows.Storage.StorageFile file = await folder.GetFileAsync("pixabay-1-min-piano_arp-4222.mp3");
+
+            player.AutoPlay = false;
+            player.Source = MediaSource.CreateFromStorageFile(file);
+
+            if (playing)
+            {
+                player.Source = null;
+                playing = false;
+            }
+            else
+            {
+                player.Play();
+                playing = true;
+            }
+        }
+
+        private void rollDice(object sender, RoutedEventArgs e)
+        {
+            Random num = new Random();
+            int number = num.Next(1, 7);
+
+            switch(number)
+            {
+                case 1:
+                    
+
+
+                    break;
+            }
         }
 
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}

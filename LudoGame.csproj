@@ -144,7 +144,14 @@
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
+    <Content Include="Assets\Images\dice1.png" />
+    <Content Include="Assets\Images\dice2.png" />
+    <Content Include="Assets\Images\dice3.png" />
+    <Content Include="Assets\Images\dice4.png" />
+    <Content Include="Assets\Images\dice5.png" />
+    <Content Include="Assets\Images\dice6.png" />
     <Content Include="Assets\Images\menubg.png" />
+    <Content Include="Assets\pixabay-1-min-piano_arp-4222.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -10,10 +10,18 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1164*"/>
+            <ColumnDefinition Width="715*"/>
+            <ColumnDefinition Width="41*"/>
+        </Grid.ColumnDefinitions>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped" Loaded="GameCanvas_Loaded" Grid.ColumnSpan="3"/>
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" HorizontalAlignment="Left" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
+        <Button Content="BGM" Margin="0,0,145,0" VerticalAlignment="Bottom" Click="playBGM" Width="78" Height="32" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Button x:Name="Roll_Dice" Content="Roll Dice&#xD;&#xA;" Grid.Column="1" Margin="612,220,10,786" VerticalAlignment="Stretch" Click="rollDice" HorizontalAlignment="Stretch"/>
+        <Image x:Name="Dice" Height="100" Width="100" Grid.Column="1" Margin="612,34,3,946" Source="/Assets/Images/dice1.png"/>
 
     </Grid>
 
