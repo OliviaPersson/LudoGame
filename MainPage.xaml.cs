@@ -126,12 +126,12 @@ namespace LudoGame
         }
 
        
-        private void BtnHelp_Click(object sender, RoutedEventArgs e)
+        private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         { 
-            switch(test.Visibility)
+            switch(StartMenu.Visibility)
             {
-                case Visibility.Collapsed: test.Visibility = Visibility.Visible; break;
-                case Visibility.Visible: test.Visibility = Visibility.Collapsed; break;
+                case Visibility.Collapsed: StartMenu.Visibility = Visibility.Visible; break;
+                case Visibility.Visible: StartMenu.Visibility = Visibility.Collapsed; break;
             }
         }
 
