@@ -129,7 +129,7 @@
     <Compile Include="Classes\InputReader.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
-    <Compile Include="Classes\Win2DHandeler.cs" />
+    <Compile Include="Classes\Win2DHandler.cs" />
     <Compile Include="Classes\Wormhole.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

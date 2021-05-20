@@ -22,7 +22,7 @@ namespace LudoGame
         private Cards[] _cards;
         private Wormhole _wormhole;
 
-        public int CurrentGameState = 0;
+        public static int CurrentGameState = 0;
         public List<GameState> GameStates = new List<GameState>();
 
         public void GameStateInit()
@@ -33,32 +33,6 @@ namespace LudoGame
             GameStates.Add(new GameState() { name = "GameOver" });
         }
 
-        public void Update()
-        {
-            switch (CurrentGameState)
-            {
-                case 0: break;
-                case 1: break;
-                case 2: break;
-                case 3: break;
-                default: break;
-            }
-        }
-        public void Draw(CanvasAnimatedDrawEventArgs args)
-        {
-            switch (CurrentGameState)
-            {
-                case 0:
-                    args.DrawingSession.DrawImage(Scaler.Fit(_sprites["menuBackground"]));
-                    break;
-                case 1:
-                    args.DrawingSession.DrawImage(Scaler.Fill(_sprites["background"]));
-                    args.DrawingSession.DrawImage(Scaler.ImgUniform(_sprites["blackhole"], 1), 50, 50);
-                    break;
-                case 2: break;
-                case 3: break;
-            }
-        }
         // Load Asset
         public async Task CreateResources(CanvasAnimatedControl sender)
         {
