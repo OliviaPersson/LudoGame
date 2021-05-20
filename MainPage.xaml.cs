@@ -71,19 +71,23 @@ namespace LudoGame
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
             if (GameEngine.CurrentGameState == 0)
             {
+               
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 1;
-                    PauseBtn.Visibility = Visibility.Visible;
+                   
                 });
+                PauseBtn.Visibility = Visibility.Visible;
             }
             if (GameEngine.CurrentGameState == 1)
             {
+               
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 0;
                    
                 });
+                PauseBtn.Visibility = Visibility.Collapsed;
             }
         }
 
