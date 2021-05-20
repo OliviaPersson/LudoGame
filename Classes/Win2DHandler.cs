@@ -14,7 +14,7 @@ namespace LudoGame
 {
     public class Win2DHandler
     {
-        CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, greenBaseImg, blueBaseImg, redBaseImg, yellowBaseImg, whiteTileImg, yellowTileImg, blueTileImg, greenTileImg, redTileImg;
+        public CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, greenBaseImg, blueBaseImg, redBaseImg, yellowBaseImg, whiteTileImg, yellowTileImg, blueTileImg, greenTileImg, redTileImg;
 
         public void Update()
         {
@@ -33,10 +33,10 @@ namespace LudoGame
             switch (GameEngine.CurrentGameState)
             {
                 case 0:
-                    args.DrawingSession.DrawImage(Scaler.Img(menuBackGroundImage));
+                    args.DrawingSession.DrawImage(Scaler.Img(GameEngine.menuBackGroundImage));
                     break;
                 case 1:
-                    args.DrawingSession.DrawImage(Scaler.Img(backgroundImage));
+                    args.DrawingSession.DrawImage(Scaler.Img(GameEngine.backgroundImage));
                     DrawMap(args);
                     break;
                 case 2: break;
@@ -52,11 +52,11 @@ namespace LudoGame
             float width = (float)MainPage.bounds.Width;
             float height = (float)MainPage.bounds.Height;
 
-            args.DrawingSession.DrawImage(Scaler.Img(blackholeImage), (float)(width / 2.15), (float)(height / 2.35));
-            args.DrawingSession.DrawImage(Scaler.Img(yellowBaseImg), width / 4, height / 10);
-            args.DrawingSession.DrawImage(Scaler.Img(blueBaseImg), width / 4, (float)(height / 1.3));
-            args.DrawingSession.DrawImage(Scaler.Img(greenBaseImg), (float)(width / 1.4), (float)(height / 10));
-            args.DrawingSession.DrawImage(Scaler.Img(redBaseImg), (float)(width / 1.4), (float)(height / 1.3));
+            args.DrawingSession.DrawImage(Scaler.Img(GameEngine.blackholeImage), (float)(width / 2.15), (float)(height / 2.35));
+            args.DrawingSession.DrawImage(Scaler.Img(GameEngine.yellowBaseImg), width / 4, height / 10);
+            args.DrawingSession.DrawImage(Scaler.Img(GameEngine.blueBaseImg), width / 4, (float)(height / 1.3));
+            args.DrawingSession.DrawImage(Scaler.Img(GameEngine.greenBaseImg), (float)(width / 1.4), (float)(height / 10));
+            args.DrawingSession.DrawImage(Scaler.Img(GameEngine.redBaseImg), (float)(width / 1.4), (float)(height / 1.3));
 
             double angle = 369.0 / 40 * Math.PI / 180.0;
             double distance = Math.Max(width / 5, height / 5);
@@ -70,7 +70,7 @@ namespace LudoGame
                 switch (i)
                 {
                     case 5:
-                        args.DrawingSession.DrawImage(Scaler.Img(redTileImg), x, y);
+                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.redTileImg), x, y);
 
                         Point redPosition = new Point(x, y);
                         Vector2 direction = new Vector2(redPosition.X - center.X, redPosition.Y - center.Y);
@@ -86,16 +86,16 @@ namespace LudoGame
                         */
                             break;
                     case 15:
-                        args.DrawingSession.DrawImage(Scaler.Img(blueTileImg), x, y);
+                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.blueTileImg), x, y);
                         break;
                     case 25:
-                        args.DrawingSession.DrawImage(Scaler.Img(yellowTileImg), x, y);
+                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.yellowTileImg), x, y);
                         break;
                     case 35:
-                        args.DrawingSession.DrawImage(Scaler.Img(greenTileImg), x, y);
+                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.greenTileImg), x, y);
                         break;
                     default:
-                        args.DrawingSession.DrawImage(Scaler.Img(whiteTileImg), x, y);
+                        args.DrawingSession.DrawImage(Scaler.Img(GameEngine.whiteTileImg), x, y);
                         break;
                 }
                     
@@ -105,6 +105,7 @@ namespace LudoGame
         // Load Asset
         public async Task CreateResources(CanvasAnimatedControl sender)
         {
+            /*
             // Menu
             menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));
 
@@ -122,6 +123,7 @@ namespace LudoGame
             blueTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/BlueTile.png"));
             greenTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/GreenTile.png"));
             redTileImg = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/Tiles/RedTile.png"));
+            */
         }
     }
 }
