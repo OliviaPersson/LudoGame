@@ -74,7 +74,7 @@ namespace LudoGame
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 1;
-                   
+                    PauseBtn.Visibility = Visibility.Visible;
                 });
             }
             if (GameEngine.CurrentGameState == 1)
@@ -82,6 +82,7 @@ namespace LudoGame
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 0;
+                   
                 });
             }
         }
@@ -112,6 +113,6 @@ namespace LudoGame
             }
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
+        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
     }
 }
