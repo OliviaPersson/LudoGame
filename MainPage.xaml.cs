@@ -44,7 +44,6 @@ namespace LudoGame
             this.InitializeComponent();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
-
             // Init all GameStates
             gsm.GameStateInit();
         }

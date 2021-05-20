@@ -1,0 +1,17 @@
+﻿{
+  "FileType": "CanvasBitmap",
+  "Files": [
+    {
+      "FileName": "bg.png",
+      "NameID": "background"
+    },
+    {
+      "FileName": "blackhole.png",
+      "NameID": "blackhole"
+    },
+    {
+      "FileName": "menubg.png",
+      "NameID": "menuBackground"
+    }
+  ]
+}
