@@ -68,26 +68,8 @@ namespace LudoGame
             Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
-            if (GameEngine.CurrentGameState == 0)
-            {
-               
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = 1;
-                   
-                });
-                PauseBtn.Visibility = Visibility.Visible;
-            }
-            if (GameEngine.CurrentGameState == 1)
-            {
-               
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = 0;
-                   
-                });
-                PauseBtn.Visibility = Visibility.Collapsed;
-            }
+           
+          
         }
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
@@ -127,12 +109,26 @@ namespace LudoGame
 
        
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
-        { 
-            switch(StartMenu.Visibility)
+        {
+           
+
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                {
+                    GameEngine.CurrentGameState = 1;
+                });
+                PauseBtn.Visibility = Visibility.Visible;
+            StartMenu.Visibility = Visibility.Collapsed;
+            
+        }
+
+        private void MainMenueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
-                case Visibility.Collapsed: StartMenu.Visibility = Visibility.Visible; break;
-                case Visibility.Visible: StartMenu.Visibility = Visibility.Collapsed; break;
-            }
+                GameEngine.CurrentGameState = 0;
+            });
+            PauseMenu.Visibility = Visibility.Collapsed;
+            StartMenu.Visibility = Visibility.Visible;
         }
 
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}

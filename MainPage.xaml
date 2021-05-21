@@ -10,6 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" Draw="GameCanvas_Draw" CreateResources="GameCanvas_CreateResources" Update="GameCanvas_Update" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
@@ -17,18 +18,20 @@
         <Button x:Name="PauseBtn" Visibility="Collapsed"  Content="⏸️" Margin="15,65,0,0" Height="75" Width="75" Click="PauseButton_Click" VerticalAlignment="Top" FontSize="40"/>
         <!-- Unicode pause Btn link: https://emojipedia.org/pause-button/ -->
         <Grid x:Name="PauseMenu" Visibility="Collapsed">
-            <Rectangle x:Name="PauseMenuPopup" Stroke="white" Fill="Red" Opacity="0.3" Width="1921"  Height="1059" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            <Button x:Name="BtnExit" Content="EXIT" Margin="0,568,0,0" VerticalAlignment="Top" Height="75" Width="378" FontSize="40" HorizontalAlignment="Center" Click="BtnExit_Click"/>
-            <Button x:Name="SaveBTn" Content="SAVE" Margin="0,365,0,0" VerticalAlignment="Top" Height="75" Width="378" FontSize="40" HorizontalAlignment="Center"/>
-            <Button x:Name="ResumeBtn" Content="RESUME" Margin="0,261,0,0" VerticalAlignment="Top" Height="75" Width="378" FontSize="40" HorizontalAlignment="Center" Click="PauseButton_Click"/>
-            <Button x:Name="MainMenueBtn" Content="Main Menu" Margin="0,465,0,0" VerticalAlignment="Top"  Height="75" Width="378" FontSize="40" HorizontalAlignment="Center"/>
+
+            <Rectangle x:Name="PauseMenuPopup" Stroke="white" Fill="Red" Opacity="0.3" Width="1921" HorizontalAlignment="Left" Height="1059" VerticalAlignment="Center" Grid.ColumnSpan="2" />
+            <Button x:Name="BtnExit" Content="EXIT" Margin="0,588,0,0" VerticalAlignment="Top" FontSize="40" Click="BtnExit_Click" Width="300" Height="75" HorizontalAlignment="Center"/>
+            <Button x:Name="SaveBTn" Content="SAVE" Margin="0,342,0,0" VerticalAlignment="Top" Width="300" FontSize="40" Height="75" HorizontalAlignment="Center"/>
+            <Button x:Name="ResumeBtn" Content="RESUME" Margin="0,232,0,0" VerticalAlignment="Top" FontSize="40" Click="PauseButton_Click" Height="75" Width="300" HorizontalAlignment="Center"/>
+            <Button x:Name="MainMenueBtn" Content="Main Menu" Margin="0,464,0,0" FontSize="40" Click="MainMenueBtn_Click" Width="300" Height="75" VerticalAlignment="Top" HorizontalAlignment="Center" />
         </Grid>
         <!-- <Button x:Name ="BtnHelp" Content="?" Margin="64,145,0,0" VerticalAlignment="Top" FontSize="50" Height="75" Width="96" Click="BtnHelp_Click"/> -->
 
         <Grid x:Name="StartMenu" Visibility="Visible">
-            <Rectangle x:Name="StartMenuPopup" Height="594" Margin="0,110,0,0" Stroke="white" VerticalAlignment="Top" Width="481" Fill="BlueViolet"/>
-            <Button x:Name="BtnExit1" Content="EXIT" Margin="0,540,0,0" VerticalAlignment="Top" Height="91" Width="380" FontSize="40" Click="BtnExit_Click" HorizontalAlignment="Center"/>
-            <Button x:Name="NewgameBtn" Content="New Game" Margin="0,165,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Click="NewGame_ClickBtn" Width="380" Height="91"/>
+            <Rectangle x:Name="StartMenuPopup" Margin="0,0,0,133" Stroke="white" Width="442" Fill="Gray" Opacity="0.3" HorizontalAlignment="Center" Height="436" VerticalAlignment="Bottom"/>
+            <Button x:Name="BtnExit1" Content="EXIT" Margin="0,0,0,174" VerticalAlignment="Bottom" Height="91" Width="380" FontSize="40" Click="BtnExit_Click" HorizontalAlignment="Center"/>
+            <Button x:Name="NewgameBtn" Content="New Game" Margin="0,0,0,449" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="NewGame_ClickBtn" Width="380" Height="91" FontSize="40"/>
+            <Button x:Name="LoadBtn" Content="Load" Margin="0,0,0,299" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="380" Height="91" FontSize="40"/>
         </Grid>
     </Grid>
 
