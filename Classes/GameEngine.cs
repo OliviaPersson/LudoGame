@@ -11,7 +11,7 @@ namespace LudoGame
 {
     public class GameEngine
     {
-        CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, dice1Image;
+        public static CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, greenBaseImg, blueBaseImg, redBaseImg, yellowBaseImg, whiteTileImg, yellowTileImg, blueTileImg, greenTileImg, redTileImg;
         private Dictionary<string, CanvasBitmap> _sprites;
         //private Sound[] _sounds;
         private GameTile[] _gameTiles;
@@ -37,11 +37,18 @@ namespace LudoGame
         public async Task CreateResources(CanvasAnimatedControl sender)
         {
             _sprites = await FileHandeler.LoadSprites(sender, "Images");
-            menuBackGroundImage = _sprites["menuBackground"];
+            menuBackGroundImage = _sprites["menubg"];
             backgroundImage = _sprites["background"];
             blackholeImage = _sprites["blackhole"];
-            dice1Image = _sprites["dice1"];
-
+            greenBaseImg = _sprites["greenBase"];
+            blueBaseImg = _sprites["blueBase"];
+            redBaseImg = _sprites["redBase"];
+            yellowBaseImg = _sprites["yellowBase"];
+            whiteTileImg = _sprites["whiteTile"];
+            yellowTileImg = _sprites["yellowTile"];
+            blueTileImg = _sprites["blueTile"];
+            greenTileImg = _sprites["greenTile"];
+            redTileImg = _sprites["redTile"];
 
             //// Menu
             //menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));

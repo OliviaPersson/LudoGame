@@ -79,22 +79,69 @@ namespace LudoGame
             Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
-            if (GameEngine.CurrentGameState == 0)
+           
+          
+        }
+
+        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
+        {
+            //args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
+            args.TrackAsyncAction(gsm.CreateResources(sender).AsAsyncAction());
+        }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)//If the game is paused or is playing
             {
+                if (GameEngine.CurrentGameState == 1)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 2; // Pause
+                    });
+                    PauseBtn.Visibility = Visibility.Collapsed;
+                    PauseMenu.Visibility = Visibility.Visible;
+                }
+                if (GameEngine.CurrentGameState == 2)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 1; //Play
+                    });
+                    PauseMenu.Visibility = Visibility.Collapsed;
+                    PauseBtn.Visibility = Visibility.Visible;
+                }
+            }
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+       
+        private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
+        {
+           
+
                 var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
                     GameEngine.CurrentGameState = 1;
                 });
-            }
-            if (GameEngine.CurrentGameState == 1)
-            {
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = 0;
-                });
-            }
+                PauseBtn.Visibility = Visibility.Visible;
+            StartMenu.Visibility = Visibility.Collapsed;
+            
         }
 
+        private void MainMenueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+            {
+                GameEngine.CurrentGameState = 0;
+            });
+            PauseMenu.Visibility = Visibility.Collapsed;
+            StartMenu.Visibility = Visibility.Visible;
+        }
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
         {
         }
