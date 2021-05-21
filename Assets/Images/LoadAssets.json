@@ -51,43 +51,4 @@
     }
 
   ]
-    "Files": [
-        {
-            "FileName": "bg.png",
-            "NameID": "background"
-        },
-        {
-            "FileName": "blackhole.png",
-            "NameID": "blackhole"
-        },
-        {
-            "FileName": "menubg.png",
-            "NameID": "menuBackground"
-        },
-        {
-            "FileName": "dice1.png",
-            "NameID": "dice1"
-        },
-        {
-            "FileName": "dice2.png",
-            "NameID": "dice2"
-        },
-        {
-            "FileName": "dice3.png",
-            "NameID": "dice3"
-        },
-        {
-            "FileName": "dice4.png",
-            "NameID": "dice4"
-        },
-        {
-            "FileName": "dice5.png",
-            "NameID": "dice5"
-        },
-        {
-            "FileName": "dice6.png",
-            "NameID": "dice6"
-        }
-
-    ]
 }
