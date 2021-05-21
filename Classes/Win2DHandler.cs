@@ -11,7 +11,8 @@ namespace LudoGame
 {
     public class Win2DHandler
     {
-        CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage;
+        CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, dice1Image;
+        private Dictionary<string, CanvasBitmap> _sprites;
 
         public void Update()
         {
@@ -24,8 +25,9 @@ namespace LudoGame
                 default: break;
             }
         }
-        public void Draw(CanvasAnimatedDrawEventArgs args)
+        public void Draw(CanvasAnimatedDrawEventArgs args, CanvasAnimatedControl sender)
         {
+
             switch (GameEngine.CurrentGameState)
             {
                 case 0:
@@ -34,12 +36,14 @@ namespace LudoGame
                 case 1:
                     args.DrawingSession.DrawImage(Scaler.Img(backgroundImage));
                     args.DrawingSession.DrawImage(Scaler.Img(blackholeImage), 50, 50);
+                    args.DrawingSession.DrawImage(Scaler.Img(dice1Image), 50, 50);
                     break;
-                case 2: break;
-                case 3: break;
+                case 2:
+                    break;
+                case 3: 
+                    break;
             }
         }
-        // Load Asset
         public async Task CreateResources(CanvasAnimatedControl sender)
         {
             // Menu
@@ -48,6 +52,7 @@ namespace LudoGame
             // Playing
             backgroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/bg.png"));
             blackholeImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/blackhole.png"));
+            dice1Image = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/dice1.png"));
         }
     }
 }

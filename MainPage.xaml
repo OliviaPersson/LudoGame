@@ -20,8 +20,8 @@
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" HorizontalAlignment="Left" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <Button Content="BGM" Margin="0,0,145,0" VerticalAlignment="Bottom" Click="playBGM" Width="78" Height="32" HorizontalAlignment="Right" Grid.Column="1"/>
-        <Button x:Name="Roll_Dice" Content="Roll Dice&#xD;&#xA;" Grid.Column="1" Margin="612,220,10,786" VerticalAlignment="Stretch" Click="rollDice" HorizontalAlignment="Stretch"/>
-        <Image x:Name="Dice" Height="100" Width="100" Grid.Column="1" Margin="612,34,3,946" Source="/Assets/Images/dice1.png"/>
+        <Image x:Name="picDice" Grid.Column="1" Margin="0,34,3,0" Source="/Assets/Images/dice1.png" HorizontalAlignment="Right" Width="100" Height="100" VerticalAlignment="Top"/>
+        <Button x:Name="Roll_Dice" Content="Roll dice&#xD;&#xA;Roll dice" Grid.Column="1" Margin="0,175,3,0" VerticalAlignment="Top" Click="rollDice" Width="100" HorizontalAlignment="Right" Height="32"/>
 
     </Grid>
 

@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -33,6 +34,8 @@ namespace LudoGame
     public sealed partial class MainPage : Page
     {
         
+        CanvasBitmap dice1Image, dice2Image, dice3Image, dice4Image, dice5Image, dice6Image;
+
         MediaPlayer player;
         bool playing;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
@@ -66,10 +69,10 @@ namespace LudoGame
         {
             win2DHandler.Update();
         }
-        private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
-        {
-            win2DHandler.Draw(args);
-        }
+        //private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
+        //{
+        //    win2DHandler.Draw(args);
+        //}
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
@@ -90,11 +93,6 @@ namespace LudoGame
                     GameEngine.CurrentGameState = 0;
                 });
             }
-        }
-
-        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
-        {
-            args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
         }
 
         private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
@@ -125,19 +123,67 @@ namespace LudoGame
 
         private void rollDice(object sender, RoutedEventArgs e)
         {
-            Random num = new Random();
-            int number = num.Next(1, 7);
+            //Random num = new Random();
+            //int number = num.Next(1, 7);
+  
+            int number = 4;
 
-            switch(number)
+            if (number == 1)
             {
-                case 1:
-                    
-
-
-                    break;
+                //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
+                //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice1.png");
             }
-        }
+            else if (number == 2)
+            {
+                Scaler.Img(dice2Image);
+                //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
+                //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice2.png");
+            }
+            else if (number == 3)
+            {
+                Scaler.Img(dice3Image);
+                //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
+                //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice3.png");
+            }
+            else if (number == 4)
+            {
+                Scaler.Img(dice4Image);
+                //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
+                //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice4.png");
+            }
+            else if (number == 5)
+            {
+                Scaler.Img(dice5Image);
+                //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
+                //Windows.Storage.StorageFile file = await folder.GetFileAsync("dice5.png");
+            }
+            else
+            {
+                Scaler.Img(dice6Image);
+                //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
+                //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice6.png");
+            }
+            //switch(number)
+            //{
+            //    case 1:
 
+            //        break;
+            //    case 2:
+            //        break;
+            //    case 3:
+            //        break;
+            //    case 4:
+            //        break;
+            //    case 5:
+            //        break;
+            //    case 6:
+            //        break;
+            //}
+        }
+        static void dice_1(CanvasAnimatedDrawEventArgs args, CanvasBitmap dice1Image)
+        {
+            args.DrawingSession.DrawImage(Scaler.Img(dice1Image));
+        }
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
     }
 }

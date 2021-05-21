@@ -11,7 +11,7 @@ namespace LudoGame
 {
     public class GameEngine
     {
-        CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage;
+        CanvasBitmap backgroundImage, blackholeImage, menuBackGroundImage, dice1Image;
         private Dictionary<string, CanvasBitmap> _sprites;
         //private Sound[] _sounds;
         private GameTile[] _gameTiles;
@@ -40,6 +40,8 @@ namespace LudoGame
             menuBackGroundImage = _sprites["menuBackground"];
             backgroundImage = _sprites["background"];
             blackholeImage = _sprites["blackhole"];
+            dice1Image = _sprites["dice1"];
+
 
             //// Menu
             //menuBackGroundImage = await CanvasBitmap.LoadAsync(sender, new Uri("ms-appx:///Assets/Images/menubg.png"));
