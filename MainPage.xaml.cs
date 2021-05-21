@@ -25,9 +25,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace LudoGame
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
@@ -59,12 +56,6 @@ namespace LudoGame
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
            
           
-        }
-
-        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
-        {
-            //args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
-            args.TrackAsyncAction(gsm.CreateResources(sender).AsAsyncAction());
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
