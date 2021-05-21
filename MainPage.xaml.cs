@@ -28,9 +28,6 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace LudoGame
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainPage : Page
     {
         
@@ -39,13 +36,9 @@ namespace LudoGame
         MediaPlayer player;
         bool playing;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-        public static float GameWidth = 1920;
-        public static float GameHeight = 1080;
+        public static float GameWidth = 1000;
+        public static float GameHeight = 1000;
         public static float scaleWidth, scaleHeight;
-
-        // Create instance of GameEngine & Win2DHandeler
-        GameEngine gsm = new GameEngine();
-        Win2DHandler win2DHandler = new Win2DHandler();
 
         public MainPage()
         {
@@ -56,23 +49,16 @@ namespace LudoGame
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
             // Init all GameStates
-            gsm.GameStateInit();
+            GameEngine.InitializeGameEngine(GameCanvas);
+            GameEngine.GameStateInit();
         }
 
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             bounds = ApplicationView.GetForCurrentView().VisibleBounds;
             Scaler.SetScale();
+            GameEngine.OnSizeChanged();
         }
-
-        private void GameCanvas_Update(ICanvasAnimatedControl sender, CanvasAnimatedUpdateEventArgs args)
-        {
-            win2DHandler.Update();
-        }
-        //private void GameCanvas_Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
-        //{
-        //    win2DHandler.Draw(args);
-        //}
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
@@ -81,12 +67,6 @@ namespace LudoGame
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
            
           
-        }
-
-        private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
-        {
-            //args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
-            args.TrackAsyncAction(gsm.CreateResources(sender).AsAsyncAction());
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
