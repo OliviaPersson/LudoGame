@@ -74,7 +74,8 @@ namespace LudoGame
 
         private void GameCanvas_CreateResources(CanvasAnimatedControl sender, CanvasCreateResourcesEventArgs args)
         {
-            args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
+            //args.TrackAsyncAction(win2DHandler.CreateResources(sender).AsAsyncAction());
+            args.TrackAsyncAction(gsm.CreateResources(sender).AsAsyncAction());
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
