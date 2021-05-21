@@ -100,11 +100,6 @@ namespace LudoGame
 
     public static class Win2DDrawingHandler
     {
-        public static void MaintainPositionOnSizeChange(Drawable drawable)
-        {
-
-        }
-
         public static void Draw(CanvasAnimatedDrawEventArgs args, Drawable[] drawables)
         {
             foreach (Drawable currentItem in drawables)
