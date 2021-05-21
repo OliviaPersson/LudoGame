@@ -163,6 +163,7 @@
     <Content Include="Assets\Images\WhiteTile.png" />
     <Content Include="Assets\Images\YellowBase.png" />
     <Content Include="Assets\Images\YellowTile.png" />
+    <Content Include="Assets\pixabay-1-min-piano_arp-4222.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -185,6 +186,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.11</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Json">
       <Version>5.0.2</Version>

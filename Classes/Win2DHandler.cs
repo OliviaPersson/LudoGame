@@ -25,7 +25,7 @@ namespace LudoGame
                 default: break;
             }
         }
-        public void Draw(CanvasAnimatedDrawEventArgs args)
+        public void Draw(CanvasAnimatedDrawEventArgs args, CanvasAnimatedControl sender)
         {
 
             switch (GameEngine.CurrentGameState)
