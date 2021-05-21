@@ -77,6 +77,18 @@ namespace LudoGame
         public static async void CreateResources(CanvasAnimatedControl sender)
         {
             _sprites = await FileHandeler.LoadSprites(sender, "Images");
+            menuBackGroundImage = _sprites["menubg"];
+            backgroundImage = _sprites["background"];
+            blackholeImage = _sprites["blackhole"];
+            greenBaseImg = _sprites["greenBase"];
+            blueBaseImg = _sprites["blueBase"];
+            redBaseImg = _sprites["redBase"];
+            yellowBaseImg = _sprites["yellowBase"];
+            whiteTileImg = _sprites["whiteTile"];
+            yellowTileImg = _sprites["yellowTile"];
+            blueTileImg = _sprites["blueTile"];
+            greenTileImg = _sprites["greenTile"];
+            redTileImg = _sprites["redTile"];
             drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap), true));
             drawables.Add(new Drawable(_sprites["blackhole"], new Vector2(0, 0), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
 

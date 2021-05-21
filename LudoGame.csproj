@@ -144,10 +144,25 @@
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
+    <Content Include="Assets\Images\BlueBase.png" />
+    <Content Include="Assets\Images\BlueTile.png" />
+    <Content Include="Assets\Images\GreenBase.png" />
+    <Content Include="Assets\Images\GreenTile.png" />
     <Content Include="Assets\Images\menubg.png" />
-    <None Include="Assets\Images\LoadAssets.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Content Include="Assets\Images\RedBase.png" />
+    <Content Include="Assets\Images\RedTile.png" />
+    <Content Include="Assets\Images\Tiles\BlueBase.png" />
+    <Content Include="Assets\Images\Tiles\BlueTile.png" />
+    <Content Include="Assets\Images\Tiles\GreenBase.png" />
+    <Content Include="Assets\Images\Tiles\GreenTile.png" />
+    <Content Include="Assets\Images\Tiles\RedBase.png" />
+    <Content Include="Assets\Images\Tiles\RedTile.png" />
+    <Content Include="Assets\Images\Tiles\WhiteTile.png" />
+    <Content Include="Assets\Images\Tiles\YellowBase.png" />
+    <Content Include="Assets\Images\Tiles\YellowTile.png" />
+    <Content Include="Assets\Images\WhiteTile.png" />
+    <Content Include="Assets\Images\YellowBase.png" />
+    <Content Include="Assets\Images\YellowTile.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -180,6 +195,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="Assets\Images\LoadAssets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="README.md" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
