@@ -1,12 +1,8 @@
 ﻿using LudoGame.Classes;
 using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Numerics;
 
 namespace LudoGame
@@ -19,8 +15,10 @@ namespace LudoGame
 
         private static CanvasAnimatedControl _gameCanvas;
         private static Dictionary<string, CanvasBitmap> _sprites;
+
         //private static Sound[] _sounds;
         private static GameTile[] _gameTiles;
+
         private static Player _player;
         private static AIPlayer _aIPlayer;
         private static InputReader _input;
@@ -57,7 +55,6 @@ namespace LudoGame
 
         public static void Update()
         {
-
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
@@ -90,11 +87,76 @@ namespace LudoGame
             //greenTileImg = _sprites["greenTile"];
             //redTileImg = _sprites["redTile"];
             drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap), true));
-            drawables.Add(new Drawable(_sprites["blackhole"], new Vector2(0, 0), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            CreateMap();
         }
-        //public void LoadAssets()
-        //{
 
-        //}
+        /// <summary>
+        /// Calculate positions and draw tiles
+        /// </summary>
+        public static void CreateMap()
+        {
+            float width = (float)MainPage.GameWidth;
+            float height = (float)MainPage.GameHeight;
+            float baseLocation = 800;
+            const int gameTileCount = 12 * 4;
+            const int homeLocation = gameTileCount / 8;
+            float distance = 900;
+            float tileSize = 1;
+
+            drawables.Add(new Drawable(_sprites["blackhole"], new Vector2(0, 0), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            drawables.Add(new Drawable(_sprites["redBase"], new Vector2(baseLocation, baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            drawables.Add(new Drawable(_sprites["greenBase"], new Vector2(baseLocation, -baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            drawables.Add(new Drawable(_sprites["blueBase"], new Vector2(-baseLocation, baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            drawables.Add(new Drawable(_sprites["yellowBase"], new Vector2(-baseLocation, -baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+
+            float angle = 360.0f / gameTileCount * MathF.PI / 180.0f;
+
+
+            for (int i = 0; i < gameTileCount; i++)
+            {
+                Vector2 tilePosition = new Vector2(MathF.Sin(angle * i) * distance, MathF.Cos(angle * i) * distance);
+                CanvasBitmap tile;
+                switch (i)
+                {
+                    case (homeLocation):
+                        tile = _sprites["redTile"];
+                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                        break;
+
+                    case (homeLocation * 3):
+                        tile = _sprites["greenTile"];
+                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                        break;
+
+                    case (homeLocation * 5):
+                        tile = _sprites["yellowTile"];
+                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                        break;
+
+                    case (homeLocation * 7):
+                        tile = _sprites["blueTile"];
+                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                        break;
+
+                    default:
+                        drawables.Add(new Drawable(_sprites["whiteTile"], tilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+                        break;
+                }
+            }
+        }
+
+        private static void CreateHomeTiles(float distance, float tileSize, float angle, int i, Vector2 tilePosition, CanvasBitmap tile)
+        {
+            drawables.Add(new Drawable(tile, tilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            for (int j = 1; j < 5; j++)
+            {
+                Vector2 homeTilePosition = new Vector2(MathF.Sin(angle * (i + j)) * (distance - (distance / 6) * (j)), MathF.Cos(angle * (i + j)) * (distance - (distance / 6) * (j)));
+            drawables.Add(new Drawable(tile, homeTilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+        }
     }
+
+    //public void LoadAssets()
+    //{
+    //}
+}
 }
