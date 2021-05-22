@@ -91,12 +91,11 @@ namespace LudoGame
             }
         }
 
-        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
         {
             System.Environment.Exit(0);
         }
-
-       
+               
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
            
@@ -110,7 +109,7 @@ namespace LudoGame
             
         }
 
-        private void MainMenueBtn_Click(object sender, RoutedEventArgs e)
+        private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
         {
             var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
@@ -119,11 +118,6 @@ namespace LudoGame
             PauseMenu.Visibility = Visibility.Collapsed;
             StartMenu.Visibility = Visibility.Visible;
         }
-        private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-
 
         private async void playBGM(object sender, RoutedEventArgs e)
         {
