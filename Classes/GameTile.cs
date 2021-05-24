@@ -1,15 +1,24 @@
-﻿using Microsoft.Graphics.Canvas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Numerics;
+﻿using System.Numerics;
+
 namespace LudoGame.Classes
 {
-    class GameTile
+    internal class GameTile
     {
-        public CanvasBitmap Background;
-        public Vector2 Position;
+        public string NameID { get; private set; }
+        public Drawable drawable;
+
+        public Vector2 Position
+        {
+            get
+            {
+                return drawable.Position;
+            }
+        }
+
+        public GameTile(string nameID, Drawable drawable)
+        {
+            this.NameID = nameID;
+            this.drawable = drawable;
+        }
     }
 }
