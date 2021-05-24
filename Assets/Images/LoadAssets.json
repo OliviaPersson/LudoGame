@@ -48,6 +48,22 @@
     {
       "FileName": "RedTile.png",
       "NameID": "redTile"
+    },
+    {
+      "FileName": "GreenGamePiece.png",
+      "NameID": "greenGamePiece"
+    },
+    {
+      "FileName": "RedGamePiece.png",
+      "NameID": "redGamePiece"
+    },
+    {
+      "FileName": "YellowGamePiece.png",
+      "NameID": "yellowGamePiece"
+    },
+    {
+      "FileName": "BlueGamePiece.png",
+      "NameID": "blueGamePiece"
     }
 
   ]
