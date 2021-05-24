@@ -9,6 +9,7 @@ namespace LudoGame.Classes
 {
     class Player
     {
+        public GameRace race;
         public GamePiece[] GamePieces = new GamePiece[4];
         public CanvasBitmap GamePiceSprite;
         public void RollDice()
