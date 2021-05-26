@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped" Loaded="GameCanvas_Loaded_1"/>
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20"  VerticalAlignment="Top" Height="103" HorizontalAlignment="Left" Width="300"/>
@@ -32,7 +32,10 @@
             <Button x:Name="NewgameBtn" Content="New Game" Margin="0,0,0,449" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="NewGame_ClickBtn" Width="380" Height="91" FontSize="40"/>
             <Button x:Name="LoadBtn" Content="Load" Margin="0,0,0,299" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="380" Height="91" FontSize="40"/>
         </Grid>
-        <Button Content="BGM" Margin="0,0,121,0" VerticalAlignment="Bottom" Click="playBGM" HorizontalAlignment="Right" Width="62" Height="32"/>
+        <Button Content="BGM" Margin="0,0,121,0" VerticalAlignment="Bottom" Click="PlayBGM" HorizontalAlignment="Right" Width="62" Height="32"/>
+        <Button x:Name="RollTheDice" Content="Roll Dice" Margin="0,205,44,0" VerticalAlignment="Top" Click="RollDice" HorizontalAlignment="Right" Width="74" Height="32"/>
+        <TextBlock x:Name="DiceRoll" Margin="0,65,33,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="85" Height="113" VerticalAlignment="Top" FontSize="100"><Run Text="Dice "/><LineBreak/><Run/></TextBlock>
+        <Image HorizontalAlignment="Left" Height="100" Margin="1945,293,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 
 
