@@ -10,7 +10,7 @@ namespace LudoGame.Classes
     class Player
 
     {
-        // Color for the team /color you are is to be added. 
+        public GameRace race;
         public GamePiece[] GamePieces = new GamePiece[4];
         public CanvasBitmap GamePiceSprite;
         public void RollDice()

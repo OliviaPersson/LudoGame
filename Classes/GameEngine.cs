@@ -4,9 +4,21 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Windows.UI;
+using Microsoft.Graphics.Canvas.Brushes;
+using System.Threading.Tasks;
 
 namespace LudoGame
 {
+    public enum GameRace
+    {
+        None,
+        Red,
+        Green,
+        Yellow,
+        Blue
+    }
+
     public static class GameEngine
     {
         public static Dictionary<string, List<GamePiece>> gamePieces = new Dictionary<string, List<GamePiece>>();
@@ -62,6 +74,9 @@ namespace LudoGame
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
             Win2DDrawingHandler.Draw(args, drawables.ToArray());
+
+            // remove before shipping
+            Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
         }
 
         public static void GameStateInit()
@@ -75,75 +90,127 @@ namespace LudoGame
         // Load Asset
         public static async void CreateResources(CanvasAnimatedControl sender)
         {
-            _sprites = await FileHandeler.LoadSprites(sender, "Images");
-            drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap), true));
-            CreateMap();
+            _sprites = new Dictionary<string, CanvasBitmap>();
+
+            await LoadSpriteFolder(sender, "Images");
+            await LoadSpriteFolder(sender, "Tiles");
+            await LoadSpriteFolder(sender, "Pieces");
+
+            drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
+            drawables.Add(new Drawable(_sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            _gameTiles = CreateGameTiles();
             InitializeGamePieces();
+        }
+
+        private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)
+        {
+            foreach (var item in await FileHandeler.LoadImages(sender, folder))
+            {
+                try
+                {
+                    _sprites.Add(item.Key, item.Value);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
         }
 
         /// <summary>
         /// Calculate positions and draw tiles
         /// </summary>
-        public static void CreateMap()
+        private static GameTile[] CreateGameTiles()
         {
-            float width = (float)MainPage.GameWidth;
-            float height = (float)MainPage.GameHeight;
-            float baseLocation = 800;
             const int gameTileCount = 12 * 4;
             const int homeLocation = gameTileCount / 8;
+            const int redHome = 0;
+            const int greenHome = homeLocation * 2;
+            const int yellowHome = homeLocation * 4;
+            const int blueHome = homeLocation * 6;
+
+            float baseLocation = 800;
             float distance = 900;
             float tileSize = 1;
-
-            drawables.Add(new Drawable(_sprites["blackhole"], new Vector2(0, 0), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-            drawables.Add(new Drawable(_sprites["redBase"], new Vector2(baseLocation, baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-            drawables.Add(new Drawable(_sprites["greenBase"], new Vector2(baseLocation, -baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-            drawables.Add(new Drawable(_sprites["blueBase"], new Vector2(-baseLocation, baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-            drawables.Add(new Drawable(_sprites["yellowBase"], new Vector2(-baseLocation, -baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-
             float angle = 360.0f / gameTileCount * MathF.PI / 180.0f;
+            float angleOffset = 45 * MathF.PI / 180;
 
-
+            List<GameTile> gameTiles = new List<GameTile>();
+            GameTile previousTile = null;
+            GameTile[] homeTiles = null;
             for (int i = 0; i < gameTileCount; i++)
             {
-                Vector2 tilePosition = new Vector2(MathF.Sin(angle * i) * distance, MathF.Cos(angle * i) * distance);
-                CanvasBitmap tile;
+                Vector2 tilePosition = new Vector2(MathF.Sin(angle * i + angleOffset) * distance, MathF.Cos(angle * i + angleOffset) * distance);
                 switch (i)
                 {
-                    case (homeLocation):
-                        tile = _sprites["redTile"];
-                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                    case redHome:
+                        homeTiles = CreateHomeTiles(distance, tileSize, angle, i, tilePosition, angleOffset, "redTile", (GameRace)1, previousTile);
+                        gameTiles.AddRange(homeTiles);
+                        previousTile = homeTiles[0];
                         break;
 
-                    case (homeLocation * 3):
-                        tile = _sprites["greenTile"];
-                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                    case greenHome:
+                        homeTiles = CreateHomeTiles(distance, tileSize, angle, i, tilePosition, angleOffset, "greenTile", (GameRace)2, previousTile);
+                        gameTiles.AddRange(homeTiles);
+                        previousTile = homeTiles[0];
                         break;
 
-                    case (homeLocation * 5):
-                        tile = _sprites["yellowTile"];
-                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                    case yellowHome:
+                        homeTiles = CreateHomeTiles(distance, tileSize, angle, i, tilePosition, angleOffset, "yellowTile", (GameRace)3, previousTile);
+                        gameTiles.AddRange(homeTiles);
+                        previousTile = homeTiles[0];
                         break;
 
-                    case (homeLocation * 7):
-                        tile = _sprites["blueTile"];
-                        CreateHomeTiles(distance, tileSize, angle, i, tilePosition, tile);
+                    case blueHome:
+                        homeTiles = CreateHomeTiles(distance, tileSize, angle, i, tilePosition, angleOffset, "blueTile", (GameRace)4, previousTile);
+                        gameTiles.AddRange(homeTiles);
+                        previousTile = homeTiles[0];
                         break;
 
                     default:
-                        drawables.Add(new Drawable(_sprites["whiteTile"], tilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+                        previousTile = CreateTile(_sprites["whiteTile"], tilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), 0, previousTile);
+                        gameTiles.Add(previousTile);
                         break;
                 }
             }
+
+            gameTiles[0].previousTile = gameTiles[gameTiles.Count - 1];
+
+            CreateBaseTile("redBase", gameTiles, new Vector2(baseLocation, baseLocation), (GameRace)1, redHome);
+            CreateBaseTile("greenBase", gameTiles, new Vector2(baseLocation, -baseLocation), (GameRace)2, greenHome + 4);
+            CreateBaseTile("yellowBase", gameTiles, new Vector2(-baseLocation, -baseLocation), (GameRace)3, yellowHome + 8);
+            CreateBaseTile("blueBase", gameTiles, new Vector2(-baseLocation, baseLocation), (GameRace)4, blueHome + 12);
+
+            return gameTiles.ToArray();
         }
 
-        private static void CreateHomeTiles(float distance, float tileSize, float angle, int i, Vector2 tilePosition, CanvasBitmap tile)
+        private static void CreateBaseTile(string spriteKey, List<GameTile> gameTiles, Vector2 baseLocation, GameRace race, int homeTileIndex)
         {
-            drawables.Add(new Drawable(tile, tilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            GameTile baseTile = CreateTile(_sprites[spriteKey], baseLocation, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), race, null);
+            baseTile.nextTile = gameTiles[homeTileIndex + 5];
+            gameTiles.Add(baseTile);
+        }
+
+        private static GameTile[] CreateHomeTiles(float distance, float tileSize, float angle, int i, Vector2 tilePosition, float angleOffset, string spriteID, GameRace gameRace, GameTile previousTile)
+        {
+            List<GameTile> homeTiles = new List<GameTile>();
+            GameTile previousHomeTile = CreateTile(_sprites[spriteID], tilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), gameRace, previousTile);
+            homeTiles.Add(previousHomeTile);
             for (int j = 1; j < 5; j++)
             {
-                Vector2 homeTilePosition = new Vector2(MathF.Sin(angle * (i + j)) * (distance - (distance / 6) * (j)), MathF.Cos(angle * (i + j)) * (distance - (distance / 6) * (j)));
-                drawables.Add(new Drawable(tile, homeTilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+                Vector2 homeTilePosition = new Vector2(MathF.Sin(angle * (i + j) + angleOffset) * (distance - (distance / 6) * (j)), MathF.Cos(angle * (i + j) + angleOffset) * (distance - (distance / 6) * (j)));
+                previousHomeTile = CreateTile(_sprites[spriteID], homeTilePosition, tileSize, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), gameRace, previousHomeTile);
+                homeTiles.Add(previousHomeTile);
             }
+
+            return homeTiles.ToArray();
+        }
+
+        private static GameTile CreateTile(CanvasBitmap image, Vector2 position, float imageScale, Drawable.Scale scalerMethood, GameRace gameRace, GameTile previousTile)
+        {
+            Drawable newTile = new Drawable(image, position, imageScale, scalerMethood);
+            drawables.Add(newTile);
+            return new GameTile(newTile, gameRace, previousTile);
         }
 
         public static void InitializeGamePieces()

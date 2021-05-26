@@ -123,6 +123,7 @@
     <Compile Include="Classes\AIPlayer.cs" />
     <Compile Include="Classes\Cards.cs" />
     <Compile Include="Classes\Dice.cs" />
+    <Compile Include="Classes\Drawable.cs" />
     <Compile Include="Classes\FileHandeler.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameEngine.cs" />
@@ -147,29 +148,22 @@
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
-    <Content Include="Assets\Images\BlueBase.png" />
-    <Content Include="Assets\Images\BlueGamePiece.png" />
-    <Content Include="Assets\Images\BlueTile.png" />
-    <Content Include="Assets\Images\GreenBase.png" />
-    <Content Include="Assets\Images\GreenGamePiece.png" />
-    <Content Include="Assets\Images\GreenTile.png" />
+    <Content Include="Assets\Pieces\BlueGamePiece.png" />
+    <Content Include="Assets\Pieces\GreenGamePiece.png" />
+    <Content Include="Assets\Images\Crab nebula core.jpg" />
+    <Content Include="Assets\Images\large magellanic cloud.jpg" />
     <Content Include="Assets\Images\menubg.png" />
-    <Content Include="Assets\Images\RedBase.png" />
-    <Content Include="Assets\Images\RedGamePiece.png" />
-    <Content Include="Assets\Images\RedTile.png" />
-    <Content Include="Assets\Images\Tiles\BlueBase.png" />
-    <Content Include="Assets\Images\Tiles\BlueTile.png" />
-    <Content Include="Assets\Images\Tiles\GreenBase.png" />
-    <Content Include="Assets\Images\Tiles\GreenTile.png" />
-    <Content Include="Assets\Images\Tiles\RedBase.png" />
-    <Content Include="Assets\Images\Tiles\RedTile.png" />
-    <Content Include="Assets\Images\Tiles\WhiteTile.png" />
-    <Content Include="Assets\Images\Tiles\YellowBase.png" />
-    <Content Include="Assets\Images\Tiles\YellowTile.png" />
-    <Content Include="Assets\Images\WhiteTile.png" />
-    <Content Include="Assets\Images\YellowBase.png" />
-    <Content Include="Assets\Images\YellowGamePiece.png" />
-    <Content Include="Assets\Images\YellowTile.png" />
+    <Content Include="Assets\Pieces\RedGamePiece.png" />
+    <Content Include="Assets\Pieces\YellowGamePiece.png" />
+    <Content Include="Assets\Tiles\BlueBase.png" />
+    <Content Include="Assets\Tiles\BlueTile.png" />
+    <Content Include="Assets\Tiles\GreenBase.png" />
+    <Content Include="Assets\Tiles\GreenTile.png" />
+    <Content Include="Assets\Tiles\RedBase.png" />
+    <Content Include="Assets\Tiles\RedTile.png" />
+    <Content Include="Assets\Tiles\WhiteTile.png" />
+    <Content Include="Assets\Tiles\YellowBase.png" />
+    <Content Include="Assets\Tiles\YellowTile.png" />
     <Content Include="Assets\pixabay-1-min-piano_arp-4222.mp3" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -207,6 +201,12 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="Assets\Images\LoadAssets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Pieces\LoadAssets.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\Tiles\LoadAssets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="README.md" />

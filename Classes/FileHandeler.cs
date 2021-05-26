@@ -34,7 +34,7 @@ namespace LudoGame.Classes
         /// <summary>
         /// Handles the reading of images from a json FileList
         /// </summary>
-        public static async Task<Dictionary<string, CanvasBitmap>> LoadSprites(CanvasAnimatedControl sender, string assetLocation)
+        public static async Task<Dictionary<string, CanvasBitmap>> LoadImages(CanvasAnimatedControl sender, string assetLocation)
         {
             Dictionary<string, CanvasBitmap> result = new Dictionary<string, CanvasBitmap>();
             try

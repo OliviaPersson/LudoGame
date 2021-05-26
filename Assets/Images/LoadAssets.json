@@ -2,7 +2,7 @@
   "FileType": "CanvasBitmap",
   "Files": [
     {
-      "FileName": "bg.png",
+      "FileName": "large magellanic cloud.jpg",
       "NameID": "background"
     },
     {
@@ -12,59 +12,6 @@
     {
       "FileName": "blackhole.png",
       "NameID": "blackhole"
-    },
-    {
-      "FileName": "BlueBase.png",
-      "NameID": "blueBase"
-    },
-    {
-      "FileName": "GreenBase.png",
-      "NameID": "greenBase"
-    },
-    {
-      "FileName": "RedBase.png",
-      "NameID": "redBase"
-    },
-    {
-      "FileName": "YellowBase.png",
-      "NameID": "yellowBase"
-    },
-    {
-      "FileName": "BlueTile.png",
-      "NameID": "blueTile"
-    },
-    {
-      "FileName": "GreenTile.png",
-      "NameID": "greenTile"
-    },
-    {
-      "FileName": "WhiteTile.png",
-      "NameID": "whiteTile"
-    },
-    {
-      "FileName": "YellowTile.png",
-      "NameID": "yellowTile"
-    },
-    {
-      "FileName": "RedTile.png",
-      "NameID": "redTile"
-    },
-    {
-      "FileName": "GreenGamePiece.png",
-      "NameID": "greenGamePiece"
-    },
-    {
-      "FileName": "RedGamePiece.png",
-      "NameID": "redGamePiece"
-    },
-    {
-      "FileName": "YellowGamePiece.png",
-      "NameID": "yellowGamePiece"
-    },
-    {
-      "FileName": "BlueGamePiece.png",
-      "NameID": "blueGamePiece"
     }
-
   ]
 }
