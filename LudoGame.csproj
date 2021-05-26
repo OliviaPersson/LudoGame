@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\AI.cs" />
     <Compile Include="Classes\AIPlayer.cs" />
     <Compile Include="Classes\Cards.cs" />
     <Compile Include="Classes\Dice.cs" />
