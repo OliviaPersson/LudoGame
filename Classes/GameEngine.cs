@@ -96,7 +96,7 @@ namespace LudoGame
             drawables.Add(new Drawable(_sprites["greenBase"], new Vector2(baseLocation, -baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
             drawables.Add(new Drawable(_sprites["blueBase"], new Vector2(-baseLocation, baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
             drawables.Add(new Drawable(_sprites["yellowBase"], new Vector2(-baseLocation, -baseLocation), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-
+            drawables.Add(new Drawable(_sprites["DaComrade"], new Vector2(0, 5), 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
             float angle = 360.0f / gameTileCount * MathF.PI / 180.0f;
 
 

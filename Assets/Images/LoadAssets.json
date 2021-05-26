@@ -48,6 +48,10 @@
     {
       "FileName": "RedTile.png",
       "NameID": "redTile"
+    },
+    {
+      "FileName": "stalin.png",
+      "NameID": "DaComrade"
     }
 
   ]
