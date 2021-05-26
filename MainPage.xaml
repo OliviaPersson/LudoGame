@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped" Loaded="GameCanvas_Loaded_1"/>
+        <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="gamestate" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20"  VerticalAlignment="Top" Height="103" HorizontalAlignment="Left" Width="300"/>

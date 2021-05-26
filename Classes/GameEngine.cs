@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using Windows.UI;
 using Microsoft.Graphics.Canvas.Brushes;
+using System.Threading.Tasks;
 
 namespace LudoGame
 {
@@ -89,10 +90,21 @@ namespace LudoGame
         // Load Asset
         public static async void CreateResources(CanvasAnimatedControl sender)
         {
-            _sprites = await FileHandeler.LoadImages(sender, "Images");
-            drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
+            _sprites = new Dictionary<string, CanvasBitmap>();
 
-            foreach (var item in await FileHandeler.LoadImages(sender, "Tiles"))
+            await LoadSpriteFolder(sender, "Images");
+            await LoadSpriteFolder(sender, "Tiles");
+            await LoadSpriteFolder(sender, "Pieces");
+
+            drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
+            drawables.Add(new Drawable(_sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            _gameTiles = CreateGameTiles();
+            InitializeGamePieces();
+        }
+
+        private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)
+        {
+            foreach (var item in await FileHandeler.LoadImages(sender, folder))
             {
                 try
                 {
@@ -103,9 +115,6 @@ namespace LudoGame
                     continue;
                 }
             }
-            drawables.Add(new Drawable(_sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-            _gameTiles = CreateGameTiles();
-            InitializeGamePieces();
         }
 
         /// <summary>

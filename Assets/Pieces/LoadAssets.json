@@ -1,0 +1,21 @@
+﻿{
+  "FileType": "CanvasBitmap",
+  "Files": [
+    {
+      "FileName": "redgamepiece.png",
+      "NameID": "redGamePiece"
+    },
+    {
+      "FileName": "bluegamepiece.png",
+      "NameID": "blueGamePiece"
+    },
+    {
+      "FileName": "greengamepiece.png",
+      "NameID": "greenGamePiece"
+    },
+    {
+      "FileName": "yellowgamepiece.png",
+      "NameID": "yellowGamePiece"
+    }
+  ]
+}
