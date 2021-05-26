@@ -23,26 +23,27 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Numerics;
+using LudoGame.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace LudoGame
 {
-    public sealed partial class MainPage : Page
+    public partial class MainPage : Page
     {
-        MediaPlayer player;
-        bool playing;
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
         public static float GameWidth = 1000;
         public static float GameHeight = 1000;
         public static float scaleWidth, scaleHeight;
+        MediaPlayer player;
+        bool playing;
 
         public MainPage()
         {
 
             this.InitializeComponent();
             player = new MediaPlayer();
-            playing = false;
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
             // Init all GameStates
@@ -119,14 +120,17 @@ namespace LudoGame
             PauseMenu.Visibility = Visibility.Collapsed;
             StartMenu.Visibility = Visibility.Visible;
         }
-        private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+        private void GameCanvas_Loaded_1(object sender, RoutedEventArgs e)
         {
+            
         }
 
 
 
-        private async void playBGM(object sender, RoutedEventArgs e)
+        public async void PlayBGM(object sender, RoutedEventArgs e)
         {
+            //Sound.PlayBGMSound();
+            //https://pixabay.com/music/search/genre/ambient/
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
             Windows.Storage.StorageFile file = await folder.GetFileAsync("pixabay-1-min-piano_arp-4222.mp3");
 
@@ -143,71 +147,15 @@ namespace LudoGame
                 player.Play();
                 playing = true;
             }
+
         }
 
-        //private void rollDice(object sender, RoutedEventArgs e)
-        //{
-        //    //Random num = new Random();
-        //    //int number = num.Next(1, 7);
-  
-        //    int number = 4;
-
-        //    if (number == 1)
-        //    {
-        //        //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
-        //        //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice1.png");
-        //    }
-        //    else if (number == 2)
-        //    {
-        //        Scaler.Img(dice2Image);
-        //        //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
-        //        //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice2.png");
-        //    }
-        //    else if (number == 3)
-        //    {
-        //        Scaler.Img(dice3Image);
-        //        //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
-        //        //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice3.png");
-        //    }
-        //    else if (number == 4)
-        //    {
-        //        Scaler.Img(dice4Image);
-        //        //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
-        //        //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice4.png");
-        //    }
-        //    else if (number == 5)
-        //    {
-        //        Scaler.Img(dice5Image);
-        //        //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
-        //        //Windows.Storage.StorageFile file = await folder.GetFileAsync("dice5.png");
-        //    }
-        //    else
-        //    {
-        //        Scaler.Img(dice6Image);
-        //        //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets/Images");
-        //        //Windows.Storage.StorageFile picDice = await folder.GetFileAsync("dice6.png");
-        //    }
-        //    //switch(number)
-        //    //{
-        //    //    case 1:
-
-        //    //        break;
-        //    //    case 2:
-        //    //        break;
-        //    //    case 3:
-        //    //        break;
-        //    //    case 4:
-        //    //        break;
-        //    //    case 5:
-        //    //        break;
-        //    //    case 6:
-        //    //        break;
-        //    //}
-        //}
-        static void dice_1(CanvasAnimatedDrawEventArgs args, CanvasBitmap dice1Image)
+        public void RollDice(object sender, RoutedEventArgs e)
         {
-            args.DrawingSession.DrawImage(Scaler.Img(dice1Image));
+            int number = Dice.randomNum();
+            DiceRoll.Text = number.ToString();
         }
+
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
     }
 }
