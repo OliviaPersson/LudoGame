@@ -13,7 +13,7 @@ namespace LudoGame.Classes
         public CanvasBitmap GamePiceSprite;
         public void RollDice()
         {
-
+            int result = Dice.randomNum();
         }
     }
 }
