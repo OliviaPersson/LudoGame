@@ -21,6 +21,7 @@ namespace LudoGame.Classes
         {
             WhoToMove();
             ThrowDice();
+            DecisionMaking();
         }
         private void ThrowDice()
         {
