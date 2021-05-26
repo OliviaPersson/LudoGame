@@ -37,5 +37,9 @@ namespace LudoGame.Classes
 
             return Color.Blue;
         }
+        private void DecisionMaking()
+        {
+
+        }
     }
 }
