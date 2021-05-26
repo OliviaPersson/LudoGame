@@ -32,7 +32,7 @@
             <ListView x:Name="StartView" Background="{ThemeResource SystemChromeAltHighColor}" BorderBrush="{ThemeResource SystemAccentColorDark2}" CornerRadius="4" Opacity="1" BorderThickness="1" Width="440" Height="290" Padding="0,10" SelectionMode="None">
                 <Button x:Name="NewGameBtn" Content="New Game" Margin="10" FontSize="40" Click="NewGame_ClickBtn" Width="390"/>
                 <Button x:Name="LoadBtn" Content="Load" Margin="10" FontSize="40"  Width="390" />
-                <Button x:Name="Exit1Btn" Content="Exit" Margin="10" FontSize="40" Click="ExitBtn_Click"  Width="390"/>
+                <Button x:Name="ExitBtn1" Content="Exit" Margin="10" FontSize="40" Click="ExitBtn_Click"  Width="390"/>
             </ListView>
         </Grid>
         

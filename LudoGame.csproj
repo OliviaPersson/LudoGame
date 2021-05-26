@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Classes\AIPlayer.cs" />
     <Compile Include="Classes\Cards.cs" />
+    <Compile Include="Classes\Drawable.cs" />
     <Compile Include="Classes\FileHandeler.cs" />
     <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameEngine.cs" />

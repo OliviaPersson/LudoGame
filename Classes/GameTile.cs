@@ -2,15 +2,35 @@
 
 namespace LudoGame.Classes
 {
-    internal class GameTile
+    public class GameTile
     {
-        public bool isHomeTile = false;
         private GameRace raceHome;
         public Drawable drawable;
 
         public GameTile nextTile;
         public GameTile nextHomeTile;
-        public GameTile previousTile;
+        public GameTile previousTile
+        {
+            get { return _previousTile; }
+            set
+            {
+                if (value != null)
+                {
+                    _previousTile = value;
+
+                    if (raceHome != 0&& _previousTile.raceHome == raceHome)
+                    {
+                        _previousTile.nextHomeTile = this;
+                    }
+                    else
+                    {
+                        _previousTile.nextTile = this;
+                    }
+
+                }
+            }
+        }
+        private GameTile _previousTile;
 
         public Vector2 Position
         {
@@ -20,20 +40,17 @@ namespace LudoGame.Classes
             }
         }
 
-        public GameTile(Drawable drawable, GameRace raceHome)
+        public GameTile(Drawable drawable, GameRace raceHome, GameTile previousTile)
         {
             this.drawable = drawable;
             this.raceHome = raceHome;
+            this.previousTile = previousTile;
 
-            if (raceHome != GameRace.None)
-            {
-                isHomeTile = true;
-            }
         }
 
         public GameTile GetNextTile(GameRace gameRace)
         {
-            if (isHomeTile && gameRace == raceHome)
+            if (gameRace == raceHome)
             {
                 return nextHomeTile;
             }
