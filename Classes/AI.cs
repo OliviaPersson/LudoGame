@@ -19,14 +19,26 @@ namespace LudoGame.Classes
 
         public void InitAI()
         {
-            WhoToMove();
-            ThrowDice();
-            DecisionMaking();
+            bool GetSix = false;
+            do
+            {
+                WhoToMove();
+                GetSix = ThrowDice();
+                DecisionMaking();
+            } while (GetSix == true);
         }
-        private void ThrowDice()
+        private bool ThrowDice()
         {
             int steps = Dice.randomNum();
             MoveAI(Color.Blue);
+            if(steps == 6)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         private void MoveAI(Color color) 
         {
