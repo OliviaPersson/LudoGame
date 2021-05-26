@@ -33,8 +33,8 @@
             <Button x:Name="LoadBtn" Content="Load" Margin="0,0,0,299" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="380" Height="91" FontSize="40"/>
         </Grid>
         <Button Content="BGM" Margin="0,0,121,0" VerticalAlignment="Bottom" Click="PlayBGM" HorizontalAlignment="Right" Width="62" Height="32"/>
-        <Button x:Name="RollTheDice" Content="Roll Dice" Margin="0,205,44,0" VerticalAlignment="Top" Click="RollDice" HorizontalAlignment="Right" Width="74" Height="32"/>
-        <TextBlock x:Name="DiceRoll" Margin="0,65,33,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="85" Height="113" VerticalAlignment="Top" FontSize="100"><Run Text="Dice "/><LineBreak/><Run/></TextBlock>
+        <Button x:Name="RollTheDice" Content="Roll Dice" Margin="0,205,44,0" VerticalAlignment="Top" Click="RollDice" HorizontalAlignment="Right" Width="74" Height="32" Canvas.ZIndex="200"/>
+        <TextBlock x:Name="DiceRoll" Margin="0,65,33,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="85" Height="113" VerticalAlignment="Top" FontSize="100" Canvas.ZIndex="200"><Run Text="Dice "/><LineBreak/><Run/></TextBlock>
         <Image HorizontalAlignment="Left" Height="100" Margin="1945,293,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 
