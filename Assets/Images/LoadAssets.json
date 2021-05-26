@@ -12,6 +12,22 @@
     {
       "FileName": "blackhole.png",
       "NameID": "blackhole"
+    },
+    {
+      "FileName": "BlueBase.png",
+      "NameID": "blueBase"
+    },
+    {
+      "FileName": "GreenBase.png",
+      "NameID": "greenBase"
+    },
+    {
+      "FileName": "RedBase.png",
+      "NameID": "redBase"
+    },
+    {
+      "FileName": "YellowBase.png",
+      "NameID": "yellowBase"
     }
   ]
 }

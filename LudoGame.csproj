@@ -119,8 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\AI.cs" />
     <Compile Include="Classes\AIPlayer.cs" />
     <Compile Include="Classes\Cards.cs" />
+    <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\Drawable.cs" />
     <Compile Include="Classes\FileHandeler.cs" />
     <Compile Include="Classes\GameState.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Classes\InputReader.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Scaler.cs" />
+    <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Win2DDrawingHandler.cs" />
     <Compile Include="Classes\Wormhole.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -145,9 +148,31 @@
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
+    <Content Include="Assets\Images\BlueBase.png" />
+    <Content Include="Assets\Images\BlueGamePiece.png" />
+    <Content Include="Assets\Images\BlueTile.png" />
+    <Content Include="Assets\Images\GreenBase.png" />
+    <Content Include="Assets\Images\GreenGamePiece.png" />
+    <Content Include="Assets\Images\GreenTile.png" />
     <Content Include="Assets\Images\Crab nebula core.jpg" />
     <Content Include="Assets\Images\large magellanic cloud.jpg" />
     <Content Include="Assets\Images\menubg.png" />
+    <Content Include="Assets\Images\RedBase.png" />
+    <Content Include="Assets\Images\RedGamePiece.png" />
+    <Content Include="Assets\Images\RedTile.png" />
+    <Content Include="Assets\Images\Tiles\BlueBase.png" />
+    <Content Include="Assets\Images\Tiles\BlueTile.png" />
+    <Content Include="Assets\Images\Tiles\GreenBase.png" />
+    <Content Include="Assets\Images\Tiles\GreenTile.png" />
+    <Content Include="Assets\Images\Tiles\RedBase.png" />
+    <Content Include="Assets\Images\Tiles\RedTile.png" />
+    <Content Include="Assets\Images\Tiles\WhiteTile.png" />
+    <Content Include="Assets\Images\Tiles\YellowBase.png" />
+    <Content Include="Assets\Images\Tiles\YellowTile.png" />
+    <Content Include="Assets\Images\WhiteTile.png" />
+    <Content Include="Assets\Images\YellowBase.png" />
+    <Content Include="Assets\Images\YellowGamePiece.png" />
+    <Content Include="Assets\Images\YellowTile.png" />
     <Content Include="Assets\Tiles\BlueBase.png" />
     <Content Include="Assets\Tiles\BlueTile.png" />
     <Content Include="Assets\Tiles\GreenBase.png" />
