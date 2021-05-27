@@ -25,6 +25,14 @@ namespace LudoGame.Classes
 
         }
 
+        public void MovePiece(int diceResult)
+        {
+            for (int i = 0; i < diceResult; i++)
+            {
+
+            }
+        }
+
         /// <summary>
         /// Calculate positions and draw game pieces on homebase
         /// </summary>
