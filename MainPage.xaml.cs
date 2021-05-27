@@ -64,7 +64,12 @@ namespace LudoGame
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
 
+            /*
+            Point position = e.GetCurrentPoint(GameCanvas).Position;
 
+            GamePiece selectedPiece = GamePiece.SelectPiece(position);
+            */
+          
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)

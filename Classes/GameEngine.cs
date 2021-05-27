@@ -21,14 +21,12 @@ namespace LudoGame
 
     public static class GameEngine
     {
-        public static Dictionary<string, List<GamePiece>> gamePieces = new Dictionary<string, List<GamePiece>>();
-
         public static List<Drawable> drawables = new List<Drawable>();
         public static int CurrentGameState = 0;
         public static List<GameState> GameStates = new List<GameState>();
 
         private static CanvasAnimatedControl _gameCanvas;
-        private static Dictionary<string, CanvasBitmap> _sprites;
+        public static Dictionary<string, CanvasBitmap> _sprites;
 
         //private static Sound[] _sounds;
         private static GameTile[] _gameTiles;
@@ -99,7 +97,7 @@ namespace LudoGame
             drawables.Add(new Drawable(_sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
             drawables.Add(new Drawable(_sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
             _gameTiles = GameTile.CreateGameTiles(_sprites);
-            InitializeGamePieces();
+            GamePiece.InitializeGamePieces(_gameTiles);
         }
 
         private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)
@@ -113,45 +111,6 @@ namespace LudoGame
                 catch (Exception)
                 {
                     continue;
-                }
-            }
-        }
-
-        public static void InitializeGamePieces()
-        {
-            float baseLocation = 800;
-            float offset = 50;
-
-            gamePieces.Add("red", new List<GamePiece>());
-            gamePieces.Add("blue", new List<GamePiece>());
-            gamePieces.Add("yellow", new List<GamePiece>());
-            gamePieces.Add("green", new List<GamePiece>());
-
-            gamePieces["red"].Add(new GamePiece("red", "redGamePiece", new Vector2(baseLocation + offset, baseLocation + offset)));
-            gamePieces["red"].Add(new GamePiece("red", "redGamePiece", new Vector2(baseLocation - offset, baseLocation - offset)));
-            gamePieces["red"].Add(new GamePiece("red", "redGamePiece",  new Vector2(baseLocation + offset, baseLocation - offset)));
-            gamePieces["red"].Add(new GamePiece("red", "redGamePiece", new Vector2(baseLocation - offset, baseLocation + offset)));
-
-            gamePieces["blue"].Add(new GamePiece("blue", "blueGamePiece", new Vector2(-baseLocation + offset, baseLocation + offset)));
-            gamePieces["blue"].Add(new GamePiece("blue", "blueGamePiece", new Vector2(-baseLocation - offset, baseLocation - offset)));
-            gamePieces["blue"].Add(new GamePiece("blue", "blueGamePiece", new Vector2(-baseLocation + offset, baseLocation - offset)));
-            gamePieces["blue"].Add(new GamePiece("blue", "blueGamePiece", new Vector2(-baseLocation - offset, baseLocation + offset)));
-
-            gamePieces["yellow"].Add(new GamePiece("yellow", "yellowGamePiece", new Vector2(-baseLocation + offset, -baseLocation + offset)));
-            gamePieces["yellow"].Add(new GamePiece("yellow", "yellowGamePiece", new Vector2(-baseLocation - offset, -baseLocation - offset)));
-            gamePieces["yellow"].Add(new GamePiece("yellow", "yellowGamePiece", new Vector2(-baseLocation + offset, -baseLocation - offset)));
-            gamePieces["yellow"].Add(new GamePiece("yellow", "yellowGamePiece", new Vector2(-baseLocation - offset, -baseLocation + offset)));
-
-            gamePieces["green"].Add(new GamePiece("green", "greenGamePiece", new Vector2(baseLocation + offset, -baseLocation + offset)));
-            gamePieces["green"].Add(new GamePiece("green", "greenGamePiece", new Vector2(baseLocation - offset, -baseLocation - offset)));
-            gamePieces["green"].Add(new GamePiece("green", "greenGamePiece", new Vector2(baseLocation + offset, -baseLocation - offset)));
-            gamePieces["green"].Add(new GamePiece("green", "greenGamePiece", new Vector2(baseLocation - offset, -baseLocation + offset)));
-
-            foreach(string key in gamePieces.Keys)
-            {
-                for (int i = 0; i < gamePieces[key].Count; i++)
-                {
-                    drawables.Add(new Drawable(_sprites[gamePieces[key][i].spriteName], gamePieces[key][i].homePosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
                 }
             }
         }
