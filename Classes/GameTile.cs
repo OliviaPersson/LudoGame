@@ -21,7 +21,7 @@ namespace LudoGame.Classes
                 {
                     _previousTile = value;
 
-                    if (raceHome != 0&& _previousTile.raceHome == raceHome)
+                    if (raceHome != 0 && _previousTile.raceHome == raceHome)
                     {
                         _previousTile.nextHomeTile = this;
                     }

@@ -63,8 +63,8 @@ namespace LudoGame
             Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
-           
-          
+
+
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
@@ -77,7 +77,6 @@ namespace LudoGame
                     {
                         GameEngine.CurrentGameState = 2; // Pause
                     });
-                    PauseBtn.Visibility = Visibility.Collapsed;
                     PauseMenu.Visibility = Visibility.Visible;
                 }
                 if (GameEngine.CurrentGameState == 2)
@@ -87,7 +86,6 @@ namespace LudoGame
                         GameEngine.CurrentGameState = 1; //Play
                     });
                     PauseMenu.Visibility = Visibility.Collapsed;
-                    PauseBtn.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -96,18 +94,17 @@ namespace LudoGame
         {
             System.Environment.Exit(0);
         }
-               
+
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
-           
 
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = 1;
-                });
-                PauseBtn.Visibility = Visibility.Visible;
+
+            var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+            {
+                GameEngine.CurrentGameState = 1;
+            });
             StartMenu.Visibility = Visibility.Collapsed;
-            
+
         }
 
         private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
@@ -149,6 +146,26 @@ namespace LudoGame
             DiceRoll.Text = number.ToString();
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
+        private void OptionsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (OptionsMenu.Visibility == Visibility.Collapsed)
+            {
+                OptionsMenu.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                OptionsMenu.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                PauseButton_Click(sender, e);
+            }
+        }
+
+        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
     }
 }
