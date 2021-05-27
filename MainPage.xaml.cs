@@ -63,7 +63,12 @@ namespace LudoGame
             Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
-           
+
+            /*
+            Point position = e.GetCurrentPoint(GameCanvas).Position;
+
+            GamePiece selectedPiece = GamePiece.SelectPiece(position);
+            */
           
         }
 
