@@ -1,6 +1,7 @@
 ﻿using Microsoft.Graphics.Canvas;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace LudoGame.Classes
         public void RollDice()
         {
             int result = Dice.randomNum();
+        }
+        public void MouseClick(Point mousePosition)
+        {
+            //mousePosition
         }
     }
   

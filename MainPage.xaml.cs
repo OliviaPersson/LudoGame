@@ -48,7 +48,7 @@ namespace LudoGame
             Scaler.SetScale();
             // Init all GameStates
             GameEngine.InitializeGameEngine(GameCanvas);
-            GameEngine.GameStateInit();
+           
         }
 
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -64,6 +64,10 @@ namespace LudoGame
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
             gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
 
+            if(GameEngine.CurrentGameState == GameState.PlayerPlaying)
+            {
+               GameEngine. e.GetCurrentPoint(GameCanvas).Position
+            }
             /*
             Point position = e.GetCurrentPoint(GameCanvas).Position;
 

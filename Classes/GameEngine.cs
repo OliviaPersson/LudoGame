@@ -18,12 +18,17 @@ namespace LudoGame
         Yellow,
         Blue
     }
-
+    public enum GameState
+    {
+     InMenu,
+     PlayerPlaying,
+     AIPlaying
+    }
     public static class GameEngine
     {
         public static List<Drawable> drawables = new List<Drawable>();
-        public static int CurrentGameState = 0;
-        public static List<GameState> GameStates = new List<GameState>();
+        public static GameState CurrentGameState = 0;
+
 
         private static CanvasAnimatedControl _gameCanvas;
         public static Dictionary<string, CanvasBitmap> _sprites;
@@ -75,14 +80,6 @@ namespace LudoGame
 
             // remove before shipping
             Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
-        }
-
-        public static void GameStateInit()
-        {
-            GameStates.Add(new GameState() { name = "Menu" });
-            GameStates.Add(new GameState() { name = "Playing" });
-            GameStates.Add(new GameState() { name = "Paused" });
-            GameStates.Add(new GameState() { name = "GameOver" });
         }
 
         // Load Asset
