@@ -53,7 +53,6 @@ namespace LudoGame
         public static void StartGame()
         {
             _gameTiles = GameTile.CreateGameTiles(Sprites);
-            //GamePiece.InitializeGamePieces(_gameTiles);
             _player = new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles);
             _aIPlayers = new AIPlayer[] {
                 new AIPlayer(new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles)),
