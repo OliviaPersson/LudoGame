@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LudoGame.Classes
+﻿namespace LudoGame.Classes
 {
-    class AIPlayer
-    {   
+    internal class AIPlayer
+    {
         //Color for wich team the ai is playing as
         public Player Player { get; set; }
 
@@ -18,7 +12,6 @@ namespace LudoGame.Classes
 
         public void Play()
         {
-            
         }
     }
 }

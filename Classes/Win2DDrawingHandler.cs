@@ -1,15 +1,10 @@
 ﻿using LudoGame.Classes;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Graphics.Canvas.UI.Xaml;
 using Microsoft.Graphics.Canvas.Brushes;
+using Microsoft.Graphics.Canvas.UI.Xaml;
 using Windows.UI;
 
 namespace LudoGame
 {
-
     public static class Win2DDrawingHandler
     {
         public static void Draw(CanvasAnimatedDrawEventArgs args, Drawable[] drawables)
@@ -37,6 +32,5 @@ namespace LudoGame
                 }
             }
         }
-
     }
 }

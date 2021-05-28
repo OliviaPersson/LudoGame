@@ -12,6 +12,7 @@ namespace LudoGame.Classes
 
         public GameTile nextTile;
         public GameTile nextHomeTile;
+
         public GameTile previousTile
         {
             get { return _previousTile; }
@@ -29,10 +30,10 @@ namespace LudoGame.Classes
                     {
                         _previousTile.nextTile = this;
                     }
-
                 }
             }
         }
+
         private GameTile _previousTile;
 
         public Vector2 Position
@@ -48,7 +49,6 @@ namespace LudoGame.Classes
             this.drawable = drawable;
             this.raceHome = raceHome;
             this.previousTile = previousTile;
-
         }
 
         public GameTile GetNextTile(GameRace gameRace)

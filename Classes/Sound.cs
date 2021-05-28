@@ -1,19 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Media.Core;
-using Windows.Media.Playback;
-using Windows.UI.Xaml;
-using System.Numerics;
-using LudoGame.Classes;
-
-namespace LudoGame.Classes
+﻿namespace LudoGame.Classes
 {
     public partial class Sound
     {
-
         public static async void PlayBGMSound()
         {
             //MediaPlayer player;
@@ -28,7 +16,6 @@ namespace LudoGame.Classes
             //player.Source = MediaSource.CreateFromStorageFile(file);
             //player.Play();
 
-
             //if (playing)
             //{
             //    player.Source = null;
@@ -39,7 +26,6 @@ namespace LudoGame.Classes
             //    playing = true;
             //    player.Play();
             //}
-
         }
     }
 }

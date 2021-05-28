@@ -4,8 +4,6 @@ using Microsoft.Graphics.Canvas.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Windows.UI;
-using Microsoft.Graphics.Canvas.Brushes;
 using System.Threading.Tasks;
 
 namespace LudoGame
@@ -18,12 +16,14 @@ namespace LudoGame
         Yellow,
         Blue
     }
+
     public enum GameState
     {
         InMenu,
         PlayerPlaying,
         AIPlaying
     }
+
     public static class GameEngine
     {
         public static List<Drawable> drawables = new List<Drawable>();
@@ -33,8 +33,10 @@ namespace LudoGame
         private static CanvasAnimatedControl _gameCanvas;
         private static GameTile[] _gameTiles;
         private static Player _player;
+
         //private static Sound[] _sounds;
         private static AIPlayer[] _aIPlayers;
+
         private static InputReader _input;
         private static string _fileloction;
         private static Cards[] _cards;
@@ -115,7 +117,6 @@ namespace LudoGame
                         }
                     }
                 }
-
             }
 
             if (_gameTiles != null)
@@ -161,8 +162,6 @@ namespace LudoGame
             drawables.Add(new Drawable(Sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
             drawables.Add(new Drawable(Sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
         }
-
-
 
         private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)
         {

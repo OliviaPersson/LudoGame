@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text.Json;
-using Microsoft.Graphics.Canvas;
+﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI.Xaml;
-using Windows.Storage;
-using Windows.Data.Json;
-using Windows.Media.Playback;
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.Storage;
 
 namespace LudoGame.Classes
 {
@@ -29,7 +25,7 @@ namespace LudoGame.Classes
         public string NameID { get; set; }
     }
 
-    static class FileHandeler
+    internal static class FileHandeler
     {
         /// <summary>
         /// Handles the reading of images from a json FileList
@@ -58,7 +54,6 @@ namespace LudoGame.Classes
 
             return result;
         }
-
 
         /// <summary>
         /// Not yet implemented load sound method
@@ -93,7 +88,6 @@ namespace LudoGame.Classes
         /// </summary>
         public static void Save()
         {
-
         }
 
         /// <summary>
@@ -101,9 +95,8 @@ namespace LudoGame.Classes
         /// </summary>
         public static void Load()
         {
-
         }
-        
+
         private static async Task<FileList> ParseLoadAssetsJson(StorageFolder storageFolder)
         {
             StorageFile jsonFile = (StorageFile)await storageFolder.TryGetItemAsync("LoadAssets.json");

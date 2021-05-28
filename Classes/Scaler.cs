@@ -2,8 +2,6 @@
 using Microsoft.Graphics.Canvas.Effects;
 using System;
 using System.Numerics;
-using Windows.Foundation;
-using Windows.UI.ViewManagement;
 
 namespace LudoGame
 {
@@ -59,7 +57,7 @@ namespace LudoGame
             float scale = MathF.Max((float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
             return ScaleImage(source, scale, scale);
         }
-        
+
         /// <summary>
         /// Scales the image according to scaleX and Y
         /// </summary>

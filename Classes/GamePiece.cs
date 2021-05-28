@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Graphics.Canvas;
 using System.Numerics;
-using Windows.Foundation;
-using Microsoft.Graphics.Canvas;
 
 namespace LudoGame.Classes
 {
@@ -13,6 +7,7 @@ namespace LudoGame.Classes
     {
         //public static Dictionary<GameRace, List<GamePiece>> gamePieces = new Dictionary<GameRace, List<GamePiece>>();
         public GameTile tile;
+
         public GameRace race;
         public bool shield;
         public bool atHomePosition = true;
@@ -25,17 +20,12 @@ namespace LudoGame.Classes
             this.tile = tile;
             this.drawable = drawable;
             this.homePosition = tile.Position + offset;
-
         }
 
         public static void MovePiece(int diceResult, int id, GameRace gameRace)
         {
-
             for (int i = 0; i < diceResult; i++)
             {
-
-
-
             }
         }
 

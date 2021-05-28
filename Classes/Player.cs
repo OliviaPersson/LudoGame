@@ -1,14 +1,10 @@
 ﻿using Microsoft.Graphics.Canvas;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LudoGame.Classes
 {
-    class Player
+    internal class Player
 
     {
         public GameRace race;
@@ -23,7 +19,7 @@ namespace LudoGame.Classes
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
                 {
                     HomeTile = gameTiles[i];
-                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset,HomeTile);
+                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile);
                     break;
                 }
             }
@@ -33,10 +29,10 @@ namespace LudoGame.Classes
         {
             int result = Dice.randomNum();
         }
+
         public void MouseClick(Point mousePosition)
         {
             //mousePosition
         }
     }
-
 }

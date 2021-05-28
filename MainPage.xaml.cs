@@ -1,30 +1,14 @@
-﻿using Microsoft.Graphics.Canvas;
-using Microsoft.Graphics.Canvas.UI;
-using Microsoft.Graphics.Canvas.UI.Xaml;
+﻿using LudoGame.Classes;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
+using System.Numerics;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.UI;
+using Windows.Media.Core;
+using Windows.Media.Playback;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Windows.Media.Core;
-using Windows.Media.Playback;
-using Windows.UI.Xaml.Media.Imaging;
-using System.Numerics;
-using LudoGame.Classes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -36,9 +20,9 @@ namespace LudoGame
         public static float GameWidth = 1000;
         public static float GameHeight = 1000;
         public static float scaleWidth, scaleHeight;
-        MediaPlayer player;
-        bool playing;
-        GameState saveCurrentState;
+        private MediaPlayer player;
+        private bool playing;
+        private GameState saveCurrentState;
 
         public MainPage()
         {
@@ -53,7 +37,6 @@ namespace LudoGame
             {
                 ApplicationView.GetForCurrentView().TryResizeView(new Size(1420, 800));
             }
-
         }
 
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -177,6 +160,8 @@ namespace LudoGame
             }
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
+        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+        }
     }
 }

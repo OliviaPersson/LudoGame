@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Graphics.Canvas;
+﻿using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.Effects;
+using System;
 using System.Numerics;
 using Windows.Foundation;
 
@@ -9,6 +9,7 @@ namespace LudoGame
     public class Drawable
     {
         public CanvasBitmap Bitmap { get; set; }
+
         /// <summary>
         /// Position is based on a virtual coordinatesystem where center window is (0,0),
         /// and the smallest height or width edge of the window is at 1000 and -1000 on that axis.
@@ -29,9 +30,11 @@ namespace LudoGame
                 else CalculateActualPosition();
             }
         }
+
         public float ImageSize { get; set; }
         public Scale Scaling { get; set; }
         public Vector2 ActualPosition { get; private set; }
+
         public Vector2 ActualCenter
         {
             get
@@ -39,6 +42,7 @@ namespace LudoGame
                 return new Vector2(ActualPosition.X + ScaledSize.X / 2, ActualPosition.Y + ScaledSize.Y / 2);
             }
         }
+
         public Vector2 ScaledSize
         {
             get
@@ -47,9 +51,12 @@ namespace LudoGame
                 return new Vector2((float)image.Width, (float)image.Height);
             }
         }
+
         private Vector2 _position;
         private bool _setActualPosition = false;
+
         public delegate Transform2DEffect Scale(CanvasBitmap source, float sizeMultiplier);
+
         /// <summary>
         /// Use this to create a drawable that follows the virtual coordinatesystem
         /// </summary>
@@ -64,6 +71,7 @@ namespace LudoGame
             this.Scaling = Scaling;
             this.Position = position;
         }
+
         /// <summary>
         /// use this to with positionIsActualPosition = true to set Position = ActualPosition
         /// </summary>
@@ -80,6 +88,7 @@ namespace LudoGame
             _setActualPosition = positionIsActualPosition;
             this.Position = position;
         }
+
         public void CalculateActualPosition()
         {
             if (!_setActualPosition)
