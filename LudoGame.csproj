@@ -125,7 +125,6 @@
     <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\Drawable.cs" />
     <Compile Include="Classes\FileHandeler.cs" />
-    <Compile Include="Classes\GameState.cs" />
     <Compile Include="Classes\GameEngine.cs" />
     <Compile Include="Classes\GamePiece.cs" />
     <Compile Include="Classes\GameTile.cs" />

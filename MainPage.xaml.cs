@@ -38,17 +38,22 @@ namespace LudoGame
         public static float scaleWidth, scaleHeight;
         MediaPlayer player;
         bool playing;
+        GameState saveCurrentState;
 
         public MainPage()
         {
-
             this.InitializeComponent();
             player = new MediaPlayer();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
-            // Init all GameStates
             GameEngine.InitializeGameEngine(GameCanvas);
-            GameEngine.GameStateInit();
+
+            Size minSize = new Size(1420, 800);
+            if (Window.Current.Bounds.Y < minSize.Height || Window.Current.Bounds.X < minSize.Width)
+            {
+                ApplicationView.GetForCurrentView().TryResizeView(new Size(1420, 800));
+            }
+
         }
 
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -60,38 +65,41 @@ namespace LudoGame
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
-            Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
-            gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
+            Xmouseclick.Text = "Click X cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.X;
+            Ymouseclick.Text = "Click Y cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.Y;
+            //gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
 
-            /*
-            Point position = e.GetCurrentPoint(GameCanvas).Position;
-
-            GamePiece selectedPiece = GamePiece.SelectPiece(position);
-            */
-          
+            if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
+            {
+                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
+                else if (returned is GameTile) ClickedObject.Text = "GameTile";
+                else ClickedObject.Text = "Null";
+            }
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)//If the game is paused or is playing
+            GameState state0 = (GameState)0;// Menu
+            GameState state1 = (GameState)1;//PlayerPlaying
+            GameState state2 = (GameState)2;//AIPlaying
+
+            if (GameEngine.CurrentGameState == state1 || GameEngine.CurrentGameState == state2)
             {
-                if (GameEngine.CurrentGameState == 1)
+                saveCurrentState = GameEngine.CurrentGameState;
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
-                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                    {
-                        GameEngine.CurrentGameState = 2; // Pause
-                    });
-                    PauseMenu.Visibility = Visibility.Visible;
-                }
-                if (GameEngine.CurrentGameState == 2)
+                    GameEngine.CurrentGameState = state0; // Pause
+                });
+                PauseMenu.Visibility = Visibility.Visible;
+            }
+            else if (GameEngine.CurrentGameState == state0)
+            {
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
-                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                    {
-                        GameEngine.CurrentGameState = 1; //Play
-                    });
-                    PauseMenu.Visibility = Visibility.Collapsed;
-                }
+                    GameEngine.CurrentGameState = saveCurrentState; //Play
+                });
+                PauseMenu.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -102,21 +110,22 @@ namespace LudoGame
 
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
-
+            GameState state1 = (GameState)1;//PlayerPlaying
 
             var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
-                GameEngine.CurrentGameState = 1;
+                GameEngine.CurrentGameState = state1;
             });
             StartMenu.Visibility = Visibility.Collapsed;
 
+            GameEngine.StartGame();
         }
 
         private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
         {
             var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
-                GameEngine.CurrentGameState = 0;
+                GameEngine.CurrentGameState = GameState.PlayerPlaying;
             });
             PauseMenu.Visibility = Visibility.Collapsed;
             StartMenu.Visibility = Visibility.Visible;
@@ -128,10 +137,8 @@ namespace LudoGame
             //https://pixabay.com/music/search/genre/ambient/
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
             Windows.Storage.StorageFile file = await folder.GetFileAsync("pixabay-1-min-piano_arp-4222.mp3");
-
             player.AutoPlay = false;
             player.Source = MediaSource.CreateFromStorageFile(file);
-
             if (playing)
             {
                 player.Source = null;
@@ -142,7 +149,6 @@ namespace LudoGame
                 player.Play();
                 playing = true;
             }
-
         }
 
         public void RollDice(object sender, RoutedEventArgs e)

@@ -33,7 +33,7 @@
         <Style x:Key="MenuBG" TargetType="Grid">
             <Setter Property="Background" Value="#93122138"/>
         </Style>
-        
+
         <Style TargetType="Border">
             <Setter Property="Background" Value="#82B5591A"/>
         </Style>
@@ -41,39 +41,42 @@
 
     <Grid>
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
-        <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
-        <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
-        <TextBlock x:Name="gamestate" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20"  VerticalAlignment="Top" Height="103" HorizontalAlignment="Left" Width="300"/>
+        <ListView Background="#93122138"  IsHitTestVisible="False" Height="120" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250">
+            <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="20"/>
+            <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="20"/>
+            <TextBlock x:Name="ClickedObject" Text="Not clicked yet" TextWrapping="Wrap" FontSize="20"/>
+        </ListView>
 
-        <Grid x:Name="PauseMenu" Visibility="Visible">
+
+        <Grid x:Name="PauseMenu" Visibility="Collapsed">
             <Grid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource SpaceText}">
                     <Setter Property="FontSize" Value="40"/>
                 </Style>
             </Grid.Resources>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" MinWidth="300"/>
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Rectangle x:Name="PauseMenuPopup" Grid.ColumnSpan="2" Opacity="0.3" />
 
             <Grid x:Name="PausePanel" Style="{StaticResource MenuBG}">
                 <StackPanel Background="{x:Null}" VerticalAlignment="Center">
                     <Border Margin="0, 80" Padding="0,10">
-                    <TextBlock Text="Pause Menu" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
-                </Border>
-                <Button x:Name="ResumeBtn" Content="Resume" Margin="10" HorizontalAlignment="Center" Click="PauseButton_Click"/>
-                <Button x:Name="SaveBn" Content="Save" Margin="10" HorizontalAlignment="Center"/>
-                <Button x:Name="MainMenuBtn" Content="Main Menu"  Margin="10" HorizontalAlignment="Center" Click="MainMenuBtn_Click"/>
-                <Button x:Name="ExitBtn" Content="Exit" Margin="10" HorizontalAlignment="Center" Click="ExitBtn_Click"/>
+                        <TextBlock Text="Pause Menu" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
+                    </Border>
+                    <Button x:Name="ResumeBtn" Content="Resume" Margin="10" HorizontalAlignment="Center" Click="PauseButton_Click"/>
+                    <Button x:Name="SaveBn" Content="Save" Margin="10" HorizontalAlignment="Center"/>
+                    <Button x:Name="MainMenuBtn" Content="Main Menu"  Margin="10" HorizontalAlignment="Center" Click="MainMenuBtn_Click"/>
+                    <Button x:Name="ExitBtn" Content="Exit" Margin="10" HorizontalAlignment="Center" Click="ExitBtn_Click"/>
                 </StackPanel>
-                
+
             </Grid>
         </Grid>
 
-        <Grid x:Name="StartMenu" Visibility="Collapsed" >
+        <Grid x:Name="StartMenu" Visibility="Visible" >
             <Grid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource SpaceText}">
                     <Setter Property="FontSize" Value="40"/>
@@ -83,7 +86,7 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/Assets/Images/Crab nebula core.jpg"/>
             </Grid.Background>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" MinWidth="400"/>
                 <ColumnDefinition Width="3*"/>
@@ -103,14 +106,14 @@
 
                 <StackPanel>
                     <Border Margin="0,20" Padding="0,10">
-                    <TextBlock Text="Options" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
-                </Border>
+                        <TextBlock Text="Options" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
+                    </Border>
 
                     <StackPanel Orientation="Horizontal" Background="{x:Null}">
                         <StackPanel Margin="20">
                             <Border Margin="20" Width="300">
-                            <TextBlock Text="Volume" FontSize="20" HorizontalAlignment="Center"/>
-                        </Border>
+                                <TextBlock Text="Volume" FontSize="20" HorizontalAlignment="Center"/>
+                            </Border>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -121,13 +124,15 @@
                                 <Slider x:Name="VolumeSlider" Grid.Column="1" Foreground="#82B5421A" VerticalAlignment="Center"/>
                                 <Button Grid.Column="2" Content="+" VerticalAlignment="Center"/>
                             </Grid>
-                            
+
                         </StackPanel>
-                        
+
+                    </StackPanel>
                 </StackPanel>
-                </StackPanel>
-                
+
             </Grid>
+
+
         </Grid>
         <Button Content="BGM" Margin="0,0,121,0" VerticalAlignment="Bottom" Click="PlayBGM" HorizontalAlignment="Right" Width="62" Height="32"/>
         <Button x:Name="RollTheDice" Content="Roll Dice" Margin="0,205,44,0" VerticalAlignment="Top" Click="RollDice" HorizontalAlignment="Right"/>

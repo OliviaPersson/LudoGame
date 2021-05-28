@@ -9,7 +9,6 @@ namespace LudoGame
     public class Drawable
     {
         public CanvasBitmap Bitmap { get; set; }
-
         /// <summary>
         /// Position is based on a virtual coordinatesystem where center window is (0,0),
         /// and the smallest height or width edge of the window is at 1000 and -1000 on that axis.
@@ -26,25 +25,21 @@ namespace LudoGame
             set
             {
                 _position = value;
-
                 if (_setActualPosition) ActualPosition = value;
                 else CalculateActualPosition();
             }
         }
-
-
         public float ImageSize { get; set; }
         public Scale Scaling { get; set; }
-
         public Vector2 ActualPosition { get; private set; }
         public Vector2 ActualCenter
         {
             get
             {
-                return new Vector2(ActualPosition.X + _scaledSize.X / 2, ActualPosition.Y + _scaledSize.Y / 2);
+                return new Vector2(ActualPosition.X + ScaledSize.X / 2, ActualPosition.Y + ScaledSize.Y / 2);
             }
         }
-        private Vector2 _scaledSize
+        public Vector2 ScaledSize
         {
             get
             {
@@ -52,12 +47,9 @@ namespace LudoGame
                 return new Vector2((float)image.Width, (float)image.Height);
             }
         }
-
         private Vector2 _position;
         private bool _setActualPosition = false;
-
         public delegate Transform2DEffect Scale(CanvasBitmap source, float sizeMultiplier);
-
         /// <summary>
         /// Use this to create a drawable that follows the virtual coordinatesystem
         /// </summary>
@@ -88,13 +80,12 @@ namespace LudoGame
             _setActualPosition = positionIsActualPosition;
             this.Position = position;
         }
-
         public void CalculateActualPosition()
         {
             if (!_setActualPosition)
             {
                 float minBounds = MathF.Min((float)MainPage.bounds.Width, (float)MainPage.bounds.Height);
-                ActualPosition = new Vector2((float)MainPage.bounds.Width / 2 + (Position.X * (minBounds / MainPage.GameWidth / 2) - (_scaledSize.X / 2)), (float)MainPage.bounds.Height / 2 - (Position.Y * (minBounds / MainPage.GameHeight / 2) + (_scaledSize.Y / 2)));
+                ActualPosition = new Vector2((float)MainPage.bounds.Width / 2 + (Position.X * (minBounds / MainPage.GameWidth / 2) - (ScaledSize.X / 2)), (float)MainPage.bounds.Height / 2 - (Position.Y * (minBounds / MainPage.GameHeight / 2) + (ScaledSize.Y / 2)));
             }
         }
     }

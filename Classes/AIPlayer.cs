@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace LudoGame.Classes
 {
-    class AIPlayer : Player
+    class AIPlayer
     {   
         //Color for wich team the ai is playing as
-        private Player _player;
+        public Player Player { get; set; }
+
+        public AIPlayer(Player player)
+        {
+            Player = player;
+        }
+
         public void Play()
         {
             

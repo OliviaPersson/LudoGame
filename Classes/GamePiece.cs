@@ -5,106 +5,103 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 using Windows.Foundation;
+using Microsoft.Graphics.Canvas;
 
 namespace LudoGame.Classes
 {
     public class GamePiece
     {
-        public static Dictionary<string, List<GamePiece>> gamePieces = new Dictionary<string, List<GamePiece>>();
+        //public static Dictionary<GameRace, List<GamePiece>> gamePieces = new Dictionary<GameRace, List<GamePiece>>();
         public GameTile tile;
-        public string color;
-        public bool Shield;
-        public string spriteName;
-        public int ID;
+        public GameRace race;
+        public bool shield;
         public bool atHomePosition = true;
         public Vector2 homePosition;
+        public Drawable drawable;
 
-        public GamePiece(int ID, string color, string spriteName, Vector2 offset, GameTile tile)
+        public GamePiece(GameRace gameRace, Vector2 offset, GameTile tile, Drawable drawable)
         {
-            this.color = color;
-            this.spriteName = spriteName;
+            this.race = gameRace;
             this.tile = tile;
-            this.ID = ID;
-
+            this.drawable = drawable;
             this.homePosition = tile.Position + offset;
 
+        }
+
+        public static void MovePiece(int diceResult, int id, GameRace gameRace)
+        {
+
+            for (int i = 0; i < diceResult; i++)
+            {
+
+
+
+            }
         }
 
         /// <summary>
         /// Calculate positions and draw game pieces on homebase
         /// </summary>
-        public static void InitializeGamePieces(GameTile[] gameTiles)
+        //public static GamePiece[] InitializeGamePieces(GameTile[] gameTiles)
+        //{
+        //    List<GamePiece> gamePieces = new List<GamePiece>();
+
+        //    GameRace race1 = (GameRace)1;
+        //    GameRace race2 = (GameRace)2;
+        //    GameRace race3 = (GameRace)3;
+        //    GameRace race4 = (GameRace)4;
+        //    if (gamePieces.Count == 0)
+        //    {
+        //        float offset = 50;
+
+        //        //gamePieces.Add(race1, new List<GamePiece>());
+        //        //gamePieces.Add(race2, new List<GamePiece>());
+        //        //gamePieces.Add(race3, new List<GamePiece>());
+        //        //gamePieces.Add(race4, new List<GamePiece>());
+
+        //        for (int i = 0; i < gameTiles.Count(); i++)
+        //        {
+        //            if (gameTiles[i].previousTile == null)
+        //            {
+        //                if (gameTiles[i].raceHome == race1)
+        //                {
+        //                    gamePieces.AddRange(CreateGamePieces(race1, "redGamePiece", offset, gameTiles, i));
+        //                }
+        //                else if (gameTiles[i].raceHome == race2)
+        //                {
+        //                    gamePieces.AddRange(CreateGamePieces(race2, "greenGamePiece", offset, gameTiles, i));
+        //                }
+        //                else if (gameTiles[i].raceHome == race3)
+        //                {
+        //                    gamePieces.AddRange(CreateGamePieces(race3, "yellowGamePiece", offset, gameTiles, i));
+        //                }
+        //                else if (gameTiles[i].raceHome == race4)
+        //                {
+        //                    gamePieces.AddRange(CreateGamePieces(race4, "blueGamePiece", offset, gameTiles, i));
+        //                }
+
+        //            }
+        //        }
+        //    }
+
+        //    return gamePieces.ToArray();
+        //}
+
+        public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile gameTile)
         {
-            if(gamePieces.Count == 0)
-            {
-                float offset = 50;
-
-                gamePieces.Add("red", new List<GamePiece>());
-                gamePieces.Add("blue", new List<GamePiece>());
-                gamePieces.Add("yellow", new List<GamePiece>());
-                gamePieces.Add("green", new List<GamePiece>());
-
-                for (int i = 0; i < gameTiles.Count(); i++)
-                {
-                    if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == GameRace.Red)
-                    {
-                        gamePieces["red"].Add(new GamePiece(1, "red", "redGamePiece", new Vector2(offset, offset), gameTiles[i]));
-                        gamePieces["red"].Add(new GamePiece(2, "red", "redGamePiece", new Vector2(-offset, -offset), gameTiles[i]));
-                        gamePieces["red"].Add(new GamePiece(3, "red", "redGamePiece", new Vector2(offset, -offset), gameTiles[i]));
-                        gamePieces["red"].Add(new GamePiece(4, "red", "redGamePiece", new Vector2(-offset, offset), gameTiles[i]));
-                    }
-                    if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == GameRace.Blue)
-                    {
-                        gamePieces["blue"].Add(new GamePiece(5, "blue", "blueGamePiece", new Vector2(offset, offset), gameTiles[i]));
-                        gamePieces["blue"].Add(new GamePiece(6, "blue", "blueGamePiece", new Vector2(-offset, -offset), gameTiles[i]));
-                        gamePieces["blue"].Add(new GamePiece(7, "blue", "blueGamePiece", new Vector2(offset, -offset), gameTiles[i]));
-                        gamePieces["blue"].Add(new GamePiece(8, "blue", "blueGamePiece", new Vector2(-offset, offset), gameTiles[i]));
-                    }
-                    if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == GameRace.Yellow)
-                    {
-                        gamePieces["yellow"].Add(new GamePiece(9, "yellow", "yellowGamePiece", new Vector2(offset, offset), gameTiles[i]));
-                        gamePieces["yellow"].Add(new GamePiece(10, "yellow", "yellowGamePiece", new Vector2(-offset, -offset), gameTiles[i]));
-                        gamePieces["yellow"].Add(new GamePiece(11, "yellow", "yellowGamePiece", new Vector2(offset, -offset), gameTiles[i]));
-                        gamePieces["yellow"].Add(new GamePiece(12, "yellow", "yellowGamePiece", new Vector2(-offset, offset), gameTiles[i]));
-                    }
-                    if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == GameRace.Green)
-                    {
-                        gamePieces["green"].Add(new GamePiece(13, "green", "greenGamePiece", new Vector2(offset, offset), gameTiles[i]));
-                        gamePieces["green"].Add(new GamePiece(14, "green", "greenGamePiece", new Vector2(-offset, -offset), gameTiles[i]));
-                        gamePieces["green"].Add(new GamePiece(15, "green", "greenGamePiece", new Vector2(offset, -offset), gameTiles[i]));
-                        gamePieces["green"].Add(new GamePiece(16, "green", "greenGamePiece", new Vector2(-offset, offset), gameTiles[i]));
-                    }
-                }
-
-                foreach (string key in gamePieces.Keys)
-                {
-                    for (int i = 0; i < gamePieces[key].Count; i++)
-                    {
-                        GameEngine.drawables.Add(new Drawable(GameEngine._sprites[gamePieces[key][i].spriteName], gamePieces[key][i].homePosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
-                    }
-                }
-            }
+            GamePiece[] gamePieces = {
+            CreateGamePiece(race, sprite, new Vector2(offset,offset), gameTile),
+            CreateGamePiece(race, sprite, new Vector2(-offset, -offset), gameTile),
+            CreateGamePiece(race, sprite, new Vector2(offset, -offset), gameTile),
+            CreateGamePiece(race, sprite, new Vector2(-offset, offset), gameTile) };
+            return gamePieces;
         }
 
-        /*
-        public static GamePiece SelectPiece(Point position)
+        private static GamePiece CreateGamePiece(GameRace race, CanvasBitmap sprite, Vector2 offsetPosition, GameTile gameTile)
         {
-            Point max = new Point(position.X + 25, position.Y + 25);
-            Point min = new Point(position.X - 25, position.Y - 25);
-
-            foreach (string key in gamePieces.Keys)
-            {
-                for (int i = 0; i < gamePieces[key].Count; i++)
-                {
-                    if (max.X > gamePieces[key][i].tile.Position.X && min.X < gamePieces[key][i].tile.Position.X && max.Y > gamePieces[key][i].tile.Position.Y && min.Y < gamePieces[key][i].tile.Position.Y)
-                    {
-                        return gamePieces[key][i];
-                    }
-                    
-                }
-            }
-            return null;
+            Drawable draw = new Drawable(sprite, gameTile.Position + offsetPosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
+            GameEngine.drawables.Add(draw);
+            return new GamePiece(race, offsetPosition, gameTile, draw);
         }
-        */
     }
 }
