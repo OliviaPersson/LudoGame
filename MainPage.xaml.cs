@@ -27,6 +27,7 @@ namespace LudoGame
         public MainPage()
         {
             this.InitializeComponent();
+            Window.Current.CoreWindow.KeyDown += Global_KeyDown;
             player = new MediaPlayer();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
@@ -152,11 +153,11 @@ namespace LudoGame
             }
         }
 
-        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        private void Global_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Windows.System.VirtualKey.Escape)
+            if (e.VirtualKey == Windows.System.VirtualKey.Escape)
             {
-                PauseButton_Click(sender, e);
+                PauseButton_Click(sender, new RoutedEventArgs());
             }
         }
 
