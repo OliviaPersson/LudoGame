@@ -20,9 +20,9 @@ namespace LudoGame
     }
     public enum GameState
     {
-     InMenu,
-     PlayerPlaying,
-     AIPlaying
+        InMenu,
+        PlayerPlaying,
+        AIPlaying
     }
     public static class GameEngine
     {

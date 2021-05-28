@@ -81,6 +81,7 @@ namespace LudoGame.Classes
                 }
             }
         }
+        
         private static void AddGamePieces(GameRace race,string sprite, float offset, GameTile[] gameTiles, int i)
         {
            
