@@ -84,6 +84,13 @@ namespace LudoGame
                 {
                     GameEngine.CurrentGameState = state0; // Pause
                     });
+                    PauseMenu.Visibility = Visibility.Visible;
+                }
+                if (GameEngine.CurrentGameState == 2)
+                {
+                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                    {
+                        GameEngine.CurrentGameState = 1; //Play
                 PauseBtn.Visibility = Visibility.Collapsed;
                 PauseMenu.Visibility = Visibility.Visible;
             }
@@ -93,10 +100,9 @@ namespace LudoGame
                 {
                     GameEngine.CurrentGameState = saveCurrentState; //Play
                     });
-                PauseMenu.Visibility = Visibility.Collapsed;
-                PauseBtn.Visibility = Visibility.Visible;
+                    PauseMenu.Visibility = Visibility.Collapsed;
+                }
             }
-
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -112,7 +118,6 @@ namespace LudoGame
             {
                     GameEngine.CurrentGameState = state1;
             });
-            PauseBtn.Visibility = Visibility.Visible;
             StartMenu.Visibility = Visibility.Collapsed;
 
         }
@@ -152,6 +157,27 @@ namespace LudoGame
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
         }
+
+        private void OptionsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (OptionsMenu.Visibility == Visibility.Collapsed)
+            {
+                OptionsMenu.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                OptionsMenu.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                PauseButton_Click(sender, e);
+            }
+        }
+
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
     }
 }
