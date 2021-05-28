@@ -46,9 +46,7 @@ namespace LudoGame
             player = new MediaPlayer();
             Window.Current.SizeChanged += Current_SizeChanged;
             Scaler.SetScale();
-            // Init all GameStates
             GameEngine.InitializeGameEngine(GameCanvas);
-           
         }
 
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
@@ -62,18 +60,15 @@ namespace LudoGame
         {
             Xmouseclick.Text = "Click X cord: " + e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + e.GetCurrentPoint(GameCanvas).Position.Y;
-            gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
+            //gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
 
-            if(GameEngine.CurrentGameState == GameState.PlayerPlaying)
+            if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
             {
-               GameEngine. e.GetCurrentPoint(GameCanvas).Position
+                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+                if (returned is GamePiece) ClickedObject.Text = "A game piece";
+                else if (returned is GameTile) ClickedObject.Text = "Game Tile";
+                else ClickedObject.Text = "Null";
             }
-            /*
-            Point position = e.GetCurrentPoint(GameCanvas).Position;
-
-            GamePiece selectedPiece = GamePiece.SelectPiece(position);
-            */
-          
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
@@ -85,7 +80,7 @@ namespace LudoGame
                     var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                     {
                         GameEngine.CurrentGameState = 2; // Pause
-                    });
+                        });
                     PauseBtn.Visibility = Visibility.Collapsed;
                     PauseMenu.Visibility = Visibility.Visible;
                 }
@@ -94,7 +89,7 @@ namespace LudoGame
                     var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                     {
                         GameEngine.CurrentGameState = 1; //Play
-                    });
+                        });
                     PauseMenu.Visibility = Visibility.Collapsed;
                     PauseBtn.Visibility = Visibility.Visible;
                 }
@@ -105,18 +100,18 @@ namespace LudoGame
         {
             System.Environment.Exit(0);
         }
-               
+
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
-           
 
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = 1;
-                });
-                PauseBtn.Visibility = Visibility.Visible;
+
+            var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+            {
+                GameEngine.CurrentGameState = 1;
+            });
+            PauseBtn.Visibility = Visibility.Visible;
             StartMenu.Visibility = Visibility.Collapsed;
-            
+            GameEngine.StartGame();
         }
 
         private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
@@ -158,6 +153,6 @@ namespace LudoGame
             DiceRoll.Text = number.ToString();
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e){}
+        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
     }
 }

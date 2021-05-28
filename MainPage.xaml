@@ -13,10 +13,13 @@
         <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
         <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Margin="10,10,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
         <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Margin="10,34,0,0" Text="" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Height="103" Width="300"/>
-        <TextBlock x:Name="gamestate" Margin="10,52,0,0" Text="" TextWrapping="Wrap" FontSize="20"  VerticalAlignment="Top" Height="103" HorizontalAlignment="Left" Width="300"/>
+        <Border Background="Chocolate" Margin="10,416,1352,544">
+            <TextBlock x:Name="ClickedObject" Text="Not clicked yet" TextWrapping="Wrap" FontSize="20" HorizontalAlignment="Left"/>
+        </Border>
+
         <Button x:Name="PauseBtn" Visibility="Collapsed"  Content="⏸️" Margin="15,65,0,0" Height="75" Width="75" Click="PauseButton_Click" VerticalAlignment="Top" FontSize="40"/>
         <!-- Unicode pause Btn link: https://emojipedia.org/pause-button/ -->
-        
+
         <Grid x:Name="PauseMenu" Visibility="Collapsed">
             <Rectangle x:Name="PauseMenuPopup" Stroke="{ThemeResource SystemAccentColorDark1}" Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.3" />
             <ListView x:Name="PauseView" Background="{ThemeResource SystemChromeAltHighColor}" BorderBrush="{ThemeResource SystemAccentColorDark2}" CornerRadius="4" Opacity="1" BorderThickness="1" Width="440" Height="370" Padding="0,10" SelectionMode="None">
