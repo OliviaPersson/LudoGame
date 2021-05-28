@@ -38,7 +38,7 @@ namespace LudoGame
         public static float scaleWidth, scaleHeight;
         MediaPlayer player;
         bool playing;
-
+        GameState saveCurrentState;
         public MainPage()
         {
 
@@ -73,27 +73,30 @@ namespace LudoGame
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (GameEngine.CurrentGameState == 1 || GameEngine.CurrentGameState == 2)//If the game is paused or is playing
+            GameState state0 = (GameState)0;// Menu
+            GameState state1 = (GameState)1;//PlayerPlaying
+            GameState state2 = (GameState)2;//AIPlaying
+
+            if (GameEngine.CurrentGameState == state1 || GameEngine.CurrentGameState == state2)
             {
-                if (GameEngine.CurrentGameState == 1)
+                saveCurrentState = GameEngine.CurrentGameState;
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
                 {
-                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                    {
-                        GameEngine.CurrentGameState = 2; // Pause
-                        });
-                    PauseBtn.Visibility = Visibility.Collapsed;
-                    PauseMenu.Visibility = Visibility.Visible;
-                }
-                if (GameEngine.CurrentGameState == 2)
-                {
-                    var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                    {
-                        GameEngine.CurrentGameState = 1; //Play
-                        });
-                    PauseMenu.Visibility = Visibility.Collapsed;
-                    PauseBtn.Visibility = Visibility.Visible;
-                }
+                    GameEngine.CurrentGameState = state0; // Pause
+                    });
+                PauseBtn.Visibility = Visibility.Collapsed;
+                PauseMenu.Visibility = Visibility.Visible;
             }
+            if (GameEngine.CurrentGameState == state0)
+            {
+                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+                {
+                    GameEngine.CurrentGameState = saveCurrentState; //Play
+                    });
+                PauseMenu.Visibility = Visibility.Collapsed;
+                PauseBtn.Visibility = Visibility.Visible;
+            }
+
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -103,15 +106,15 @@ namespace LudoGame
 
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
-
+            GameState state1 = (GameState)1;//PlayerPlaying
 
             var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
-                GameEngine.CurrentGameState = 1;
+                    GameEngine.CurrentGameState = state1;
             });
             PauseBtn.Visibility = Visibility.Visible;
             StartMenu.Visibility = Visibility.Collapsed;
-            GameEngine.StartGame();
+
         }
 
         private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
@@ -130,10 +133,8 @@ namespace LudoGame
             //https://pixabay.com/music/search/genre/ambient/
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
             Windows.Storage.StorageFile file = await folder.GetFileAsync("pixabay-1-min-piano_arp-4222.mp3");
-
             player.AutoPlay = false;
             player.Source = MediaSource.CreateFromStorageFile(file);
-
             if (playing)
             {
                 player.Source = null;
@@ -144,7 +145,6 @@ namespace LudoGame
                 player.Play();
                 playing = true;
             }
-
         }
 
         public void RollDice(object sender, RoutedEventArgs e)
@@ -152,7 +152,6 @@ namespace LudoGame
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
         }
-
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e) { }
     }
 }
