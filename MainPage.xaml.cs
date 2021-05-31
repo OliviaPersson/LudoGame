@@ -66,7 +66,7 @@ namespace LudoGame
                 }
                 else if(returned is GameTile && selectedGamePiece != null)
                 {
-                    GamePiece.MovePiece((GamePiece)selectedGamePiece, (GameTile)returned);
+                   // GamePiece.MovePiece((GamePiece)selectedGamePiece, (GameTile)returned);
                     selectedGamePiece = null;
                 }
 
