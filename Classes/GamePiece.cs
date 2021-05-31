@@ -117,7 +117,7 @@ namespace LudoGame.Classes
                     tile = tile.nextTile;//puts its next tile as tile !OBS! WANT TO USE GetNextTile(race) INSTEAD OF NextTile BUT IT GIVES A BUGG
                                        //DUE TO BASE/SPAWN BEING A HOME TILE AND NOT HAVING ANOTHER ONE AFTER IT. See comment on gametile row 54 
                     System.Threading.Thread.Sleep(1000);// waits 1 second 
-                    gamePiece.drawable.Position = tile.Position; // changes its possition
+                    gamePiece.drawable.Position = tile.Position; // changes its position
                     atHomePosition = false;//It leaves its home
                 }
             }
@@ -126,7 +126,7 @@ namespace LudoGame.Classes
                 System.Threading.Thread.Sleep(1000);// waits 1 second 
                 tile = tile.nextTile;//puts its next tile as tile !OBS! WANT TO USE GetNextTile(race) INSTEAD OF NextTile BUT IT GIVES A BUGG
                                      //DUE TO BASE/SPAWN BEING A HOME TILE AND NOT HAVING ANOTHER ONE AFTER IT. See comment on gametile row 54
-                gamePiece.drawable.Position = tile.Position; // changes its possition
+                gamePiece.drawable.Position = tile.Position; // changes its position
             }
         }
     }
