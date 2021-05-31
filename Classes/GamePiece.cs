@@ -22,11 +22,9 @@ namespace LudoGame.Classes
             this.homePosition = tile.Position + offset;
         }
 
-        public static void MovePiece(int diceResult, int id, GameRace gameRace)
+        public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
         {
-            for (int i = 0; i < diceResult; i++)
-            {
-            }
+            gamePiece.drawable.Position = gameTile.Position;
         }
 
         /// <summary>
