@@ -25,7 +25,7 @@ namespace LudoGame
         private GameState saveCurrentState;
 
         private object selectedGamePiece = null;
-
+        private int DiceSave;
         public MainPage()
         {
             this.InitializeComponent();
@@ -62,6 +62,8 @@ namespace LudoGame
                 if(returned is GamePiece)
                 {
                     selectedGamePiece = returned;
+                    GamePiece.MoveToGameTile(DiceSave, (GamePiece)selectedGamePiece);
+                    DiceSave = 0;
                 }
                 else if(returned is GameTile && selectedGamePiece != null)
                 {
@@ -152,7 +154,8 @@ namespace LudoGame
         {
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
-            GamePiece.MoveToGameTile(number, (GamePiece)selectedGamePiece);
+            DiceSave = number;
+            
             
         }
 
