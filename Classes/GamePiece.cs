@@ -23,16 +23,28 @@ namespace LudoGame.Classes
         }
         public static void MoveToGameTile(int diceResult, GamePiece gamePiece)
         {
+            
             switch (diceResult)
             {
-                case 1:gamePiece.ChangeTile(); break;
-                case 6: break;
+                case 1:gamePiece.ChangeTile(gamePiece); break;
+                case 6:
+                    for (int i = 0; i < diceResult; i++)
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                        gamePiece.ChangeTile(gamePiece);
+                    }
+                    
+                    
+                    break;
                 default: break;
             }
         }
-        public void ChangeTile()
+     
+        public void ChangeTile(GamePiece gamePiece)
         {
             tile = tile.nextTile;
+            gamePiece.homePosition = tile.Position;
+            gamePiece.drawable.Position = gamePiece.homePosition;
         }
 
         public static void MovePiece(GamePiece gamePiece, GameTile gameTile)

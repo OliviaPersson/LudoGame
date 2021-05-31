@@ -152,7 +152,8 @@ namespace LudoGame
         {
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
-            GamePiece.MoveToGameTile(number, );
+            GamePiece.MoveToGameTile(number, (GamePiece)selectedGamePiece);
+            
         }
 
         private void OptionsBtn_Click(object sender, RoutedEventArgs e)
