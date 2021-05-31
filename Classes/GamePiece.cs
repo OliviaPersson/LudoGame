@@ -23,29 +23,13 @@ namespace LudoGame.Classes
         }
         public static void MoveToGameTile(int diceResult, GamePiece gamePiece)
         {
-            
-            switch (diceResult)
+            for (int i = 0; i < diceResult; i++) // calls the change tile funk or each number on the dice
             {
-                case 1:gamePiece.ChangeTile(gamePiece); break;
-                case 6:
-                    for (int i = 0; i < diceResult; i++)
-                    {
-                        System.Threading.Thread.Sleep(1000);
-                        gamePiece.ChangeTile(gamePiece);
-                    }
-                    
-                    
-                    break;
-                default: break;
+                gamePiece.ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
             }
         }
-     
-        public void ChangeTile(GamePiece gamePiece)
-        {
-            tile = tile.nextTile;
-            gamePiece.homePosition = tile.Position;
-            gamePiece.drawable.Position = gamePiece.homePosition;
-        }
+
+        
 
         public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
         {
@@ -53,7 +37,7 @@ namespace LudoGame.Classes
             {
                 gamePiece.drawable.Position = gamePiece.homePosition;
             }
-            else if(gamePiece.race == gameTile.raceHome || gameTile.raceHome == GameRace.None)
+            else if (gamePiece.race == gameTile.raceHome || gameTile.raceHome == GameRace.None)
             {
                 gamePiece.drawable.Position = gameTile.Position;
                 gamePiece.atHomePosition = false;
@@ -123,6 +107,25 @@ namespace LudoGame.Classes
             Drawable draw = new Drawable(sprite, gameTile.Position + offsetPosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
             GameEngine.drawables.Add(draw);
             return new GamePiece(race, offsetPosition, gameTile, draw);
+        }
+        private void ChangeTile(GamePiece gamePiece, int diceResult)
+        {
+            if (atHomePosition == true)//checks if it tries to leave its home
+            {
+                if (diceResult == 1 || diceResult == 6)// can only leave home at 1 or 6
+                {
+                    tile = tile.nextTile;//puts its next tile as tile    
+                    System.Threading.Thread.Sleep(1000);// waits 1 second 
+                    gamePiece.drawable.Position = tile.Position; // changes its possition
+                    atHomePosition = false;//It leaves its home
+                }
+            }
+            else
+            {
+                System.Threading.Thread.Sleep(1000);// waits 1 second 
+                tile = tile.nextTile;//puts its next tile as tile    
+                gamePiece.drawable.Position = tile.Position; // changes its possition
+            }
         }
     }
 }

@@ -23,8 +23,6 @@ namespace LudoGame
         private MediaPlayer player;
         private bool playing;
         private GameState saveCurrentState;
-
-        private object selectedGamePiece = null;
         private int DiceSave;
         public MainPage()
         {
@@ -51,6 +49,7 @@ namespace LudoGame
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            object selectedGamePiece = null;
             Xmouseclick.Text = "Click X cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.Y;
             //gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
@@ -62,7 +61,7 @@ namespace LudoGame
                 if(returned is GamePiece)
                 {
                     selectedGamePiece = returned;
-                    GamePiece.MoveToGameTile(DiceSave, (GamePiece)selectedGamePiece);
+                    GamePiece.MoveToGameTile(DiceSave, (GamePiece)selectedGamePiece);//Calls to move func in Gamepice
                     DiceSave = 0;
                 }
                 else if(returned is GameTile && selectedGamePiece != null)
@@ -154,9 +153,7 @@ namespace LudoGame
         {
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
-            DiceSave = number;
-            
-            
+            DiceSave = number; // saves what the dice show
         }
 
         private void OptionsBtn_Click(object sender, RoutedEventArgs e)
