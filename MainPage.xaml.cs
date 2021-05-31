@@ -24,6 +24,8 @@ namespace LudoGame
         private bool playing;
         private GameState saveCurrentState;
 
+        private object selectedGamePiece = null;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -56,6 +58,17 @@ namespace LudoGame
             if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
             {
                 object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+
+                if(returned is GamePiece)
+                {
+                    selectedGamePiece = returned;
+                }
+                else if(returned is GameTile && selectedGamePiece != null)
+                {
+                    GamePiece.MovePiece((GamePiece)selectedGamePiece, (GameTile)returned);
+                    selectedGamePiece = null;
+                }
+
                 if (returned is GamePiece) ClickedObject.Text = "GamePiece";
                 else if (returned is GameTile) ClickedObject.Text = "GameTile";
                 else ClickedObject.Text = "Null";

@@ -35,10 +35,16 @@ namespace LudoGame.Classes
             tile = tile.nextTile;
         }
 
-        public static void MovePiece(int diceResult, int id, GameRace gameRace)
+        public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
         {
-            for (int i = 0; i < diceResult; i++)
+            if (gameTile.previousTile == null && gamePiece.atHomePosition == false && gamePiece.race == gameTile.raceHome)
             {
+                gamePiece.drawable.Position = gamePiece.homePosition;
+            }
+            else if(gamePiece.race == gameTile.raceHome || gameTile.raceHome == GameRace.None)
+            {
+                gamePiece.drawable.Position = gameTile.Position;
+                gamePiece.atHomePosition = false;
             }
         }
 
