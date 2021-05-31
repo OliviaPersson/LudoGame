@@ -21,6 +21,19 @@ namespace LudoGame.Classes
             this.drawable = drawable;
             this.homePosition = tile.Position + offset;
         }
+        public static void MoveToGameTile(int diceResult, GamePiece gamePiece)
+        {
+            switch (diceResult)
+            {
+                case 1:gamePiece.ChangeTile(); break;
+                case 6: break;
+                default: break;
+            }
+        }
+        public void ChangeTile()
+        {
+            tile = tile.nextTile;
+        }
 
         public static void MovePiece(int diceResult, int id, GameRace gameRace)
         {
