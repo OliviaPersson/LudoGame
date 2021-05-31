@@ -24,7 +24,15 @@ namespace LudoGame.Classes
 
         public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
         {
-            gamePiece.drawable.Position = gameTile.Position;
+            if (gameTile.previousTile == null && gamePiece.atHomePosition == false && gamePiece.race == gameTile.raceHome)
+            {
+                gamePiece.drawable.Position = gamePiece.homePosition;
+            }
+            else if(gamePiece.race == gameTile.raceHome || gameTile.raceHome == GameRace.None)
+            {
+                gamePiece.drawable.Position = gameTile.Position;
+                gamePiece.atHomePosition = false;
+            }
         }
 
         /// <summary>
