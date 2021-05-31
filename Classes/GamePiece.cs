@@ -114,7 +114,8 @@ namespace LudoGame.Classes
             {
                 if (diceResult == 1 || diceResult == 6)// can only leave home at 1 or 6
                 {
-                    tile = tile.nextTile;//puts its next tile as tile    
+                    tile = tile.nextTile;//puts its next tile as tile  OBS WANT TO USE GetNextTile() INSTEAD OF NextTile BUT IT GIVES A BUGG
+                                         //DUE TO BASE/SPAWN BEING A HOME TILE AND NOT HAVING ANOTHER ONE AFTER IT   
                     System.Threading.Thread.Sleep(1000);// waits 1 second 
                     gamePiece.drawable.Position = tile.Position; // changes its possition
                     atHomePosition = false;//It leaves its home
@@ -123,7 +124,8 @@ namespace LudoGame.Classes
             else
             {
                 System.Threading.Thread.Sleep(1000);// waits 1 second 
-                tile = tile.nextTile;//puts its next tile as tile    
+                tile = tile.nextTile;//puts its next tile as tile    OBS WANT TO USE GetNextTile() INSTEAD OF NextTile BUT IT GIVES A BUGG
+                                     //DUE TO BASE/SPAWN BEING A HOME TILE AND NOT HAVING ANOTHER ONE AFTER IT 
                 gamePiece.drawable.Position = tile.Position; // changes its possition
             }
         }

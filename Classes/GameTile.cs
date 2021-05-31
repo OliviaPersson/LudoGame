@@ -51,7 +51,7 @@ namespace LudoGame.Classes
             this.previousTile = previousTile;
         }
 
-        public GameTile GetNextTile(GameRace gameRace)
+        public GameTile GetNextTile(GameRace gameRace)//BUG FOUND:Spawn/home has no next hometile and thus returning null when called instead of nextTile
         {
             if (gameRace == raceHome)
             {
