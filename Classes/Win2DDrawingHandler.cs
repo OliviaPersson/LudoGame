@@ -12,14 +12,11 @@ namespace LudoGame
         {
             foreach (Drawable currentItem in drawables)
             {
+                args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), currentItem.ActualPosition);
+
                 if (currentItem.isHover)
                 {
-                    args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), currentItem.ActualPosition);
-                    args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.HighlightBitmap, currentItem.ImageSize), new Vector2((float)currentItem.ActualPosition.X - 15, (float)currentItem.ActualPosition.Y - 15));
-                }
-                else
-                {
-                    args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), currentItem.ActualPosition);
+                    args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.HighlightBitmap, currentItem.ImageSize), new Vector2((float)currentItem.ActualPosition.X - 15, (float)currentItem.ActualPosition.Y - 15)); //Draw highlighteffect if the drawable object is hoverd
                 }
             }
         }

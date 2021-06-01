@@ -26,7 +26,6 @@ namespace LudoGame
         private int DiceSave;
         private bool thrownDice = false; 
 
-        private object selectedGamePiece = null;
         private object lastHovered = null;
 
         public MainPage()
@@ -53,25 +52,23 @@ namespace LudoGame
         }
 
         /// <summary>
-        /// Create hover effect
+        /// Create hover effect for player
         /// </summary>
         private void GameCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            
             if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
             {
-                
                 object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
 
                 if (returned != lastHovered && lastHovered is GamePiece) //Check if hoverd object is not the last hoverd object
                 {
-                    GamePiece.Hover((GamePiece)lastHovered, false);
+                    GamePiece.Hover((GamePiece)lastHovered, false, DiceSave);
                     lastHovered = null; // Reset last hoverd
                 }
 
                 if (returned is GamePiece) //Check if hoverd object is gamepiece
                 {
-                    GamePiece.Hover((GamePiece)returned, true); // Calls hover method in GamePiece
+                    GamePiece.Hover((GamePiece)returned, true, DiceSave); // Calls hover method in GamePiece
                     lastHovered = returned; //Store last hoverd gamepiece
 
                     //method to check if avaible move
@@ -95,10 +92,14 @@ namespace LudoGame
 
                 if (returned is GamePiece)
                 {
-                    selectedGamePiece = returned;
-                    GamePiece.MoveToGameTile(DiceSave, (GamePiece)selectedGamePiece);//Calls to move func in Gamepice
-                    DiceSave = 0;
-                    //thrownDice = false; //
+                   bool pieceWasMoved = GamePiece.MoveToGameTile(DiceSave, (GamePiece)returned);//Calls to move func in Gamepice
+
+                    if (pieceWasMoved)
+                    {
+                        DiceSave = 0;
+                        DiceRoll.Text = "D";
+                    }
+                    //thrownDice = false; 
                 }
 
                 if (returned is GamePiece) ClickedObject.Text = "GamePiece";
@@ -188,7 +189,7 @@ namespace LudoGame
 
             /*
             /// <summary>
-            /// Can be used when turns are implemented
+            /// Can be used when turns are implemented to prevent dice roll multiple times by the same player
             /// </summary>
             if (!thrownDice)
             {

@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace LudoGame.Classes
 {
-    internal class Player
-
+    public class Player
     {
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
+
 
         public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite)
         {
@@ -24,12 +24,11 @@ namespace LudoGame.Classes
                 }
             }
         }
-        /*
+
         public void RollDice()
         {
             int result = Dice.randomNum();
         }
-        */
 
         public void MouseClick(Point mousePosition)
         {

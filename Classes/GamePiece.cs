@@ -6,15 +6,14 @@ namespace LudoGame.Classes
     public class GamePiece
     {
         public GameTile tile;
+        public GameTile tempTile;
         public GameRace race;
         public bool shield;
         public bool atHomePosition = true;
-        public Vector2 homePosition;
-        public Drawable drawable;
-
         public bool isAvailableMove = false;
         public bool IsOccupied = false;
-
+        public Vector2 homePosition;
+        public Drawable drawable;
 
         public GamePiece(GameRace gameRace, Vector2 offset, GameTile tile, Drawable drawable)
         {
@@ -22,16 +21,27 @@ namespace LudoGame.Classes
             this.tile = tile;
             this.drawable = drawable;
             this.homePosition = tile.Position + offset;
+            this.tempTile = tile;
         }
 
-        public static void MoveToGameTile(int diceResult, GamePiece gamePiece)
+        public static bool MoveToGameTile(int diceResult, GamePiece gamePiece)
         {
-            for (int i = 0; i < diceResult; i++) // calls the change tile funk or each number on the dice
+            if (gamePiece.isAvailableMove)
             {
-                gamePiece.ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
+                for (int i = 0; i < diceResult; i++) // Calls the change tile funk or each number on the dice
+                {
+                    gamePiece.ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
+                }
+                gamePiece.isAvailableMove = false;
+                return true;
+            } 
+            else
+            {
+                return false;
             }
         }
 
+        /*
         public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
         {
             if (gameTile.previousTile == null && gamePiece.atHomePosition == false && gamePiece.race == gameTile.raceHome)
@@ -44,15 +54,78 @@ namespace LudoGame.Classes
                 gamePiece.atHomePosition = false;
             }
         }
+        */
+
+        /// <summary>
+        /// Initial method to check if player can move or not
+        /// </summary>
+        public static void CheckAvailableMoves(int diceResult, GamePiece gamePiece)
+        {
+            gamePiece.tempTile = gamePiece.tile;
+
+            if (gamePiece.atHomePosition)
+            {
+                if (diceResult == 1 || diceResult == 6) 
+                {
+                    CheckPossibleTile(diceResult, gamePiece);
+                }
+            }
+            else
+            {
+                CheckPossibleTile(diceResult, gamePiece);
+            }
+        }
+
+        /// <summary>
+        /// Checks if player can move or not
+        /// </summary>
+        private static void CheckPossibleTile(int diceResult, GamePiece gamePiece)
+        {
+            for (int i = 0; i < diceResult; i++)
+            {
+                for (int j = 0; j < GameEngine._player.GamePieces.Length; j++) // Loop trough players gamepieces
+                {
+                    GamePiece tempGamePiece = GameEngine._player.GamePieces[j]; //Store current gamepiece 
+
+                    if (gamePiece.tempTile.nextTile != tempGamePiece.tile) //Check that the next tile is not occupide by red gamepiece
+                    {
+                        gamePiece.isAvailableMove = true;
+                    } 
+                    else
+                    {
+                        gamePiece.isAvailableMove = false;
+                        break;
+                    }
+                }
+                if (gamePiece.isAvailableMove)
+                {
+                    gamePiece.tempTile = gamePiece.tempTile.nextTile; // If true check next tile until all steps are checked or a red piece is in the way
+                }
+            }
+
+            if (gamePiece.isAvailableMove)
+            {
+                gamePiece.tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
+            }
+        }
 
         /// <summary>
         /// Checks if gamePiece is red and change isHoover in drawable class
         /// </summary>
-        public static void Hover(GamePiece gamePiece, bool isHover)
+        public static void Hover(GamePiece gamePiece, bool isHover, int diceSave)
         {
-            if (gamePiece.race == GameRace.Red)
+            if (gamePiece.race == GameRace.Red) //Only want hover on red player pieces, not future AI
             {
-                gamePiece.drawable.isHover = isHover;
+                gamePiece.drawable.isHover = isHover; // Set and reset highlight effect on gamepieces
+
+                if (isHover && diceSave > 0) //Check only where a gamepiece can move when hoverd and dice is more than zero
+                {
+                    CheckAvailableMoves(diceSave, gamePiece); // Start check
+                }
+                else
+                {
+                    gamePiece.tempTile.drawable.isHover = false; // Reset highlight effect
+                }
             }
         }
      

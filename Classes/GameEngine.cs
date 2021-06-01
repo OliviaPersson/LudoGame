@@ -32,7 +32,8 @@ namespace LudoGame
         private static Dictionary<string, CanvasBitmap> _sprites;
         private static CanvasAnimatedControl _gameCanvas;
         private static GameTile[] _gameTiles;
-        private static Player _player;
+
+        public static Player _player;
 
         //private static Sound[] _sounds;
         private static AIPlayer[] _aIPlayers;
