@@ -27,7 +27,7 @@ namespace LudoGame.Classes
 
         public void RollDice()
         {
-            int result = Dice.randomNum();
+            int result = Dice.ThrowDice();
         }
 
         public void MouseClick(Point mousePosition)

@@ -22,66 +22,14 @@ namespace LudoGame.Classes
             this.homePosition = tile.Position + offset;
         }
 
-        public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
+        public void MovePiece(int diceThrow)
         {
-            if (gameTile.previousTile == null && gamePiece.atHomePosition == false && gamePiece.race == gameTile.raceHome)
+            for (int i = 0; i < diceThrow; i++)
             {
-                gamePiece.drawable.Position = gamePiece.homePosition;
-            }
-            else if(gamePiece.race == gameTile.raceHome || gameTile.raceHome == GameRace.None)
-            {
-                gamePiece.drawable.Position = gameTile.Position;
-                gamePiece.atHomePosition = false;
+                tile = tile.GetNextTile(race);
+                drawable.Position = tile.Position;
             }
         }
-
-        /// <summary>
-        /// Calculate positions and draw game pieces on homebase
-        /// </summary>
-        //public static GamePiece[] InitializeGamePieces(GameTile[] gameTiles)
-        //{
-        //    List<GamePiece> gamePieces = new List<GamePiece>();
-
-        //    GameRace race1 = (GameRace)1;
-        //    GameRace race2 = (GameRace)2;
-        //    GameRace race3 = (GameRace)3;
-        //    GameRace race4 = (GameRace)4;
-        //    if (gamePieces.Count == 0)
-        //    {
-        //        float offset = 50;
-
-        //        //gamePieces.Add(race1, new List<GamePiece>());
-        //        //gamePieces.Add(race2, new List<GamePiece>());
-        //        //gamePieces.Add(race3, new List<GamePiece>());
-        //        //gamePieces.Add(race4, new List<GamePiece>());
-
-        //        for (int i = 0; i < gameTiles.Count(); i++)
-        //        {
-        //            if (gameTiles[i].previousTile == null)
-        //            {
-        //                if (gameTiles[i].raceHome == race1)
-        //                {
-        //                    gamePieces.AddRange(CreateGamePieces(race1, "redGamePiece", offset, gameTiles, i));
-        //                }
-        //                else if (gameTiles[i].raceHome == race2)
-        //                {
-        //                    gamePieces.AddRange(CreateGamePieces(race2, "greenGamePiece", offset, gameTiles, i));
-        //                }
-        //                else if (gameTiles[i].raceHome == race3)
-        //                {
-        //                    gamePieces.AddRange(CreateGamePieces(race3, "yellowGamePiece", offset, gameTiles, i));
-        //                }
-        //                else if (gameTiles[i].raceHome == race4)
-        //                {
-        //                    gamePieces.AddRange(CreateGamePieces(race4, "blueGamePiece", offset, gameTiles, i));
-        //                }
-
-        //            }
-        //        }
-        //    }
-
-        //    return gamePieces.ToArray();
-        //}
 
         public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile gameTile)
         {

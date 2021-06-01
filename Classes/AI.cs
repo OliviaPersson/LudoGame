@@ -25,7 +25,7 @@
 
         private bool ThrowDice()
         {
-            int steps = Dice.randomNum();
+            int steps = Dice.ThrowDice();
             MoveAI(Color.Blue);
             if (steps == 6)
             {

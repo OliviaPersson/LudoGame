@@ -24,7 +24,7 @@ namespace LudoGame
         private bool playing;
         private GameState saveCurrentState;
 
-        private object selectedGamePiece = null;
+        private GamePiece selectedGamePiece = null;
 
         public MainPage()
         {
@@ -53,26 +53,29 @@ namespace LudoGame
         {
             Xmouseclick.Text = "Click X cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.Y;
-            //gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
 
-            if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
-            {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+            object returned = GameEngine.OnClick(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
 
-                if(returned is GamePiece)
-                {
-                    selectedGamePiece = returned;
-                }
-                else if(returned is GameTile && selectedGamePiece != null)
-                {
-                    GamePiece.MovePiece((GamePiece)selectedGamePiece, (GameTile)returned);
-                    selectedGamePiece = null;
-                }
+            if (returned is GamePiece) ClickedObject.Text = "GamePiece";
+            else if (returned is GameTile) ClickedObject.Text = "GameTile";
+            else ClickedObject.Text = "Null";
 
-                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
-                else if (returned is GameTile) ClickedObject.Text = "GameTile";
-                else ClickedObject.Text = "Null";
-            }
+            //if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
+            //{
+            //    object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+
+            //    if(returned is GamePiece)
+            //    {
+            //        selectedGamePiece = (GamePiece)returned;
+            //    }
+            //    else if(returned is GameTile && selectedGamePiece != null)
+            //    {
+            //        selectedGamePiece.MovePiece((GameTile)returned);
+            //        selectedGamePiece = null;
+            //    }
+
+
+            //}
         }
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
@@ -150,7 +153,7 @@ namespace LudoGame
 
         public void RollDice(object sender, RoutedEventArgs e)
         {
-            int number = Dice.randomNum();
+            int number = Dice.ThrowDice();
             DiceRoll.Text = number.ToString();
         }
 

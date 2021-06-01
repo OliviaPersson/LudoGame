@@ -41,6 +41,7 @@ namespace LudoGame
         private static string _fileloction;
         private static Cards[] _cards;
         private static Wormhole _wormhole;
+        private static GamePiece _selectedGamePiece = null;
 
         public static Dictionary<string, CanvasBitmap> Sprites { get => _sprites; set => _sprites = value; }
 
@@ -80,6 +81,31 @@ namespace LudoGame
             {
                 item.CalculateActualPosition();
             }
+        }
+
+        public static object OnClick(Vector2 clickPosition)
+        {
+            if (CurrentGameState == GameState.PlayerPlaying)
+            {
+                object returned = ClickHitDetection(clickPosition);
+
+                if (returned is GamePiece)
+                {
+                    _selectedGamePiece = (GamePiece)returned;
+                }
+                else if (returned is GameTile && _selectedGamePiece != null)
+                {
+                    _selectedGamePiece.MovePiece(Dice.UseDice());
+                    _selectedGamePiece = null;
+                }
+                //else if (returned is GameTile && _selectedGamePiece != null)
+                //{
+                //    _selectedGamePiece.MovePiece((GameTile)returned);
+                //    _selectedGamePiece = null;
+                //}
+                return returned;
+            }
+            return null;
         }
 
         public static object ClickHitDetection(Vector2 mousePosition)
