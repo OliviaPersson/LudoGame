@@ -7,6 +7,7 @@ namespace LudoGame.Classes
 {
     public class GameTile
     {
+
         public GameRace raceHome;
         public Drawable drawable;
 

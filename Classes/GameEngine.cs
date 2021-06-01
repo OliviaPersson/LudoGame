@@ -55,11 +55,11 @@ namespace LudoGame
         public static void StartGame()
         {
             _gameTiles = GameTile.CreateGameTiles(Sprites);
-            _player = new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles);
+            _player = new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles, _sprites["hoverEffect"]);
             _aIPlayers = new AIPlayer[] {
-                new AIPlayer(new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles)),
-                new AIPlayer(new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles)),
-                new AIPlayer(new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles))
+                new AIPlayer(new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles, _sprites["hoverEffect"])),
+                new AIPlayer(new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles, _sprites["hoverEffect"])),
+                new AIPlayer(new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles, _sprites["hoverEffect"]))
             };
             Play();
         }

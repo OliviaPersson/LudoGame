@@ -158,6 +158,7 @@
     <Content Include="Assets\Tiles\BlueTile.png" />
     <Content Include="Assets\Tiles\GreenBase.png" />
     <Content Include="Assets\Tiles\GreenTile.png" />
+    <Content Include="Assets\Tiles\HooverEffect.png" />
     <Content Include="Assets\Tiles\RedBase.png" />
     <Content Include="Assets\Tiles\RedTile.png" />
     <Content Include="Assets\Tiles\WhiteTile.png" />
