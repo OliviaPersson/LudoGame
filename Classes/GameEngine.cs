@@ -33,10 +33,8 @@ namespace LudoGame
         private static CanvasAnimatedControl _gameCanvas;
         private static GameTile[] _gameTiles;
 
-        public static Player _player;
-
         //private static Sound[] _sounds;
-        private static AIPlayer[] _aIPlayers;
+        public static Player[] players;
 
         private static InputReader _input;
         private static string _fileloction;
@@ -56,11 +54,12 @@ namespace LudoGame
         public static void StartGame()
         {
             _gameTiles = GameTile.CreateGameTiles(Sprites);
-            _player = new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles, _sprites["hoverEffect"]);
-            _aIPlayers = new AIPlayer[] {
-                new AIPlayer(new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles, _sprites["hoverEffect"])),
-                new AIPlayer(new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles, _sprites["hoverEffect"])),
-                new AIPlayer(new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles, _sprites["hoverEffect"]))
+            //Changed so that all players is in the same player array
+            players = new Player[] {
+                new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], true),
+                new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false),
+                new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false),
+                new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false)
             };
             Play();
         }
@@ -85,6 +84,15 @@ namespace LudoGame
 
         public static object ClickHitDetection(Vector2 mousePosition)
         {
+            //Find the player that is human controlled
+            Player _player = null;
+            foreach (Player player in players)
+            {
+                if (player.isHumanPlayer)
+                {
+                    _player = player;
+                }
+            }
             if (_player != null)
             {
                 for (int i = 0; i < _player.GamePieces.Length; i++)
@@ -101,20 +109,20 @@ namespace LudoGame
                 }
             }
 
-            if (_aIPlayers != null)
+            if (players != null)
             {
-                for (int j = 0; j < _aIPlayers.Length; j++)
+                for (int j = 0; j < players.Length; j++)
                 {
-                    for (int i = 0; i < _aIPlayers[j].Player.GamePieces.Length; i++)
+                    for (int i = 0; i < players[j].GamePieces.Length; i++)
                     {
-                        Vector2 distance = mousePosition - _aIPlayers[j].Player.GamePieces[i].drawable.ActualPosition;
+                        Vector2 distance = mousePosition - players[j].GamePieces[i].drawable.ActualPosition;
 
                         if (distance.X >= 0 &&
                             distance.Y >= 0 &&
-                            distance.X <= _aIPlayers[j].Player.GamePieces[i].drawable.ScaledSize.X &&
-                            distance.Y <= _aIPlayers[j].Player.GamePieces[i].drawable.ScaledSize.Y)
+                            distance.X <= players[j].GamePieces[i].drawable.ScaledSize.X &&
+                            distance.Y <= players[j].GamePieces[i].drawable.ScaledSize.Y)
                         {
-                            return _aIPlayers[j].Player.GamePieces[i];
+                            return players[j].GamePieces[i];
                         }
                     }
                 }
@@ -161,7 +169,7 @@ namespace LudoGame
             await LoadSpriteFolder(sender, "Pieces");
 
             drawables.Add(new Drawable(Sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
-            drawables.Add(new Drawable(Sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale)));
+            drawables.Add(new Drawable(Sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), _sprites["blackholehighlighteffect"]));
         }
 
         private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)

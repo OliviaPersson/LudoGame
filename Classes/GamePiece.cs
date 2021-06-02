@@ -1,4 +1,5 @@
 ﻿using Microsoft.Graphics.Canvas;
+using System.Linq;
 using System.Numerics;
 
 namespace LudoGame.Classes
@@ -41,21 +42,6 @@ namespace LudoGame.Classes
             }
         }
 
-        /*
-        public static void MovePiece(GamePiece gamePiece, GameTile gameTile)
-        {
-            if (gameTile.previousTile == null && gamePiece.atHomePosition == false && gamePiece.race == gameTile.raceHome)
-            {
-                gamePiece.drawable.Position = gamePiece.homePosition;
-            }
-            else if(gamePiece.race == gameTile.raceHome || gameTile.raceHome == GameRace.None)
-            {
-                gamePiece.drawable.Position = gameTile.Position;
-                gamePiece.atHomePosition = false;
-            }
-        }
-        */
-
         /// <summary>
         /// Initial method to check if player can move or not
         /// </summary>
@@ -81,6 +67,9 @@ namespace LudoGame.Classes
         /// </summary>
         private static void CheckPossibleTile(int diceResult, GamePiece gamePiece, GamePiece[] gamePieces)
         {
+
+            //Drawable blackHole = GameEngine.drawables[1];
+            //blackHole.isHover = true;
             for (int i = 0; i < diceResult; i++)
             {
                 for (int j = 0; j < gamePieces.Length; j++) // Loop trough players gamepieces
@@ -105,13 +94,19 @@ namespace LudoGame.Classes
                     }
                     else
                     {
-                        gamePiece.tempTile = gamePiece.tempTile.GetNextTile(gamePiece.race);
+                        if (gamePiece.tempTile.GetNextTile(gamePiece.race) != null)
+                        {
+                            gamePiece.tempTile = gamePiece.tempTile.GetNextTile(gamePiece.race);
+                        }
+                        else
+                        {
+                            GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
+                        }
                     }
-
                 }
             }
 
-            if (gamePiece.isAvailableMove)
+            if (gamePiece.isAvailableMove && GameEngine.drawables[1].isHover == false)
             {
                 gamePiece.tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
             }
@@ -128,11 +123,19 @@ namespace LudoGame.Classes
 
                 if (isHover && diceSave > 0) //Check only where a gamepiece can move when hoverd and dice is more than zero
                 {
-                    CheckAvailableMoves(diceSave, gamePiece, GameEngine._player.GamePieces); // Start check
+                    //Find the player that i human controlled
+                    foreach(Player player in GameEngine.players)
+                    {
+                        if (player.isHumanPlayer)
+                        {
+                            CheckAvailableMoves(diceSave, gamePiece, player.GamePieces); // Start check
+                        }
+                    }
                 }
                 else
                 {
                     gamePiece.tempTile.drawable.isHover = false; // Reset highlight effect
+                    GameEngine.drawables[1].isHover = false; //Reset highlight effect for blackhole
                 }
             }
         }
@@ -156,21 +159,43 @@ namespace LudoGame.Classes
 
         private void ChangeTile(GamePiece gamePiece, int diceResult)
         {
-            if (atHomePosition == true)//checks if it tries to leave its home
+            if (gamePiece.atHomePosition == true)//checks if it tries to leave its home
             {
                 if (diceResult == 1 || diceResult == 6)// can only leave home at 1 or 6
                 {
-                    tile = tile.nextTile; //puts its next tile as tile    
-                    System.Threading.Thread.Sleep(500);// waits 1 second 
-                    gamePiece.drawable.Position = tile.Position; // changes its possition
-                    atHomePosition = false;//It leaves its home
+                    gamePiece.tile = gamePiece.tile.nextTile; //puts its next tile as tile    
+                    System.Threading.Thread.Sleep(400);// waits 1 second 
+                    gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
+                    gamePiece.atHomePosition = false;//It leaves its home
                 }
             }
             else
             {
-                System.Threading.Thread.Sleep(500);// waits 1 second 
-                tile = tile.GetNextTile(race);//puts its next tile as tile    
-                gamePiece.drawable.Position = tile.Position; // changes its possition
+                if (gamePiece.tile.GetNextTile(gamePiece.race) == null) // If the next gametile is null it is the black hole
+                {
+                    foreach (Player player in GameEngine.players) // Find the player that controlls the gamepiece
+                    {
+                        if (player.race == gamePiece.race)
+                        {
+                            player.finishedPieces++; // Count gamepieces that is finished
+                            for (int i = 0; i < player.GamePieces.Length; i++) //Find the gamepiece that is finished
+                            {
+                                if (player.GamePieces[i] == gamePiece)
+                                {
+                                    gamePiece.drawable.isHidden = true; // To hide gamepiece in drawable when finished
+                                    player.GamePieces = player.GamePieces.Where(w => w != player.GamePieces[i]).ToArray(); // Delete gamepiece when finished
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(400);// waits 1 second 
+                    gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race);//puts its next tile as tile
+                    gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
+                   
+                }
             }
         }
     }

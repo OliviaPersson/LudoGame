@@ -9,11 +9,13 @@ namespace LudoGame.Classes
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
+        public bool isHumanPlayer = false;
+        public int finishedPieces = 0; //Count finished gamepieces
 
-
-        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite)
+        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite, bool isHumanPlayer)
         {
             this.race = race;
+            this.isHumanPlayer = isHumanPlayer;
             for (int i = 0; i < gameTiles.Count(); i++)
             {
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
