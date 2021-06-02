@@ -12,6 +12,10 @@
     {
       "FileName": "blackhole.png",
       "NameID": "blackhole"
+    },
+    {
+      "FileName": "blackholehighligteffect.png",
+      "NameID": "blackholehighlighteffect"
     }
   ]
 }

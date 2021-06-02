@@ -186,6 +186,7 @@ namespace LudoGame
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
             DiceSave = number; // saves what the dice show
+         
 
             /*
             /// <summary>

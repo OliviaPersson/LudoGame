@@ -12,7 +12,11 @@ namespace LudoGame
         {
             foreach (Drawable currentItem in drawables)
             {
-                args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), currentItem.ActualPosition);
+                //Check to hide gamepiece when finished
+                if (!currentItem.isHidden)
+                {
+                    args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), currentItem.ActualPosition);
+                }
 
                 if (currentItem.isHover)
                 {

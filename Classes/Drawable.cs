@@ -11,6 +11,7 @@ namespace LudoGame
         public CanvasBitmap Bitmap { get; set; }
         public CanvasBitmap HighlightBitmap { get; set; } // HoverEffect
         public bool isHover = false;
+        public bool isHidden = false;
 
         /// <summary>
         /// Position is based on a virtual coordinatesystem where center window is (0,0),

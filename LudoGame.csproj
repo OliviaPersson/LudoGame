@@ -147,6 +147,7 @@
   <ItemGroup>
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
+    <Content Include="Assets\Images\blackholehighligteffect.png" />
     <Content Include="Assets\Pieces\BlueGamePiece.png" />
     <Content Include="Assets\Pieces\GreenGamePiece.png" />
     <Content Include="Assets\Images\Crab nebula core.jpg" />
