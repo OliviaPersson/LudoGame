@@ -59,7 +59,7 @@ namespace LudoGame.Classes
         /// <summary>
         /// Initial method to check if player can move or not
         /// </summary>
-        public static void CheckAvailableMoves(int diceResult, GamePiece gamePiece)
+        public static void CheckAvailableMoves(int diceResult, GamePiece gamePiece, GamePiece[] gamePieces)
         {
             gamePiece.tempTile = gamePiece.tile;
 
@@ -67,25 +67,25 @@ namespace LudoGame.Classes
             {
                 if (diceResult == 1 || diceResult == 6) 
                 {
-                    CheckPossibleTile(diceResult, gamePiece);
+                    CheckPossibleTile(diceResult, gamePiece, gamePieces);
                 }
             }
             else
             {
-                CheckPossibleTile(diceResult, gamePiece);
+                CheckPossibleTile(diceResult, gamePiece, gamePieces);
             }
         }
 
         /// <summary>
         /// Checks if player can move or not
         /// </summary>
-        private static void CheckPossibleTile(int diceResult, GamePiece gamePiece)
+        private static void CheckPossibleTile(int diceResult, GamePiece gamePiece, GamePiece[] gamePieces)
         {
             for (int i = 0; i < diceResult; i++)
             {
-                for (int j = 0; j < GameEngine._player.GamePieces.Length; j++) // Loop trough players gamepieces
+                for (int j = 0; j < gamePieces.Length; j++) // Loop trough players gamepieces
                 {
-                    GamePiece tempGamePiece = GameEngine._player.GamePieces[j]; //Store current gamepiece 
+                    GamePiece tempGamePiece = gamePieces[j]; //Store current gamepiece 
 
                     if (gamePiece.tempTile.nextTile != tempGamePiece.tile) //Check that the next tile is not occupide by red gamepiece
                     {
@@ -99,7 +99,15 @@ namespace LudoGame.Classes
                 }
                 if (gamePiece.isAvailableMove)
                 {
-                    gamePiece.tempTile = gamePiece.tempTile.nextTile; // If true check next tile until all steps are checked or a red piece is in the way
+                    if (gamePiece.atHomePosition)
+                    {
+                        gamePiece.tempTile = gamePiece.tempTile.nextTile; // If true check next tile until all steps are checked or a red piece is in the way
+                    }
+                    else
+                    {
+                        gamePiece.tempTile = gamePiece.tempTile.GetNextTile(gamePiece.race);
+                    }
+
                 }
             }
 
@@ -120,7 +128,7 @@ namespace LudoGame.Classes
 
                 if (isHover && diceSave > 0) //Check only where a gamepiece can move when hoverd and dice is more than zero
                 {
-                    CheckAvailableMoves(diceSave, gamePiece); // Start check
+                    CheckAvailableMoves(diceSave, gamePiece, GameEngine._player.GamePieces); // Start check
                 }
                 else
                 {
@@ -161,7 +169,7 @@ namespace LudoGame.Classes
             else
             {
                 System.Threading.Thread.Sleep(500);// waits 1 second 
-                tile = tile.nextTile;//puts its next tile as tile    
+                tile = tile.GetNextTile(race);//puts its next tile as tile    
                 gamePiece.drawable.Position = tile.Position; // changes its possition
             }
         }
