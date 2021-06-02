@@ -9,6 +9,8 @@ namespace LudoGame
     public class Drawable
     {
         public CanvasBitmap Bitmap { get; set; }
+        public CanvasBitmap HighlightBitmap { get; set; } // HoverEffect
+        public bool isHover = false;
 
         /// <summary>
         /// Position is based on a virtual coordinatesystem where center window is (0,0),
@@ -64,12 +66,13 @@ namespace LudoGame
         /// <param name="position">The position based on (0,0) being center of window</param>
         /// <param name="imageSize">The image size multiplier</param>
         /// <param name="Scaling">The scaling methood to use when drawing this object</param>
-        public Drawable(CanvasBitmap bitmap, Vector2 position, float imageSize, Scale Scaling)
+        public Drawable(CanvasBitmap bitmap, Vector2 position, float imageSize, Scale Scaling, CanvasBitmap highlightBitmap = null)
         {
             this.Bitmap = bitmap;
             this.ImageSize = imageSize;
             this.Scaling = Scaling;
             this.Position = position;
+            this.HighlightBitmap = highlightBitmap;
         }
 
         /// <summary>

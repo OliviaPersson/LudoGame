@@ -4,14 +4,14 @@ using System.Linq;
 
 namespace LudoGame.Classes
 {
-    internal class Player
-
+    public class Player
     {
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
 
-        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles)
+
+        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite)
         {
             this.race = race;
             for (int i = 0; i < gameTiles.Count(); i++)
@@ -19,7 +19,7 @@ namespace LudoGame.Classes
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
                 {
                     HomeTile = gameTiles[i];
-                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile);
+                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile, highlightSprite);
                     break;
                 }
             }

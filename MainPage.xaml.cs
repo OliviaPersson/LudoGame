@@ -23,8 +23,10 @@ namespace LudoGame
         private MediaPlayer player;
         private bool playing;
         private GameState saveCurrentState;
+        private int DiceSave;
+        private bool thrownDice = false; 
 
-        private object selectedGamePiece = null;
+        private object lastHovered = null;
 
         public MainPage()
         {
@@ -49,6 +51,35 @@ namespace LudoGame
             GameEngine.OnSizeChanged();
         }
 
+        /// <summary>
+        /// Create hover effect for player
+        /// </summary>
+        private void GameCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
+            {
+                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+
+                if (returned != lastHovered && lastHovered is GamePiece) //Check if hoverd object is not the last hoverd object
+                {
+                    GamePiece.Hover((GamePiece)lastHovered, false, DiceSave);
+                    lastHovered = null; // Reset last hoverd
+                }
+
+                if (returned is GamePiece) //Check if hoverd object is gamepiece
+                {
+                    GamePiece.Hover((GamePiece)returned, true, DiceSave); // Calls hover method in GamePiece
+                    lastHovered = returned; //Store last hoverd gamepiece
+
+                    //method to check if avaible move
+                }
+
+                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
+                else if (returned is GameTile) ClickedObject.Text = "GameTile";
+                else ClickedObject.Text = "Null";
+            }
+        }
+
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             Xmouseclick.Text = "Click X cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.X;
@@ -59,14 +90,16 @@ namespace LudoGame
             {
                 object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
 
-                if(returned is GamePiece)
+                if (returned is GamePiece)
                 {
-                    selectedGamePiece = returned;
-                }
-                else if(returned is GameTile && selectedGamePiece != null)
-                {
-                    GamePiece.MovePiece((GamePiece)selectedGamePiece, (GameTile)returned);
-                    selectedGamePiece = null;
+                   bool pieceWasMoved = GamePiece.MoveToGameTile(DiceSave, (GamePiece)returned);//Calls to move func in Gamepice
+
+                    if (pieceWasMoved)
+                    {
+                        DiceSave = 0;
+                        DiceRoll.Text = "D";
+                    }
+                    //thrownDice = false; 
                 }
 
                 if (returned is GamePiece) ClickedObject.Text = "GamePiece";
@@ -152,6 +185,20 @@ namespace LudoGame
         {
             int number = Dice.randomNum();
             DiceRoll.Text = number.ToString();
+            DiceSave = number; // saves what the dice show
+
+            /*
+            /// <summary>
+            /// Can be used when turns are implemented to prevent dice roll multiple times by the same player
+            /// </summary>
+            if (!thrownDice)
+            {
+                int number = Dice.randomNum();
+                DiceRoll.Text = number.ToString();
+                DiceSave = number; //saves what the dice show
+                thrownDice = true;
+            }
+            */
         }
 
         private void OptionsBtn_Click(object sender, RoutedEventArgs e)
