@@ -58,25 +58,29 @@ namespace LudoGame
         {
             if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
             {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
-
-                if (returned != lastHovered && lastHovered is GamePiece) //Check if hoverd object is not the last hoverd object
+                Player player = Turn.activePlayer;
+                if (player.isPlaying && player.isHumanPlayer)
                 {
-                    GamePiece.Hover((GamePiece)lastHovered, false, DiceSave);
-                    lastHovered = null; // Reset last hoverd
+                    object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
+
+                    if (returned != lastHovered && lastHovered is GamePiece) //Check if hoverd object is not the last hoverd object
+                    {
+                        GamePiece.Hover((GamePiece)lastHovered, false, DiceSave);
+                        lastHovered = null; // Reset last hoverd
+                    }
+
+                    if (returned is GamePiece) //Check if hoverd object is gamepiece
+                    {
+                        GamePiece.Hover((GamePiece)returned, true, DiceSave); // Calls hover method in GamePiece
+                        lastHovered = returned; //Store last hoverd gamepiece
+
+                        //method to check if avaible move
+                    }
+
+                    if (returned is GamePiece) ClickedObject.Text = "GamePiece";
+                    else if (returned is GameTile) ClickedObject.Text = "GameTile";
+                    else ClickedObject.Text = "Null";
                 }
-
-                if (returned is GamePiece) //Check if hoverd object is gamepiece
-                {
-                    GamePiece.Hover((GamePiece)returned, true, DiceSave); // Calls hover method in GamePiece
-                    lastHovered = returned; //Store last hoverd gamepiece
-
-                    //method to check if avaible move
-                }
-
-                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
-                else if (returned is GameTile) ClickedObject.Text = "GameTile";
-                else ClickedObject.Text = "Null";
             }
         }
 
@@ -88,23 +92,29 @@ namespace LudoGame
 
             if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
             {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
-
-                if (returned is GamePiece)
+                Player player = Turn.activePlayer;
+                if (player.isPlaying && player.isHumanPlayer)
                 {
-                   bool pieceWasMoved = GamePiece.MoveToGameTile(DiceSave, (GamePiece)returned);//Calls to move func in Gamepice
+                    object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
 
-                    if (pieceWasMoved)
+                    if (returned is GamePiece)
                     {
-                        DiceSave = 0;
-                        DiceRoll.Text = "D";
-                    }
-                    //thrownDice = false; 
-                }
+                        bool pieceWasMoved = GamePiece.MoveToGameTile(DiceSave, (GamePiece)returned);//Calls to move func in Gamepice
 
-                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
-                else if (returned is GameTile) ClickedObject.Text = "GameTile";
-                else ClickedObject.Text = "Null";
+                        if (pieceWasMoved)
+                        {
+                            player.isPlaying = false;
+                            DiceSave = 0;
+                            DiceRoll.Text = "D";
+                            Turn.EndTurn();
+                        }
+                        //thrownDice = false; 
+                    }
+
+                    if (returned is GamePiece) ClickedObject.Text = "GamePiece";
+                    else if (returned is GameTile) ClickedObject.Text = "GameTile";
+                    else ClickedObject.Text = "Null";
+                }
             }
         }
 
@@ -183,11 +193,14 @@ namespace LudoGame
 
         public void RollDice(object sender, RoutedEventArgs e)
         {
-            int number = Dice.randomNum();
-            DiceRoll.Text = number.ToString();
-            DiceSave = number; // saves what the dice show
+            Player player = Turn.activePlayer;
+            if (player.isPlaying && player.isHumanPlayer)
+            {
+                int number = Dice.randomNum();
+                DiceRoll.Text = number.ToString();
+                DiceSave = number; // saves what the dice show
+            }
          
-
             /*
             /// <summary>
             /// Can be used when turns are implemented to prevent dice roll multiple times by the same player

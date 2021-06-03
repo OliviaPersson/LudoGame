@@ -10,6 +10,7 @@ namespace LudoGame.Classes
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
         public bool isHumanPlayer = false;
+        public bool isPlaying = false;
         public int finishedPieces = 0; //Count finished gamepieces
 
         public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite, bool isHumanPlayer)

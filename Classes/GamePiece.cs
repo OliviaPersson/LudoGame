@@ -1,6 +1,9 @@
 ﻿using Microsoft.Graphics.Canvas;
 using System.Linq;
 using System.Numerics;
+using System.Threading;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LudoGame.Classes
 {
@@ -31,8 +34,9 @@ namespace LudoGame.Classes
             {
                 for (int i = 0; i < diceResult; i++) // Calls the change tile funk or each number on the dice
                 {
-                    gamePiece.ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
+                   ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
                 }
+                CheckIfHitGamePiece(gamePiece);
                 gamePiece.isAvailableMove = false;
                 return true;
             } 
@@ -45,37 +49,35 @@ namespace LudoGame.Classes
         /// <summary>
         /// Initial method to check if player can move or not
         /// </summary>
-        public static void CheckAvailableMoves(int diceResult, GamePiece gamePiece, GamePiece[] gamePieces)
+        public static void CheckAvailableMoves(int diceResult, GamePiece gamePiece, Player player)
         {
             gamePiece.tempTile = gamePiece.tile;
-
             if (gamePiece.atHomePosition)
             {
                 if (diceResult == 1 || diceResult == 6) 
                 {
-                    CheckPossibleTile(diceResult, gamePiece, gamePieces);
+                    CheckPossibleTile(diceResult, gamePiece, player);
                 }
             }
             else
             {
-                CheckPossibleTile(diceResult, gamePiece, gamePieces);
+                CheckPossibleTile(diceResult, gamePiece, player);
             }
         }
 
         /// <summary>
         /// Checks if player can move or not
         /// </summary>
-        private static void CheckPossibleTile(int diceResult, GamePiece gamePiece, GamePiece[] gamePieces)
+        private static void CheckPossibleTile(int diceResult, GamePiece gamePiece, Player player)
         {
 
             //Drawable blackHole = GameEngine.drawables[1];
             //blackHole.isHover = true;
             for (int i = 0; i < diceResult; i++)
             {
-                for (int j = 0; j < gamePieces.Length; j++) // Loop trough players gamepieces
+                for (int j = 0; j < player.GamePieces.Length; j++) // Loop trough players gamepieces
                 {
-                    GamePiece tempGamePiece = gamePieces[j]; //Store current gamepiece 
-
+                    GamePiece tempGamePiece = player.GamePieces[j]; //Store current gamepiece 
                     if (gamePiece.tempTile.nextTile != tempGamePiece.tile) //Check that the next tile is not occupide by red gamepiece
                     {
                         gamePiece.isAvailableMove = true;
@@ -100,7 +102,10 @@ namespace LudoGame.Classes
                         }
                         else
                         {
-                            GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
+                            if (player.isHumanPlayer)
+                            {
+                                GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
+                            }
                         }
                     }
                 }
@@ -108,7 +113,10 @@ namespace LudoGame.Classes
 
             if (gamePiece.isAvailableMove && GameEngine.drawables[1].isHover == false)
             {
-                gamePiece.tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
+                if (player.isHumanPlayer)
+                {
+                    gamePiece.tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
+                }
             }
         }
 
@@ -120,7 +128,6 @@ namespace LudoGame.Classes
             if (gamePiece.race == GameRace.Red) //Only want hover on red player pieces, not future AI
             {
                 gamePiece.drawable.isHover = isHover; // Set and reset highlight effect on gamepieces
-
                 if (isHover && diceSave > 0) //Check only where a gamepiece can move when hoverd and dice is more than zero
                 {
                     //Find the player that i human controlled
@@ -128,7 +135,7 @@ namespace LudoGame.Classes
                     {
                         if (player.isHumanPlayer)
                         {
-                            CheckAvailableMoves(diceSave, gamePiece, player.GamePieces); // Start check
+                            CheckAvailableMoves(diceSave, gamePiece, player); // Start check
                         }
                     }
                 }
@@ -157,14 +164,31 @@ namespace LudoGame.Classes
             return new GamePiece(race, offsetPosition, gameTile, draw);
         }
 
-        private void ChangeTile(GamePiece gamePiece, int diceResult)
+        /// <summary>
+        /// Checks if gamePiece lands on another gamepiece ands sends it to homebase
+        /// </summary>
+        public static void CheckIfHitGamePiece(GamePiece gamePiece)
+        {
+            foreach (Player player in GameEngine.players)
+            {
+                foreach (GamePiece playerGamepiece in player.GamePieces)
+                {
+                    if (playerGamepiece.tile == gamePiece.tile && playerGamepiece.race != gamePiece.race)
+                    {
+                        playerGamepiece.drawable.Position = playerGamepiece.homePosition;
+                        playerGamepiece.atHomePosition = true;
+                    }
+                }
+            }
+        }
+        private static void ChangeTile(GamePiece gamePiece, int diceResult)
         {
             if (gamePiece.atHomePosition == true)//checks if it tries to leave its home
             {
                 if (diceResult == 1 || diceResult == 6)// can only leave home at 1 or 6
                 {
                     gamePiece.tile = gamePiece.tile.nextTile; //puts its next tile as tile    
-                    System.Threading.Thread.Sleep(400);// waits 1 second 
+                    //System.Threading.Thread.Sleep(400);// waits 1 second 
                     gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
                     gamePiece.atHomePosition = false;//It leaves its home
                 }
@@ -191,7 +215,7 @@ namespace LudoGame.Classes
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(400);// waits 1 second 
+                    //System.Threading.Thread.Sleep(400);// waits 1 second 
                     gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race);//puts its next tile as tile
                     gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
                    

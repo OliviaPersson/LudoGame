@@ -61,6 +61,7 @@ namespace LudoGame
                 new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false),
                 new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false)
             };
+
             Play();
         }
 
@@ -149,6 +150,7 @@ namespace LudoGame
 
         public static void Update()
         {
+            Turn.CheckTurn();
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
