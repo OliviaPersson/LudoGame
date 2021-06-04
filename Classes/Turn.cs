@@ -10,11 +10,11 @@ namespace LudoGame.Classes
     {
         public static bool activeTurn = false;
         public static int activePplayerIndex = 0;
-        public static Player activePlayer = GameEngine.players[activePplayerIndex];
+        public static Player activePlayer = null;
 
         public static void CheckTurn()
         {
-            if (!activeTurn)
+            if (!activeTurn && GameEngine.players != null)
             {
                 activeTurn = true;
                 activePlayer = GameEngine.players[activePplayerIndex];
@@ -42,7 +42,6 @@ namespace LudoGame.Classes
                 activePplayerIndex++;
             }
             activeTurn = false;
-
         }
 
         public static void StartAIRound()

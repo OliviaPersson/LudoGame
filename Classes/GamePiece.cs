@@ -34,11 +34,19 @@ namespace LudoGame.Classes
             {
                 for (int i = 0; i < diceResult; i++) // Calls the change tile funk or each number on the dice
                 {
-                   ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
+                    //await Task.Delay(400);
+                    ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
+
+                    if (diceResult -1 == i)
+                    {
+                        CheckIfHitGamePiece(gamePiece);
+
+                        gamePiece.isAvailableMove = false;
+                        return true;
+                    }
                 }
-                CheckIfHitGamePiece(gamePiece);
-                gamePiece.isAvailableMove = false;
                 return true;
+                
             } 
             else
             {
@@ -181,6 +189,7 @@ namespace LudoGame.Classes
                 }
             }
         }
+
         private static void ChangeTile(GamePiece gamePiece, int diceResult)
         {
             if (gamePiece.atHomePosition == true)//checks if it tries to leave its home

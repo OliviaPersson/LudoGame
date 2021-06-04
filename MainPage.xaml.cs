@@ -73,8 +73,6 @@ namespace LudoGame
                     {
                         GamePiece.Hover((GamePiece)returned, true, DiceSave); // Calls hover method in GamePiece
                         lastHovered = returned; //Store last hoverd gamepiece
-
-                        //method to check if avaible move
                     }
 
                     if (returned is GamePiece) ClickedObject.Text = "GamePiece";
@@ -103,7 +101,6 @@ namespace LudoGame
 
                         if (pieceWasMoved)
                         {
-                            player.isPlaying = false;
                             DiceSave = 0;
                             DiceRoll.Text = "D";
                             Turn.EndTurn();

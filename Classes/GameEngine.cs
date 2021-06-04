@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace LudoGame
 {
@@ -40,6 +41,8 @@ namespace LudoGame
         private static string _fileloction;
         private static Cards[] _cards;
         private static Wormhole _wormhole;
+
+        public static DispatcherTimer timer;
 
         public static Dictionary<string, CanvasBitmap> Sprites { get => _sprites; set => _sprites = value; }
 
@@ -150,15 +153,18 @@ namespace LudoGame
 
         public static void Update()
         {
-            Turn.CheckTurn();
+            //Turn.CheckTurn();
         }
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
+            sender.TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
+    
             Win2DDrawingHandler.Draw(args, drawables.ToArray());
+            Turn.CheckTurn();
 
             // remove before shipping
-            Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
+            //Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
         }
 
         // Load Asset

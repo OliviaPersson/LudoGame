@@ -146,6 +146,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\background2.jpg" />
     <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
     <Content Include="Assets\Images\blackholehighligteffect.png" />
