@@ -96,9 +96,9 @@ namespace LudoGame.Classes
                     }
                     else
                     {
-                        if (gamePiece.tempTile.GetNextTile(gamePiece.race) != null)
+                        if (gamePiece.tempTile.GetNextTile(gamePiece.race,gamePiece.atHomePosition) != null)
                         {
-                            gamePiece.tempTile = gamePiece.tempTile.GetNextTile(gamePiece.race);
+                            gamePiece.tempTile = gamePiece.tempTile.GetNextTile(gamePiece.race, gamePiece.atHomePosition);
                         }
                         else
                         {
@@ -187,7 +187,7 @@ namespace LudoGame.Classes
             {
                 if (diceResult == 1 || diceResult == 6)// can only leave home at 1 or 6
                 {
-                    gamePiece.tile = gamePiece.tile.nextTile; //puts its next tile as tile    
+                    gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race,gamePiece.atHomePosition); //puts its next tile as tile    
                     //System.Threading.Thread.Sleep(400);// waits 1 second 
                     gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
                     gamePiece.atHomePosition = false;//It leaves its home
@@ -195,7 +195,7 @@ namespace LudoGame.Classes
             }
             else
             {
-                if (gamePiece.tile.GetNextTile(gamePiece.race) == null) // If the next gametile is null it is the black hole
+                if (gamePiece.tile.GetNextTile(gamePiece.race,gamePiece.atHomePosition) == null) // If the next gametile is null it is the black hole
                 {
                     foreach (Player player in GameEngine.players) // Find the player that controlls the gamepiece
                     {
@@ -216,7 +216,7 @@ namespace LudoGame.Classes
                 else
                 {
                     //System.Threading.Thread.Sleep(400);// waits 1 second 
-                    gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race);//puts its next tile as tile
+                    gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race,gamePiece.atHomePosition);//puts its next tile as tile
                     gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
                    
                 }

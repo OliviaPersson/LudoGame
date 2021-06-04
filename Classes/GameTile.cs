@@ -52,11 +52,18 @@ namespace LudoGame.Classes
             this.previousTile = previousTile;
         }
 
-        public GameTile GetNextTile(GameRace gameRace)
+        public GameTile GetNextTile(GameRace gameRace, bool atHome)
         {
-            if (gameRace == raceHome)
+            if (atHome == false)
             {
-                return nextHomeTile;
+                if (gameRace == raceHome)
+                {
+                    return nextHomeTile;
+                }
+                else
+                {
+                    return nextTile;
+                }
             }
             else
             {
