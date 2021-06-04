@@ -55,7 +55,7 @@ namespace LudoGame.Classes
         public GameTile GetNextTile(GameRace gameRace)
         {
             
-                if (gameRace == raceHome || nextHomeTile != null)
+                if (gameRace == raceHome && nextHomeTile != null)
                 {
                     return nextHomeTile;
                 }
