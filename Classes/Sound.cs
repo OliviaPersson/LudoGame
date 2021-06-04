@@ -1,10 +1,17 @@
-﻿namespace LudoGame.Classes
+﻿using Windows.Media.Core;
+using Windows.Media.Playback;
+
+namespace LudoGame.Classes
 {
     public partial class Sound
     {
+        public MediaPlayer player;
+
+
         public static async void PlayBGMSound()
+        
         {
-            //MediaPlayer player;
+            
             //bool playing;
             //player = new MediaPlayer();
             //playing = false;

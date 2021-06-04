@@ -13,7 +13,7 @@ namespace LudoGame.Classes
         public bool isPlaying = false;
         public int finishedPieces = 0; //Count finished gamepieces
 
-        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite, bool isHumanPlayer)
+        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, bool isHumanPlayer)
         {
             this.race = race;
             this.isHumanPlayer = isHumanPlayer;
@@ -22,7 +22,7 @@ namespace LudoGame.Classes
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
                 {
                     HomeTile = gameTiles[i];
-                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile, highlightSprite);
+                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile);
                     break;
                 }
             }

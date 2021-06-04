@@ -20,7 +20,7 @@ namespace LudoGame
         public static float GameWidth = 1000;
         public static float GameHeight = 1000;
         public static float scaleWidth, scaleHeight;
-        private MediaPlayer player;
+        public MediaPlayer player;
         private bool playing;
         private GameState saveCurrentState;
         private int DiceSave;

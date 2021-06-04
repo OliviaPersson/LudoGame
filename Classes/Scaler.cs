@@ -3,7 +3,7 @@ using Microsoft.Graphics.Canvas.Effects;
 using System;
 using System.Numerics;
 
-namespace LudoGame
+namespace LudoGame.Classes
 {
     public class Scaler
     {

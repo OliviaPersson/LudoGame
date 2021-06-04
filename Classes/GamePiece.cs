@@ -18,6 +18,8 @@ namespace LudoGame.Classes
         public bool IsOccupied = false;
         public Vector2 homePosition;
         public Drawable drawable;
+        public Drawable highlight;
+        public bool isHover = false;
 
         public GamePiece(GameRace gameRace, Vector2 offset, GameTile tile, Drawable drawable)
         {
@@ -155,19 +157,19 @@ namespace LudoGame.Classes
             }
         }
      
-        public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile gameTile, CanvasBitmap highlightSprite)
+        public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile gameTile)
         {
             GamePiece[] gamePieces = {
-            CreateGamePiece(race, sprite, new Vector2(offset,offset), gameTile, highlightSprite),
-            CreateGamePiece(race, sprite, new Vector2(-offset, -offset), gameTile, highlightSprite),
-            CreateGamePiece(race, sprite, new Vector2(offset, -offset), gameTile, highlightSprite),
-            CreateGamePiece(race, sprite, new Vector2(-offset, offset), gameTile, highlightSprite) };
+            CreateGamePiece(race, sprite, new Vector2(offset,offset), gameTile),
+            CreateGamePiece(race, sprite, new Vector2(-offset, -offset), gameTile),
+            CreateGamePiece(race, sprite, new Vector2(offset, -offset), gameTile),
+            CreateGamePiece(race, sprite, new Vector2(-offset, offset), gameTile) };
             return gamePieces;
         }
 
-        private static GamePiece CreateGamePiece(GameRace race, CanvasBitmap sprite, Vector2 offsetPosition, GameTile gameTile, CanvasBitmap highlightSprite)
+        private static GamePiece CreateGamePiece(GameRace race, CanvasBitmap sprite, Vector2 offsetPosition, GameTile gameTile)
         {
-            Drawable draw = new Drawable(sprite, gameTile.Position + offsetPosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), highlightSprite);
+            Drawable draw = new Drawable(sprite, gameTile.Position + offsetPosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
             GameEngine.drawables.Add(draw);
             return new GamePiece(race, offsetPosition, gameTile, draw);
         }
@@ -196,7 +198,7 @@ namespace LudoGame.Classes
             {
                 if (diceResult == 1 || diceResult == 6)// can only leave home at 1 or 6
                 {
-                    gamePiece.tile = gamePiece.tile.nextTile; //puts its next tile as tile    
+                    gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race); //puts its next tile as tile    
                     //System.Threading.Thread.Sleep(400);// waits 1 second 
                     gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
                     gamePiece.atHomePosition = false;//It leaves its home
@@ -222,7 +224,7 @@ namespace LudoGame.Classes
                         }
                     }
                 }
-                else
+                elseit 
                 {
                     //System.Threading.Thread.Sleep(400);// waits 1 second 
                     gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race);//puts its next tile as tile

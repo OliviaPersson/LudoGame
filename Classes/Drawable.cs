@@ -4,12 +4,11 @@ using System;
 using System.Numerics;
 using Windows.Foundation;
 
-namespace LudoGame
+namespace LudoGame.Classes
 {
     public class Drawable
     {
         public CanvasBitmap Bitmap { get; set; }
-        public CanvasBitmap HighlightBitmap { get; set; } // HoverEffect
         public bool isHover = false;
         public bool isHidden = false;
 
@@ -67,13 +66,12 @@ namespace LudoGame
         /// <param name="position">The position based on (0,0) being center of window</param>
         /// <param name="imageSize">The image size multiplier</param>
         /// <param name="Scaling">The scaling methood to use when drawing this object</param>
-        public Drawable(CanvasBitmap bitmap, Vector2 position, float imageSize, Scale Scaling, CanvasBitmap highlightBitmap = null)
+        public Drawable(CanvasBitmap bitmap, Vector2 position, float imageSize, Scale Scaling)
         {
             this.Bitmap = bitmap;
             this.ImageSize = imageSize;
             this.Scaling = Scaling;
             this.Position = position;
-            this.HighlightBitmap = highlightBitmap;
         }
 
         /// <summary>

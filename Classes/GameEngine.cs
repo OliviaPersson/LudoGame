@@ -7,7 +7,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace LudoGame
+namespace LudoGame.Classes
 {
     public enum GameRace
     {
@@ -59,10 +59,10 @@ namespace LudoGame
             _gameTiles = GameTile.CreateGameTiles(Sprites);
             //Changed so that all players is in the same player array
             players = new Player[] {
-                new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], true),
-                new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false),
-                new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false),
-                new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles, _sprites["hoverEffect"], false)
+                new Player((GameRace)1, _sprites["redGamePiece"], 50, _gameTiles, true),
+                new Player((GameRace)2, _sprites["greenGamePiece"], 50, _gameTiles, false),
+                new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles, false),
+                new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles, false)
             };
 
             Play();
@@ -177,7 +177,7 @@ namespace LudoGame
             await LoadSpriteFolder(sender, "Pieces");
 
             drawables.Add(new Drawable(Sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
-            drawables.Add(new Drawable(Sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), _sprites["blackholehighlighteffect"]));
+            drawables.Add(new Drawable(Sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale))); // , _sprites["blackholehighlighteffect"]
         }
 
         private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)
