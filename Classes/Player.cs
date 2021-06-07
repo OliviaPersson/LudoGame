@@ -9,14 +9,12 @@ namespace LudoGame.Classes
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
-        public bool isHumanPlayer = false;
-        public bool isPlaying = false;
+        public bool turnDone = false;
         public int finishedPieces = 0; //Count finished gamepieces
 
-        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, bool isHumanPlayer)
+        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles)
         {
             this.race = race;
-            this.isHumanPlayer = isHumanPlayer;
             for (int i = 0; i < gameTiles.Count(); i++)
             {
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
@@ -30,7 +28,7 @@ namespace LudoGame.Classes
 
         public void RollDice()
         {
-            int result = Dice.randomNum();
+            int result = Dice.RollDice();
         }
 
         public void MouseClick(Point mousePosition)
@@ -38,6 +36,18 @@ namespace LudoGame.Classes
             //mousePosition
         }
 
+        public void MovePiece(GamePiece piece)
+        {
+            if (piece.CheckAvailableMoves(Dice.DiceSave, this))
+            {
+                piece.moveToTile = piece.tempTile;
+                if (Dice.DiceSave != 6)
+                {
+                    turnDone = true;
+                }
+                Dice.DiceSave = 0;
+            }
 
+        }
     }
 }

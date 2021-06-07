@@ -5,34 +5,22 @@ namespace LudoGame.Classes
 {
     public partial class Sound
     {
-        public MediaPlayer player;
-
+        public static MediaPlayer backgroundMusic;
+        private static bool playing = false;
 
         public static async void PlayBGMSound()
-        
         {
-            
-            //bool playing;
-            //player = new MediaPlayer();
-            //playing = false;
-            ////https://pixabay.com/music/search/genre/ambient/
-            //Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
-            //Windows.Storage.StorageFile file = await folder.GetFileAsync("pixabay-1-min-piano_arp-4222.mp3");
-
-            //player.AutoPlay = false;
-            //player.Source = MediaSource.CreateFromStorageFile(file);
-            //player.Play();
-
-            //if (playing)
-            //{
-            //    player.Source = null;
-            //    playing = false;
-            //}
-            //else
-            //{
-            //    playing = true;
-            //    player.Play();
-            //}
+            //https://pixabay.com/music/search/genre/ambient/
+            if (playing)
+            {
+                backgroundMusic.Pause();
+                playing = false;
+            }
+            else
+            {
+                playing = true;
+                backgroundMusic.Play();
+            }
         }
     }
 }

@@ -9,25 +9,31 @@ namespace LudoGame.Classes
 {
     public class GamePiece
     {
+        public Vector2 Position { get { return drawable.Position; } set { drawable.Position = value; } }
+
         public GameTile tile;
+        public GameTile currentTile;
         public GameTile tempTile;
+        public GameTile moveToTile;
+        public GameTile baseTile;
+
         public GameRace race;
         public bool shield;
+        public bool moving;
         public bool atHomePosition = true;
         public bool isAvailableMove = false;
         public bool IsOccupied = false;
+        public bool isHover = false;
         public Vector2 homePosition;
         public Drawable drawable;
-        public Drawable highlight;
-        public bool isHover = false;
 
         public GamePiece(GameRace gameRace, Vector2 offset, GameTile tile, Drawable drawable)
         {
             this.race = gameRace;
             this.tile = tile;
+            baseTile = tile;
             this.drawable = drawable;
             this.homePosition = tile.Position + offset;
-            this.tempTile = tile;
         }
 
         public static bool MoveToGameTile(int diceResult, GamePiece gamePiece)
@@ -39,7 +45,7 @@ namespace LudoGame.Classes
                     //await Task.Delay(400);
                     ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
 
-                    if (diceResult -1 == i)
+                    if (diceResult - 1 == i)
                     {
                         CheckIfHitGamePiece(gamePiece);
 
@@ -48,8 +54,8 @@ namespace LudoGame.Classes
                     }
                 }
                 return true;
-                
-            } 
+
+            }
             else
             {
                 return false;
@@ -59,104 +65,98 @@ namespace LudoGame.Classes
         /// <summary>
         /// Initial method to check if player can move or not
         /// </summary>
-        public static void CheckAvailableMoves(int diceResult, GamePiece gamePiece, Player player)
+        public bool CheckAvailableMoves(int diceResult, Player player)
         {
-            gamePiece.tempTile = gamePiece.tile;
-            if (gamePiece.atHomePosition)
+            bool canMove = false;
+            if (tile == baseTile)
             {
-                if (diceResult == 1 || diceResult == 6) 
+                if (diceResult == 1 || diceResult == 6)
                 {
-                    CheckPossibleTile(diceResult, gamePiece, player);
+                    canMove = FindAvailableMove(diceResult, player);
                 }
             }
             else
             {
-                CheckPossibleTile(diceResult, gamePiece, player);
+                canMove = FindAvailableMove(diceResult, player);
             }
+
+            return canMove;
         }
 
         /// <summary>
         /// Checks if player can move or not
         /// </summary>
-        private static void CheckPossibleTile(int diceResult, GamePiece gamePiece, Player player)
+        private bool FindAvailableMove(int diceResult, Player player)
         {
-
-            //Drawable blackHole = GameEngine.drawables[1];
-            //blackHole.isHover = true;
+            tempTile = tile;
             for (int i = 0; i < diceResult; i++)
             {
-                for (int j = 0; j < player.GamePieces.Length; j++) // Loop trough players gamepieces
+                foreach (GamePiece otherPiece in player.GamePieces) // Loop trough players gamepieces
                 {
-                    GamePiece tempGamePiece = player.GamePieces[j]; //Store current gamepiece 
-                    if (gamePiece.tempTile.nextTile != tempGamePiece.tile) //Check that the next tile is not occupide by red gamepiece
+                    if (otherPiece == this)
                     {
-                        gamePiece.isAvailableMove = true;
-                    } 
+                        continue;
+                    }
+
+                    if (tempTile.GetNextTile(race) == otherPiece.tile) //Check that the next tile is not occupide by  gamepiece
+                    {
+                        return false;
+                    }
                     else
                     {
-                        gamePiece.isAvailableMove = false;
-                        break;
+                        isAvailableMove = true;
                     }
                 }
-                if (gamePiece.isAvailableMove)
+
+                if (isAvailableMove)
                 {
-                    if (gamePiece.atHomePosition)
+                    if (tempTile.GetNextTile(race) != null)
                     {
-                        gamePiece.tempTile = gamePiece.tempTile.nextTile; // If true check next tile until all steps are checked or a red piece is in the way
+                        tempTile = tempTile.GetNextTile(race);
                     }
                     else
                     {
-                        if (gamePiece.tempTile.GetNextTile(gamePiece.race) != null)
+                        if (player == GameEngine.player)
                         {
-                            gamePiece.tempTile = gamePiece.tempTile.GetNextTile(gamePiece.race);
-                        }
-                        else
-                        {
-                            if (player.isHumanPlayer)
-                            {
-                                GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
-                            }
+                            GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
                         }
                     }
+
                 }
             }
 
-            if (gamePiece.isAvailableMove && GameEngine.drawables[1].isHover == false)
+            if (isAvailableMove && GameEngine.drawables[1].isHover == false)
             {
-                if (player.isHumanPlayer)
+                if (player == GameEngine.player)
                 {
-                    gamePiece.tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
+                    tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
                 }
             }
+
+            return true;
         }
 
         /// <summary>
-        /// Checks if gamePiece is red and change isHoover in drawable class
+        /// Checks if gamePiece is player piece and change isHoover in drawable class
         /// </summary>
-        public static void Hover(GamePiece gamePiece, bool isHover, int diceSave)
+        public void Hover(bool isHover, int diceSave)
         {
-            if (gamePiece.race == GameRace.Red) //Only want hover on red player pieces, not future AI
+            if (race == GameEngine.player.race) //Only want hover on player pieces, AI
             {
-                gamePiece.drawable.isHover = isHover; // Set and reset highlight effect on gamepieces
+                drawable.isHover = isHover; // Set and reset highlight effect on gamepieces
+
                 if (isHover && diceSave > 0) //Check only where a gamepiece can move when hoverd and dice is more than zero
                 {
-                    //Find the player that i human controlled
-                    foreach(Player player in GameEngine.players)
-                    {
-                        if (player.isHumanPlayer)
-                        {
-                            CheckAvailableMoves(diceSave, gamePiece, player); // Start check
-                        }
-                    }
+                    CheckAvailableMoves(diceSave, GameEngine.player); // Start chec
                 }
-                else
+                else if (tempTile != null)
                 {
-                    gamePiece.tempTile.drawable.isHover = false; // Reset highlight effect
+                    tempTile.drawable.isHover = false; // Reset highlight effect
                     GameEngine.drawables[1].isHover = false; //Reset highlight effect for blackhole
                 }
             }
         }
-     
+
         public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile gameTile)
         {
             GamePiece[] gamePieces = {
@@ -179,15 +179,13 @@ namespace LudoGame.Classes
         /// </summary>
         public static void CheckIfHitGamePiece(GamePiece gamePiece)
         {
-            foreach (Player player in GameEngine.players)
+            foreach (GamePiece otherGamePiece in GameEngine.gamePieces)
             {
-                foreach (GamePiece playerGamepiece in player.GamePieces)
+                if (otherGamePiece.tile == gamePiece.tile && otherGamePiece.race != gamePiece.race)
                 {
-                    if (playerGamepiece.tile == gamePiece.tile && playerGamepiece.race != gamePiece.race)
-                    {
-                        playerGamepiece.drawable.Position = playerGamepiece.homePosition;
-                        playerGamepiece.atHomePosition = true;
-                    }
+                    otherGamePiece.drawable.Position = otherGamePiece.homePosition;
+                   // otherGamePiece.Position = otherGamePiece.;//Prob wont work
+                    otherGamePiece.atHomePosition = true;
                 }
             }
         }
@@ -224,12 +222,12 @@ namespace LudoGame.Classes
                         }
                     }
                 }
-                elseit 
+                else
                 {
                     //System.Threading.Thread.Sleep(400);// waits 1 second 
                     gamePiece.tile = gamePiece.tile.GetNextTile(gamePiece.race);//puts its next tile as tile
                     gamePiece.drawable.Position = gamePiece.tile.Position; // changes its possition
-                   
+
                 }
             }
         }

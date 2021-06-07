@@ -66,7 +66,7 @@ namespace LudoGame.Classes
             }
         }
 
-        /// <summary>
+        /// <summary> <c>CreateGameTiles</c>
         /// Calculate positions and draw tiles
         /// </summary>
         public static GameTile[] CreateGameTiles(Dictionary<string, CanvasBitmap> sprites)
@@ -96,6 +96,7 @@ namespace LudoGame.Classes
                         homeTiles = CreateHomeTiles(distance, tileSize, angle, i, tilePosition, angleOffset, sprites["redTile"], (GameRace)1, previousTile);
                         gameTiles.AddRange(homeTiles);
                         previousTile = homeTiles[0];
+                     
                         break;
 
                     case greenHome:
@@ -137,6 +138,7 @@ namespace LudoGame.Classes
         {
             GameTile baseTile = CreateTile(sprite, baseLocation, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), race, null);
             baseTile.nextTile = gameTiles[homeTileIndex + 5];
+            
             gameTiles.Add(baseTile);
         }
 

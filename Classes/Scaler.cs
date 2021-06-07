@@ -10,8 +10,8 @@ namespace LudoGame.Classes
         public static void SetScale()
         {
             //Gather display information
-            MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.GameWidth;
-            MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.GameHeight;
+            MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.gameWidth;
+            MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.gameHeight;
         }
 
         /// <summary>
