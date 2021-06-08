@@ -36,31 +36,31 @@ namespace LudoGame.Classes
             this.homePosition = tile.Position + offset;
         }
 
-        public static bool MoveToGameTile(int diceResult, GamePiece gamePiece)
-        {
-            if (gamePiece.isAvailableMove)
-            {
-                for (int i = 0; i < diceResult; i++) // Calls the change tile funk or each number on the dice
-                {
-                    //await Task.Delay(400);
-                    ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
+        //public static bool MoveToGameTile(int diceResult, GamePiece gamePiece)
+        //{
+        //    if (gamePiece.isAvailableMove)
+        //    {
+        //        for (int i = 0; i < diceResult; i++) // Calls the change tile funk or each number on the dice
+        //        {
+        //            //await Task.Delay(400);
+        //            ChangeTile(gamePiece, diceResult);// Changes tile the amount of times the loop goes.
 
-                    if (diceResult - 1 == i)
-                    {
-                        CheckIfHitGamePiece(gamePiece);
+        //            if (diceResult - 1 == i)
+        //            {
+        //                CheckIfHitGamePiece(gamePiece);
 
-                        gamePiece.isAvailableMove = false;
-                        return true;
-                    }
-                }
-                return true;
+        //                gamePiece.isAvailableMove = false;
+        //                return true;
+        //            }
+        //        }
+        //        return true;
 
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
 
         /// <summary>
         /// Initial method to check if player can move or not
