@@ -9,76 +9,48 @@ namespace LudoGame.Classes
     public static class Turn
     {
         public static bool activeTurn = false;
-        public static int activePplayerIndex = 0;
-        public static Player activePlayer = GameEngine.players[activePplayerIndex];
+        public static GameRace activePlayer = (GameRace)1;
+
 
         public static void CheckTurn()
         {
-            if (!activeTurn)
+            if (!activeTurn && GameEngine.players != null)
             {
                 activeTurn = true;
-                activePlayer = GameEngine.players[activePplayerIndex];
-                if(activePlayer.isHumanPlayer)
+                Player currentPlayer = GameEngine.players[(int)activePlayer - 1];
+                if (currentPlayer == GameEngine.player)
                 {
-                    activePlayer.isPlaying = true;
-
+                    currentPlayer.turnDone = false;
                 }
                 else
                 {
-                    StartAIRound();
+                    AIPlay(currentPlayer);
                 }
             }
         }
 
         public static void EndTurn()
         {
-            activePlayer.isPlaying = false;
-            if(activePplayerIndex == 3)
+            if (activePlayer == (GameRace)4)
             {
-                activePplayerIndex = 0;
+                activePlayer = (GameRace)1;
             }
             else
             {
-                activePplayerIndex++;
+                activePlayer++;
             }
-            activeTurn = false;
-
+            GameEngine.players[(int)activePlayer - 1].turnDone = false;
         }
 
-        public static void StartAIRound()
+        public static void AIPlay(Player currentPlayer)
         {
-            activePlayer = GameEngine.players[activePplayerIndex];
-            activePlayer.isPlaying = true;
-            GamePiece[] gamePieces = activePlayer.GamePieces;
-
-            int number = Dice.randomNum();
-            AIRound(gamePieces, number);
-           
-
-        }
-
-        private static void AIRound(GamePiece[] gamePieces, int number)
-        {
-            Random num = new Random();
-            int selectedGamepiece = num.Next(0, gamePieces.Length);
-
-            GamePiece.CheckAvailableMoves(number, gamePieces[selectedGamepiece], activePlayer);
-            bool pieceWasMoved = GamePiece.MoveToGameTile(number, gamePieces[selectedGamepiece]);
-
-            if (pieceWasMoved)
+            foreach (AIPlayer AI in GameEngine.aIPlayers)
             {
-                EndTurn();
-            }
-            else
-            {
-                if (gamePieces.Length == 1)
+                if (AI.Player == currentPlayer)
                 {
-                    EndTurn();
-                }
-                else
-                {
-                    gamePieces = gamePieces.Where(w => w != gamePieces[selectedGamepiece]).ToArray();
-                    AIRound(gamePieces, number);
+                    AI.Player.turnDone = false;
+                    AI.Play();
+                    AI.Player.turnDone = true;
                 }
             }
         }

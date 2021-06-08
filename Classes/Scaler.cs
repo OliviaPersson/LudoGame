@@ -3,15 +3,15 @@ using Microsoft.Graphics.Canvas.Effects;
 using System;
 using System.Numerics;
 
-namespace LudoGame
+namespace LudoGame.Classes
 {
     public class Scaler
     {
         public static void SetScale()
         {
             //Gather display information
-            MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.GameWidth;
-            MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.GameHeight;
+            MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.gameWidth;
+            MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.gameHeight;
         }
 
         /// <summary>
