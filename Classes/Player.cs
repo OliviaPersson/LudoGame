@@ -31,10 +31,10 @@ namespace LudoGame.Classes
             int result = Dice.RollDice();
         }
 
-        public void MouseClick(Point mousePosition)
-        {
-            //mousePosition
-        }
+        //public void MouseClick(Point mousePosition)
+        //{
+        //    //mousePosition
+        //}
 
         public void MovePiece(GamePiece piece)
         {
