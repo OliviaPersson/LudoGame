@@ -62,6 +62,38 @@ namespace LudoGame.Classes
             }
         }
 
+        public static bool TryMovingPiece(float tileSpeed)
+        {
+            bool aPieceIsMoving = false;
+            foreach (GamePiece piece in GameEngine.gamePieces)
+            {
+                if (piece.tile != piece.moveToTile && piece.moveToTile != null)
+                {
+                    aPieceIsMoving = true;
+                    GameTile nextTile = piece.tile.GetNextTile(piece.race);
+                    // if the piece is closer than the threshold snapp to the tile
+                    if (Vector2Math.Magnitude(nextTile.Position - piece.Position) < 5)
+                    {
+                        piece.Position = nextTile.Position;
+                        piece.tile = nextTile;
+                        
+                        if (piece.tile == piece.moveToTile)
+                        {
+                            CheckIfHitGamePiece(piece);
+                        }
+                        
+                    }
+                    else
+                    {
+                        piece.Position += Vector2Math.Normalized(nextTile.Position - piece.Position) * tileSpeed * (float)GameEngine.GameCanvas.TargetElapsedTime.TotalSeconds;
+                    }
+                    break;
+                }
+            }
+
+            return aPieceIsMoving;
+        }
+
         /// <summary>
         /// Initial method to check if player can move or not
         /// </summary>
@@ -127,7 +159,7 @@ namespace LudoGame.Classes
 
             if (isAvailableMove && GameEngine.drawables[1].isHover == false)
             {
-                if (player == GameEngine.player)
+                if (player == GameEngine.player && Dice.DiceSave > 0)
                 {
                     tempTile.drawable.isHover = true; // If the piece is able to move highlight the tile the gamepiece can move to
                 }
@@ -183,7 +215,9 @@ namespace LudoGame.Classes
             {
                 if (otherGamePiece.tile == gamePiece.tile && otherGamePiece.race != gamePiece.race)
                 {
-                    otherGamePiece.drawable.Position = otherGamePiece.homePosition;
+                    otherGamePiece.tile = otherGamePiece.baseTile;
+                    otherGamePiece.moveToTile = otherGamePiece.tile;
+                    otherGamePiece.Position = otherGamePiece.homePosition;
                    // otherGamePiece.Position = otherGamePiece.;//Prob wont work
                     otherGamePiece.atHomePosition = true;
                 }

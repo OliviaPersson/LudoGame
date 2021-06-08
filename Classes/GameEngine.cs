@@ -34,6 +34,9 @@ namespace LudoGame.Classes
         public static AIPlayer[] aIPlayers = new AIPlayer[3];
         public static Player[] players;
         public static GamePiece[] gamePieces = new GamePiece[16];
+        public static bool aPieceIsMoving;
+        public static CanvasAnimatedControl GameCanvas { get { return _gameCanvas; } }
+        public static GameTile[] GameTiles { get { return _gameTiles; } }
         //public static Player[] players;
 
         private static Dictionary<string, MediaPlayer> _sounds;
@@ -137,7 +140,7 @@ namespace LudoGame.Classes
         ///<permission> Public </permission>
         ///<paramref name="mousePosition"> a Vector2 that has the cordinates for were the mouse is when clicked </paramref>
         ///<summary>
-        public static object ClickHitDetection(Vector2 mousePosition)
+        public static object HitDetection(Vector2 mousePosition)
         {
             if (player != null)
             {
@@ -179,40 +182,19 @@ namespace LudoGame.Classes
             float tileSpeed = 300;
             if (currentGameState != GameState.InMenu)
             {
-                bool aPieceIsMoving = false;
+                aPieceIsMoving = false;
 
                 if (gamePieces[15] != null)
                 {
-                    foreach (GamePiece piece in gamePieces)
-                    {
-                        if (piece.tile != piece.moveToTile && piece.moveToTile != null)
-                        {
-                            if (Vector2Math.Magnitude(piece.tile.GetNextTile(piece.race).Position - piece.Position) < 5)
-                            {
-                                piece.Position = piece.tile.GetNextTile(piece.race).Position;
-                                if (piece.tile != piece.moveToTile)
-                                {
-                                    piece.tile = piece.tile.GetNextTile(piece.race);
-                                }
-                            }
-                            else
-                            {
-                                piece.Position += Vector2Math.Normalized(piece.tile.GetNextTile(piece.race).Position - piece.Position) * tileSpeed * (float)_gameCanvas.TargetElapsedTime.TotalSeconds;
-                                aPieceIsMoving = true;
-                            }
-                            break;
-                        }
-                    }
+                    aPieceIsMoving = GamePiece.TryMovingPiece(tileSpeed);
 
                     if (!aPieceIsMoving)
                     {
-
                         Turn.CheckTurn();
                     }
                 }
             }
         }
-
 
 
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
@@ -222,7 +204,7 @@ namespace LudoGame.Classes
             Win2DDrawingHandler.Draw(args, drawables.ToArray());
 
             // remove before shipping
-            //Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
+            Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
         }
 
         ///<summary> method <c> CreateResources </c>
@@ -238,7 +220,6 @@ namespace LudoGame.Classes
             await LoadSpriteFolder(sender, "Pieces");
 
             drawables.Add(new Drawable(Sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
-            drawables.Add(new Drawable(Sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale))); // , _sprites["blackholehighlighteffect"]
 
             _sounds = await FileHandeler.LoadSounds("Sounds");
 

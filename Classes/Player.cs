@@ -9,7 +9,7 @@ namespace LudoGame.Classes
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
-        public bool turnDone = false;
+        public bool turnDone { get; set; }
         public int finishedPieces = 0; //Count finished gamepieces
 
         public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles)
@@ -38,16 +38,37 @@ namespace LudoGame.Classes
 
         public void MovePiece(GamePiece piece)
         {
-            if (piece.CheckAvailableMoves(Dice.DiceSave, this))
+            int dice = Dice.DiceSave;
+            if (dice != 0)
             {
-                piece.moveToTile = piece.tempTile;
-                if (Dice.DiceSave != 6)
+                if (piece.CheckAvailableMoves(dice, this))
                 {
-                    turnDone = true;
+                    piece.moveToTile = piece.tempTile;
+                    if (dice != 6)
+                    {
+                        turnDone = true;
+                    }
+                    Dice.UseDice();
                 }
-                Dice.DiceSave = 0;
-            }
+                else
+                {
+                    bool otherPieceCanMove = false;
+                    foreach (GamePiece gamePiece in this.GamePieces)
+                    {
+                        if (gamePiece.CheckAvailableMoves(dice, this))
+                        {
+                            otherPieceCanMove = true;
+                        }
+                    }
 
+                    if (!otherPieceCanMove)
+                    {
+                        turnDone = true;
+                        Dice.UseDice();
+                    }
+
+                }
+            }
         }
     }
 }

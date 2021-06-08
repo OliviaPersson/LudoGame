@@ -8,19 +8,18 @@ namespace LudoGame.Classes
 {
     public static class Turn
     {
-        public static bool activeTurn = false;
         public static GameRace activePlayer = (GameRace)1;
 
 
         public static void CheckTurn()
         {
-            if (!activeTurn && GameEngine.players != null)
+            if (GameEngine.players != null)
             {
-                activeTurn = true;
                 Player currentPlayer = GameEngine.players[(int)activePlayer - 1];
-                if (currentPlayer == GameEngine.player)
+                if (currentPlayer.turnDone == true)
                 {
                     currentPlayer.turnDone = false;
+                    EndTurn();
                 }
                 else
                 {
@@ -40,6 +39,22 @@ namespace LudoGame.Classes
                 activePlayer++;
             }
             GameEngine.players[(int)activePlayer - 1].turnDone = false;
+            
+
+            if (GameEngine.players[(int)activePlayer - 1] == GameEngine.player)
+            {
+                GameEngine.currentGameState = GameState.PlayerPlaying;
+            }else
+            {
+                GameEngine.currentGameState = GameState.AIPlaying;
+            }
+
+            foreach (GameTile tile in GameEngine.GameTiles)
+            {
+                tile.drawable.isHover = false;
+            }
+
+            GameEngine.players[(int)activePlayer - 1].GamePieces[0].baseTile.drawable.isHover = true;
         }
 
         public static void AIPlay(Player currentPlayer)

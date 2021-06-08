@@ -15,7 +15,7 @@ namespace LudoGame.Classes
             string objectDescription = "null";
             if (GameEngine.currentGameState == GameState.PlayerPlaying)
             {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(uIElement).Position.X, (float)e.GetCurrentPoint(uIElement).Position.Y));
+                object returned = GameEngine.HitDetection(new Vector2((float)e.GetCurrentPoint(uIElement).Position.X, (float)e.GetCurrentPoint(uIElement).Position.Y));
 
                 if (returned != _lastHovered && _lastHovered is GamePiece) //Check if hoverd object is not the last hoverd object
                 {
@@ -39,14 +39,17 @@ namespace LudoGame.Classes
         public static string MouseClicked(PointerRoutedEventArgs e, UIElement uIElement)
         {
             string objectDescription = "null";
-            if (GameEngine.currentGameState == GameState.PlayerPlaying)
+            if (GameEngine.currentGameState == GameState.PlayerPlaying && Dice.DiceSave > 0)
             {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(uIElement).Position.X, (float)e.GetCurrentPoint(uIElement).Position.Y));
+                object returned = GameEngine.HitDetection(new Vector2((float)e.GetCurrentPoint(uIElement).Position.X, (float)e.GetCurrentPoint(uIElement).Position.Y));
 
                 if (returned is GamePiece)
                 {
                     GameEngine.player.MovePiece((GamePiece)returned);
-                    Turn.EndTurn();
+                    if (GameEngine.player.turnDone)
+                    {
+                        Turn.EndTurn();
+                    }
                 }
 
                 if (returned is GamePiece) objectDescription = "GamePiece";
