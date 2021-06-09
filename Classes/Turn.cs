@@ -18,12 +18,7 @@ namespace LudoGame.Classes
             if (GameEngine.players != null)
             {
                 Player currentPlayer = GameEngine.players[(int)activePlayer - 1];
-                if (currentPlayer.turnDone == true)
-                {
-                    currentPlayer.turnDone = false;
-                    EndTurn();
-                }
-                else
+                if (currentPlayer != GameEngine.player)
                 {
                     AIPlay(currentPlayer);
                 }
@@ -43,13 +38,13 @@ namespace LudoGame.Classes
             {
                 activePlayer++;
             }
-            GameEngine.players[(int)activePlayer - 1].turnDone = false;
-            
+
 
             if (GameEngine.players[(int)activePlayer - 1] == GameEngine.player)
             {
                 GameEngine.currentGameState = GameState.PlayerPlaying;
-            }else
+            }
+            else
             {
                 GameEngine.currentGameState = GameState.AIPlaying;
             }
@@ -72,9 +67,7 @@ namespace LudoGame.Classes
             {
                 if (AI.Player == currentPlayer)
                 {
-                    AI.Player.turnDone = false;
                     AI.Play(); // make so it only sets turnDone true if it is truly done
-                    AI.Player.turnDone = true;
                 }
             }
         }

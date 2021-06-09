@@ -26,10 +26,9 @@ namespace LudoGame.Classes
             // It also doens't play again if it rolled a 6
             foreach (GamePiece piece in Player.GamePieces) 
             {
-                if (piece.CheckAvailableMoves(roll, Player))
+                if (Player.MovePiece(piece))
                 {
-                    Player.MovePiece(piece);
-                    break;
+                    break; // break out of loop because a piece was able to move
                 }
             }
 

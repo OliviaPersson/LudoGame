@@ -203,13 +203,9 @@ namespace LudoGame.Classes
             float tileSpeed = 300;
             if (currentGameState != GameState.InMenu)
             {
-                aPieceIsMoving = false;
-
                 if (gamePieces[15] != null)
                 {
-                    aPieceIsMoving = GamePiece.TryMovingPiece(tileSpeed);
-
-                    if (!aPieceIsMoving)
+                    if (!GamePiece.TryMovingPiece(tileSpeed))
                     {
                         Turn.CheckTurn();
                     }
