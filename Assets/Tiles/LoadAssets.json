@@ -2,19 +2,19 @@
   "FileType": "CanvasBitmap",
   "Files": [
     {
-      "FileName": "BlueBase.png",
+      "FileName": "terrestrial.png",
       "NameID": "blueBase"
     },
     {
-      "FileName": "GreenBase.png",
+      "FileName": "Sideways gas giant.png",
       "NameID": "greenBase"
     },
     {
-      "FileName": "RedBase.png",
+      "FileName": "low atmosphere.png",
       "NameID": "redBase"
     },
     {
-      "FileName": "YellowBase.png",
+      "FileName": "gas giant.png",
       "NameID": "yellowBase"
     },
     {

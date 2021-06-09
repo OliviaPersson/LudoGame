@@ -3,28 +3,38 @@ using Microsoft.Graphics.Canvas.Brushes;
 using Microsoft.Graphics.Canvas.UI.Xaml;
 using System.Numerics;
 using Windows.UI;
+using Microsoft.Graphics.Canvas.Effects;
 
-namespace LudoGame
+namespace LudoGame.Classes
 {
     public static class Win2DDrawingHandler
     {
+        /// <summary>
+        /// Draws all of the drawables in order
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="drawables">The drawables that is to be drawn</param>
         public static void Draw(CanvasAnimatedDrawEventArgs args, Drawable[] drawables)
         {
             foreach (Drawable currentItem in drawables)
             {
+                if (currentItem.isHover)
+                {
+                    var highligt = new ShadowEffect() { ShadowColor = Color.FromArgb(255, 255, 255, 255), Source = currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), BlurAmount = 10 };
+                    args.DrawingSession.DrawImage(highligt, currentItem.ActualPosition); //Draw highlighteffect if the drawable object is hoverd
+                }
+
                 //Check to hide gamepiece when finished
                 if (!currentItem.isHidden)
                 {
                     args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.Bitmap, currentItem.ImageSize), currentItem.ActualPosition);
                 }
-
-                if (currentItem.isHover)
-                {
-                    args.DrawingSession.DrawImage(currentItem.Scaling(currentItem.HighlightBitmap, currentItem.ImageSize), new Vector2((float)currentItem.ActualPosition.X - 15, (float)currentItem.ActualPosition.Y - 15)); //Draw highlighteffect if the drawable object is hoverd
-                }
             }
         }
 
+        /// <summary>
+        /// To debug tile references
+        /// </summary>
         public static void DrawGameTilesDebugLines(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args, GameTile[] gameTiles)
         {
             if (gameTiles != null)
