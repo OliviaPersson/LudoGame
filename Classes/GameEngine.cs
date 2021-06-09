@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Threading.Tasks;
 using Windows.Media.Playback;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 
 namespace LudoGame.Classes
@@ -112,7 +113,7 @@ namespace LudoGame.Classes
         /// <param name="canvas"></param>
         public static void GameModeSwitch(CanvasAnimatedControl canvas)
         {
-            if (currentGameState == GameState.PlayerPlaying || currentGameState == GameState.AIPlaying)
+            if (currentGameState != GameState.InMenu)
             {
                 _saveCurrentState = currentGameState;
                 var action = canvas.RunOnGameLoopThreadAsync(() =>
@@ -239,7 +240,7 @@ namespace LudoGame.Classes
             await LoadSpriteFolder(sender, "Tiles");
             await LoadSpriteFolder(sender, "Pieces");
 
-            drawables.Add(new Drawable(Sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
+            //drawables.Add(new Drawable(Sprites["background"], Vector2.Zero, 1, (bitmap, _) => Scaler.Fill(bitmap)));
 
             _sounds = await FileHandeler.LoadSounds("Sounds");
 
