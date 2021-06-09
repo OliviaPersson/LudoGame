@@ -119,7 +119,7 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <Button Content="-" VerticalAlignment="Center" />
-                                <Slider x:Name="VolumeSlider" Grid.Column="1" Foreground="#82B5421A" VerticalAlignment="Center" />
+                                <Slider x:Name="VolumeSlider" Grid.Column="1" Foreground="#82B5421A" VerticalAlignment="Center" ValueChanged="VolumeSlider_ValueChanged"/>
                                 <Button Grid.Column="2" Content="+" VerticalAlignment="Center" />
                             </Grid>
                         </StackPanel>
