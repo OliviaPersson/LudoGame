@@ -144,6 +144,11 @@ namespace LudoGame
             }
         }
 
+        private void VolumeSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            Sound.SetVolume(e.NewValue/100);
+        }
+
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
         {
         }
