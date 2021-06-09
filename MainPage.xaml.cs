@@ -10,6 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace LudoGame
@@ -17,16 +18,12 @@ namespace LudoGame
     public partial class MainPage : Page
     {
         public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
-        public static float GameWidth = 1000;
-        public static float GameHeight = 1000;
+        public static float gameWidth = 1000;
+        public static float gameHeight = 1000;
         public static float scaleWidth, scaleHeight;
-        private MediaPlayer player;
-        private bool playing;
-        private GameState saveCurrentState;
-        private int DiceSave;
-        private bool thrownDice = false; 
+        public MediaPlayer player;
 
-        private object lastHovered = null;
+        private bool _playing;
 
         public MainPage()
         {
@@ -44,6 +41,7 @@ namespace LudoGame
             }
         }
 
+
         private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
         {
             bounds = ApplicationView.GetForCurrentView().VisibleBounds;
@@ -56,81 +54,34 @@ namespace LudoGame
         /// </summary>
         private void GameCanvas_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
-            {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
-
-                if (returned != lastHovered && lastHovered is GamePiece) //Check if hoverd object is not the last hoverd object
-                {
-                    GamePiece.Hover((GamePiece)lastHovered, false, DiceSave);
-                    lastHovered = null; // Reset last hoverd
-                }
-
-                if (returned is GamePiece) //Check if hoverd object is gamepiece
-                {
-                    GamePiece.Hover((GamePiece)returned, true, DiceSave); // Calls hover method in GamePiece
-                    lastHovered = returned; //Store last hoverd gamepiece
-
-                    //method to check if avaible move
-                }
-
-                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
-                else if (returned is GameTile) ClickedObject.Text = "GameTile";
-                else ClickedObject.Text = "Null";
-            }
+            ClickedObject.Text = Input.MouseMoved(e, GameCanvas);
         }
+
 
         private void GameCanvas_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
+            ClickedObject.Text = Input.MouseClicked(e, GameCanvas);
+
+            DiceRoll.Text = Dice.DiceSave.ToString();
             Xmouseclick.Text = "Click X cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.X;
             Ymouseclick.Text = "Click Y cord: " + (int)e.GetCurrentPoint(GameCanvas).Position.Y;
-            //gamestate.Text = "State: " + GameEngine.CurrentGameState.ToString();
 
-            if (GameEngine.CurrentGameState == GameState.PlayerPlaying)
-            {
-                object returned = GameEngine.ClickHitDetection(new Vector2((float)e.GetCurrentPoint(GameCanvas).Position.X, (float)e.GetCurrentPoint(GameCanvas).Position.Y));
-
-                if (returned is GamePiece)
-                {
-                   bool pieceWasMoved = GamePiece.MoveToGameTile(DiceSave, (GamePiece)returned);//Calls to move func in Gamepice
-
-                    if (pieceWasMoved)
-                    {
-                        DiceSave = 0;
-                        DiceRoll.Text = "D";
-                    }
-                    //thrownDice = false; 
-                }
-
-                if (returned is GamePiece) ClickedObject.Text = "GamePiece";
-                else if (returned is GameTile) ClickedObject.Text = "GameTile";
-                else ClickedObject.Text = "Null";
-            }
         }
+
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            GameState state0 = (GameState)0;// Menu
-            GameState state1 = (GameState)1;//PlayerPlaying
-            GameState state2 = (GameState)2;//AIPlaying
+            GameEngine.GameModeSwitch(GameCanvas);
 
-            if (GameEngine.CurrentGameState == state1 || GameEngine.CurrentGameState == state2)
+            if (GameEngine.currentGameState == GameState.InMenu)
             {
-                saveCurrentState = GameEngine.CurrentGameState;
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = state0; // Pause
-                });
                 PauseMenu.Visibility = Visibility.Visible;
             }
-            else if (GameEngine.CurrentGameState == state0)
+            else
             {
-                var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
-                {
-                    GameEngine.CurrentGameState = saveCurrentState; //Play
-                });
                 PauseMenu.Visibility = Visibility.Collapsed;
             }
+
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -140,22 +91,19 @@ namespace LudoGame
 
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
-            GameState state1 = (GameState)1;//PlayerPlaying
-
             var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
-                GameEngine.CurrentGameState = state1;
+                GameEngine.currentGameState = GameState.PlayerPlaying;
             });
             StartMenu.Visibility = Visibility.Collapsed;
-
-            GameEngine.StartGame();
+            GameEngine.StartGame(GameRace.Red);
         }
 
         private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
         {
             var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
-                GameEngine.CurrentGameState = GameState.PlayerPlaying;
+                GameEngine.currentGameState = GameState.InMenu;
             });
             PauseMenu.Visibility = Visibility.Collapsed;
             StartMenu.Visibility = Visibility.Visible;
@@ -163,43 +111,17 @@ namespace LudoGame
 
         public async void PlayBGM(object sender, RoutedEventArgs e)
         {
-            //Sound.PlayBGMSound();
-            //https://pixabay.com/music/search/genre/ambient/
-            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets");
-            Windows.Storage.StorageFile file = await folder.GetFileAsync("pixabay-1-min-piano_arp-4222.mp3");
-            player.AutoPlay = false;
-            player.Source = MediaSource.CreateFromStorageFile(file);
-            if (playing)
-            {
-                player.Source = null;
-                playing = false;
-            }
-            else
-            {
-                player.Play();
-                playing = true;
-            }
+            Sound.PlayBGMusic();
         }
 
         public void RollDice(object sender, RoutedEventArgs e)
         {
-            int number = Dice.randomNum();
-            DiceRoll.Text = number.ToString();
-            DiceSave = number; // saves what the dice show
-         
-
-            /*
-            /// <summary>
-            /// Can be used when turns are implemented to prevent dice roll multiple times by the same player
-            /// </summary>
-            if (!thrownDice)
+            if (GameEngine.currentGameState == GameState.PlayerPlaying)
             {
-                int number = Dice.randomNum();
+                int number = Dice.RollDice();
                 DiceRoll.Text = number.ToString();
-                DiceSave = number; //saves what the dice show
-                thrownDice = true;
+                Dice.DiceSave = number; // saves what the dice show
             }
-            */
         }
 
         private void OptionsBtn_Click(object sender, RoutedEventArgs e)

@@ -28,8 +28,11 @@ namespace LudoGame.Classes
     internal static class FileHandeler
     {
         /// <summary>
-        /// Handles the reading of images from a json FileList
+        /// Handles the reading of image files from a json FileList
         /// </summary>
+        /// <param name="sender">the canvas that the images are loaded to</param>
+        /// <param name="assetLocation">The name of the folder within the assets folder</param>
+        /// <returns>A dictionary containing the images with a nameID</returns>
         public static async Task<Dictionary<string, CanvasBitmap>> LoadImages(CanvasAnimatedControl sender, string assetLocation)
         {
             Dictionary<string, CanvasBitmap> result = new Dictionary<string, CanvasBitmap>();
@@ -56,8 +59,10 @@ namespace LudoGame.Classes
         }
 
         /// <summary>
-        /// Not yet implemented load sound method
+        /// Handles the reading of sound files from a json FileList
         /// </summary>
+        /// <param name="assetLocation">The name of the folder within the assets folder</param>
+        /// <returns>A dictionary containing the sounds with a nameID</returns>
         public static async Task<Dictionary<string, MediaPlayer>> LoadSounds(string assetLocation)
         {
             Dictionary<string, MediaPlayer> result = new Dictionary<string, MediaPlayer>();

@@ -9,34 +9,62 @@ namespace LudoGame.Classes
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
         public GameTile HomeTile { get; set; }
-        public bool isHumanPlayer = false;
         public int finishedPieces = 0; //Count finished gamepieces
 
-        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles, CanvasBitmap highlightSprite, bool isHumanPlayer)
+        public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles)
         {
             this.race = race;
-            this.isHumanPlayer = isHumanPlayer;
             for (int i = 0; i < gameTiles.Count(); i++)
             {
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
                 {
                     HomeTile = gameTiles[i];
-                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile, highlightSprite);
+                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile);
                     break;
                 }
             }
         }
 
-        public void RollDice()
+        /// <summary>
+        /// Tries to move the game piece by using the dice roll,
+        /// if no piece can move it will end the turn
+        /// </summary>
+        /// <param name="piece"></param>
+        public bool MovePiece(GamePiece piece)
         {
-            int result = Dice.randomNum();
+            int dice = Dice.DiceSave;
+            if (dice != 0)
+            {
+                if (piece.CheckAvailableMoves(dice, this))
+                {
+                    piece.moveToTile = piece.tempTile;
+                    if (dice != 6)
+                    {
+                        Turn.EndTurn();
+                    }
+                    Dice.UseDice();
+                    return true;
+                }
+                else
+                {
+                    bool otherPieceCanMove = false;
+                    foreach (GamePiece gamePiece in this.GamePieces)
+                    {
+                        if (gamePiece.CheckAvailableMoves(dice, this))
+                        {
+                            otherPieceCanMove = true;
+                        }
+                    }
+
+                    if (!otherPieceCanMove)
+                    {
+                        Turn.EndTurn();
+                        Dice.UseDice();
+                    }
+
+                }
+            }
+            return false;
         }
-
-        public void MouseClick(Point mousePosition)
-        {
-            //mousePosition
-        }
-
-
     }
 }
