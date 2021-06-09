@@ -54,6 +54,10 @@ namespace LudoGame.Classes
 
         public static Dictionary<string, CanvasBitmap> Sprites { get => _sprites; set => _sprites = value; }
 
+        /// <summary>
+        /// Gets a reference to the canvas that is used to play the game,
+        /// sets up the events used in game engine
+        /// </summary>
         public static void InitializeGameEngine(CanvasAnimatedControl canvas)
         {
             _gameCanvas = canvas;
@@ -62,6 +66,10 @@ namespace LudoGame.Classes
             currentGameState = GameState.PlayerPlaying;
         }
 
+        /// <summary>
+        /// Sets up the playing field and the players
+        /// </summary>
+        /// <param name="playerRace">The race of the player</param>
         public static void StartGame(GameRace playerRace)
         {
             _gameTiles = GameTile.CreateGameTiles(Sprites);
@@ -98,7 +106,10 @@ namespace LudoGame.Classes
             Play();
         }
 
-
+        /// <summary>
+        /// Used pause the game when the pause menu is brought up
+        /// </summary>
+        /// <param name="canvas"></param>
         public static void GameModeSwitch(CanvasAnimatedControl canvas)
         {
             if (currentGameState == GameState.PlayerPlaying || currentGameState == GameState.AIPlaying)
@@ -118,6 +129,7 @@ namespace LudoGame.Classes
             }
         }
 
+
         public static void Pause()
         {
             _gameCanvas.Update -= (s, a) => Update();
@@ -128,6 +140,9 @@ namespace LudoGame.Classes
             _gameCanvas.Update += (s, a) => Update();
         }
 
+        /// <summary>
+        /// Recalculates the positions of every drawable on window size change
+        /// </summary>
         public static void OnSizeChanged()
         {
             foreach (var item in drawables)
@@ -135,11 +150,13 @@ namespace LudoGame.Classes
                 item.CalculateActualPosition();
             }
         }
-        ///<summary> method <c> ClickHitDetection </c>
-        ///checks if the player clicks on a tile or a piece and returns what is clicked 
-        ///<permission> Public </permission>
-        ///<paramref name="mousePosition"> a Vector2 that has the cordinates for were the mouse is when clicked </paramref>
-        ///<summary>
+
+        /// <summary>
+        /// Checks if the position overlaps with an interacteble object
+        /// <summary>
+        /// <paramref name="mousePosition"> a Vector2 that has the cordinates for were the mouse is when clicked </paramref>
+        /// <returns>Any interactable object that was hit</returns>
+
         public static object HitDetection(Vector2 mousePosition)
         {
             if (player != null)
@@ -177,6 +194,10 @@ namespace LudoGame.Classes
             return null;
         }
 
+        /// <summary>
+        /// Anything that needs to be updated at a fixed rate is called from here,
+        /// this is hooked to the canvas update event
+        /// </summary>
         public static void Update()
         {
             float tileSpeed = 300;
@@ -196,21 +217,24 @@ namespace LudoGame.Classes
             }
         }
 
-
+        /// <summary>
+        /// Anything that needs to be done before drawing a new image on the canvas is called from here
+        /// </summary>
+        /// <param name="sender">The canvas that triggered the draw event</param>
+        /// <param name="args"></param>
         public static void Draw(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args)
         {
-            sender.TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
+            //sender.TargetElapsedTime = TimeSpan.FromMilliseconds(1000d / 30);
 
             Win2DDrawingHandler.Draw(args, drawables.ToArray());
 
-            // remove before shipping
+            // DEBUGING remove before shipping
             Win2DDrawingHandler.DrawGameTilesDebugLines(sender, args, _gameTiles);
         }
 
-        ///<summary> method <c> CreateResources </c>
-        ///Loads assets
-        ///<permission> Public </permission>
-        ///<summary>
+        /// <summary>
+        /// Loads assets
+        /// <summary>
         public static async void CreateResources(CanvasAnimatedControl sender)
         {
             Sprites = new Dictionary<string, CanvasBitmap>();
@@ -228,6 +252,12 @@ namespace LudoGame.Classes
             Sound.backgroundMusic.AutoPlay = false;
         }
 
+        /// <summary>
+        /// Loads the folder and ads them to the sprites with a nameID as a key
+        /// to be used in a drawable.
+        /// </summary>
+        /// <param name="sender">The canvas where the sprites are loaded to</param>
+        /// <param name="folder">The folder to load sprites from</param>
         private static async Task LoadSpriteFolder(CanvasAnimatedControl sender, string folder)
         {
             foreach (var item in await FileHandeler.LoadImages(sender, folder))

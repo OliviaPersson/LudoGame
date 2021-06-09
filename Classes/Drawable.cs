@@ -82,15 +82,19 @@ namespace LudoGame.Classes
         /// <param name="imageSize">The image size multiplier</param>
         /// <param name="Scaling">The scaling methood to use when drawing this object</param>
         /// <param name="positionIsActualPosition">set to true to use the conventional position as (0,0) being top left</param>
-        public Drawable(CanvasBitmap bitmap, Vector2 position, float imageSize, Scale Scaling, bool positionIsActualPosition)
-        {
-            this.Bitmap = bitmap;
-            this.ImageSize = imageSize;
-            this.Scaling = Scaling;
-            _setActualPosition = positionIsActualPosition;
-            this.Position = position;
-        }
+        //public Drawable(CanvasBitmap bitmap, Vector2 position, float imageSize, Scale Scaling, bool positionIsActualPosition)
+        //{
+        //    this.Bitmap = bitmap;
+        //    this.ImageSize = imageSize;
+        //    this.Scaling = Scaling;
+        //    _setActualPosition = positionIsActualPosition;
+        //    this.Position = position;
+        //}
 
+        /// <summary>
+        /// Calculates the actual position which is used 
+        /// in the canvas to draw it at the correct position
+        /// </summary>
         public void CalculateActualPosition()
         {
             if (!_setActualPosition)

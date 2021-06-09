@@ -62,6 +62,11 @@ namespace LudoGame.Classes
         //    }
         //}
 
+        /// <summary>
+        /// Tries to move the piece
+        /// </summary>
+        /// <param name="tileSpeed">Speed in coordinates per second to move the piece</param>
+        /// <returns>If it successfully moved</returns>
         public static bool TryMovingPiece(float tileSpeed)
         {
             bool aPieceIsMoving = false;
@@ -97,6 +102,7 @@ namespace LudoGame.Classes
         /// <summary>
         /// Initial method to check if player can move or not
         /// </summary>
+        /// <returns>If it can move</returns>
         public bool CheckAvailableMoves(int diceResult, Player player)
         {
             bool canMove = false;
@@ -116,8 +122,9 @@ namespace LudoGame.Classes
         }
 
         /// <summary>
-        /// Checks if player can move or not
+        /// Checks if the piece can move
         /// </summary>
+        /// <returns>a bool based on if it can move</returns>
         private bool FindAvailableMove(int diceResult, Player player)
         {
             tempTile = tile;
@@ -189,25 +196,39 @@ namespace LudoGame.Classes
             }
         }
 
-        public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile gameTile)
+        /// <summary>
+        /// Creates all of the necesairy game pieces for a player
+        /// </summary>
+        /// <param name="race">The race of the player</param>
+        /// <param name="sprite">The prite used for the game pieces</param>
+        /// <param name="offset">The distance from the center of the baseTile to place the pieces when at baseTile</param>
+        /// <returns>The created game pieces</returns>
+        public static GamePiece[] CreateGamePieces(GameRace race, CanvasBitmap sprite, float offset, GameTile baseTile)
         {
             GamePiece[] gamePieces = {
-            CreateGamePiece(race, sprite, new Vector2(offset,offset), gameTile),
-            CreateGamePiece(race, sprite, new Vector2(-offset, -offset), gameTile),
-            CreateGamePiece(race, sprite, new Vector2(offset, -offset), gameTile),
-            CreateGamePiece(race, sprite, new Vector2(-offset, offset), gameTile) };
+            CreateGamePiece(race, sprite, new Vector2(offset,offset), baseTile),
+            CreateGamePiece(race, sprite, new Vector2(-offset, -offset), baseTile),
+            CreateGamePiece(race, sprite, new Vector2(offset, -offset), baseTile),
+            CreateGamePiece(race, sprite, new Vector2(-offset, offset), baseTile) };
             return gamePieces;
         }
 
-        private static GamePiece CreateGamePiece(GameRace race, CanvasBitmap sprite, Vector2 offsetPosition, GameTile gameTile)
+        /// <summary>
+        /// Creates a single game piece and the drawable that it needs to be drawn
+        /// </summary>
+        /// <param name="race">The race of the player</param>
+        /// <param name="sprite">The prite used for the game pieces</param>
+        /// <param name="offsetPosition">The position to place the pieces when at baseTile</param>
+        /// <returns>The created game piece</returns>
+        private static GamePiece CreateGamePiece(GameRace race, CanvasBitmap sprite, Vector2 offsetPosition, GameTile baseTile)
         {
-            Drawable draw = new Drawable(sprite, gameTile.Position + offsetPosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
+            Drawable draw = new Drawable(sprite, baseTile.Position + offsetPosition, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
             GameEngine.drawables.Add(draw);
-            return new GamePiece(race, offsetPosition, gameTile, draw);
+            return new GamePiece(race, offsetPosition, baseTile, draw);
         }
 
         /// <summary>
-        /// Checks if gamePiece lands on another gamepiece ands sends it to homebase
+        /// Checks if gamePiece lands on another gamepiece ands sends it to its homebase
         /// </summary>
         public static void CheckIfHitGamePiece(GamePiece gamePiece)
         {

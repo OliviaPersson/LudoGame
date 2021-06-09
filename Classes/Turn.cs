@@ -10,7 +10,9 @@ namespace LudoGame.Classes
     {
         public static GameRace activePlayer = (GameRace)1;
 
-
+        /// <summary>
+        /// Check if a player is done and advances to the next player if it is
+        /// </summary>
         public static void CheckTurn()
         {
             if (GameEngine.players != null)
@@ -28,6 +30,9 @@ namespace LudoGame.Classes
             }
         }
 
+        /// <summary>
+        /// Ends the active players turn
+        /// </summary>
         public static void EndTurn()
         {
             if (activePlayer == (GameRace)4)
@@ -57,6 +62,10 @@ namespace LudoGame.Classes
             GameEngine.players[(int)activePlayer - 1].GamePieces[0].baseTile.drawable.isHover = true;
         }
 
+        /// <summary>
+        /// Lets the current AI play
+        /// </summary>
+        /// <param name="currentPlayer"></param>
         public static void AIPlay(Player currentPlayer)
         {
             foreach (AIPlayer AI in GameEngine.aIPlayers)
@@ -64,7 +73,7 @@ namespace LudoGame.Classes
                 if (AI.Player == currentPlayer)
                 {
                     AI.Player.turnDone = false;
-                    AI.Play();
+                    AI.Play(); // make so it only sets turnDone true if it is truly done
                     AI.Player.turnDone = true;
                 }
             }

@@ -5,7 +5,7 @@ namespace LudoGame.Classes
 {
     public class AIPlayer
     {
-        //Color for wich team the ai is playing as
+        // The Player that this AI is controlling
         public Player Player { get; set; }
 
         public AIPlayer(Player player)
@@ -13,11 +13,18 @@ namespace LudoGame.Classes
             Player = player;
         }
 
+        /// <summary>
+        /// This is where the AI plays it's turn
+        /// </summary>
         public void Play()
         {
             int roll = Dice.RollDice();
-
-            foreach (GamePiece piece in Player.GamePieces) // move the first piece that can move for now. If time allows improve with smart choises.
+            
+            // Move the first piece that can move for now
+            // It will always move the first piece as it always has a valid move.
+            // If time allows improve with smart choises.
+            // It also doens't play again if it rolled a 6
+            foreach (GamePiece piece in Player.GamePieces) 
             {
                 if (piece.CheckAvailableMoves(roll, Player))
                 {

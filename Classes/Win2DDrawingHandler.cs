@@ -9,6 +9,11 @@ namespace LudoGame.Classes
 {
     public static class Win2DDrawingHandler
     {
+        /// <summary>
+        /// Draws all of the drawables in order
+        /// </summary>
+        /// <param name="args"></param>
+        /// <param name="drawables">The drawables that is to be drawn</param>
         public static void Draw(CanvasAnimatedDrawEventArgs args, Drawable[] drawables)
         {
             foreach (Drawable currentItem in drawables)
@@ -27,6 +32,9 @@ namespace LudoGame.Classes
             }
         }
 
+        /// <summary>
+        /// To debug tile references
+        /// </summary>
         public static void DrawGameTilesDebugLines(ICanvasAnimatedControl sender, CanvasAnimatedDrawEventArgs args, GameTile[] gameTiles)
         {
             if (gameTiles != null)

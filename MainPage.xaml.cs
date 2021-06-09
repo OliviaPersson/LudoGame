@@ -111,7 +111,7 @@ namespace LudoGame
 
         public async void PlayBGM(object sender, RoutedEventArgs e)
         {
-            Sound.PlayBGMSound();
+            Sound.PlayBGMusic();
         }
 
         public void RollDice(object sender, RoutedEventArgs e)

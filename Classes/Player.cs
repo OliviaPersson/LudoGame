@@ -26,16 +26,11 @@ namespace LudoGame.Classes
             }
         }
 
-        public void RollDice()
-        {
-            int result = Dice.RollDice();
-        }
-
-        //public void MouseClick(Point mousePosition)
-        //{
-        //    //mousePosition
-        //}
-
+        /// <summary>
+        /// Tries to move the game piece by using the dice roll,
+        /// if no piece can move it will end the turn
+        /// </summary>
+        /// <param name="piece"></param>
         public void MovePiece(GamePiece piece)
         {
             int dice = Dice.DiceSave;

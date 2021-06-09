@@ -8,7 +8,10 @@ namespace LudoGame.Classes
         public static MediaPlayer backgroundMusic;
         private static bool playing = false;
 
-        public static async void PlayBGMSound()
+        /// <summary>
+        /// Plays and pauses the background music
+        /// </summary>
+        public static void PlayBGMusic()
         {
             //https://pixabay.com/music/search/genre/ambient/
             if (playing)

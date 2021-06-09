@@ -66,10 +66,12 @@ namespace LudoGame.Classes
             }
         }
 
-        /// <summary> <c>CreateGameTiles</c>
-        /// Calculate positions and draw tiles
+        /// <summary>
+        /// Creates all of the game tiles
         /// </summary>
-        public static GameTile[] CreateGameTiles(Dictionary<string, CanvasBitmap> sprites)
+        /// <param name="sprites">a reference to the GameEngine sprites</param>
+        /// <returns></returns>
+        public static GameTile[] CreateGameTiles(Dictionary<string, CanvasBitmap> sprites) // this should be cleaned up
         {
             const int gameTileCount = 12 * 4;
             const int homeLocation = gameTileCount / 8;
@@ -137,6 +139,14 @@ namespace LudoGame.Classes
             return gameTiles.ToArray();
         }
 
+        /// <summary>
+        /// Creates the base tile
+        /// </summary>
+        /// <param name="sprite"></param>
+        /// <param name="gameTiles"></param>
+        /// <param name="baseLocation"></param>
+        /// <param name="race"></param>
+        /// <param name="homeTileIndex"></param>
         private static void CreateBaseTile(CanvasBitmap sprite, List<GameTile> gameTiles, Vector2 baseLocation, GameRace race, int homeTileIndex)
         {
             GameTile baseTile = CreateTile(sprite, baseLocation, 0.15f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), race, null);
@@ -144,6 +154,7 @@ namespace LudoGame.Classes
 
             gameTiles.Add(baseTile);
         }
+
 
         private static GameTile[] CreateHomeTiles(float distance, float tileSize, float angle, int i, Vector2 tilePosition, float angleOffset, CanvasBitmap sprite, GameRace gameRace, GameTile previousTile, GameTile gameTile)
         {
