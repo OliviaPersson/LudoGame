@@ -80,7 +80,7 @@ namespace LudoGame.Classes
                 new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles),
                 new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles)
             };
-
+            Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
             player = players[(int)playerRace - 1];
 
             // assigns the rest of the player races to the 3 ai players

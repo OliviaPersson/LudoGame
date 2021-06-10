@@ -210,6 +210,7 @@ namespace LudoGame.Classes
             CreateGamePiece(race, sprite, new Vector2(-offset, -offset), baseTile),
             CreateGamePiece(race, sprite, new Vector2(offset, -offset), baseTile),
             CreateGamePiece(race, sprite, new Vector2(-offset, offset), baseTile) };
+           
             return gamePieces;
         }
 
@@ -242,6 +243,7 @@ namespace LudoGame.Classes
                    // otherGamePiece.Position = otherGamePiece.;//Prob wont work
                     otherGamePiece.atHomePosition = true;
                 }
+
             }
         }
 
