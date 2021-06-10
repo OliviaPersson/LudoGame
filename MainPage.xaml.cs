@@ -17,34 +17,30 @@ namespace LudoGame
 {
     public partial class MainPage : Page
     {
-        public static Rect bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+        public static Vector2 bounds;
         public static float gameWidth = 1000;
         public static float gameHeight = 1000;
         public static float scaleWidth, scaleHeight;
-        public MediaPlayer player;
-
-        private bool _playing;
 
         public MainPage()
         {
             this.InitializeComponent();
-            Window.Current.CoreWindow.KeyDown += Global_KeyDown;
-            player = new MediaPlayer();
-            Window.Current.SizeChanged += Current_SizeChanged;
-            Scaler.SetScale();
-            GameEngine.InitializeGameEngine(GameCanvas);
+            // the expected configuration on game start
+            // to simplify editing in the xamal
+            StartMenu.Visibility = Visibility.Visible;
+            PauseMenu.Visibility = Visibility.Collapsed;
 
-            Size minSize = new Size(1420, 800);
-            if (Window.Current.Bounds.Y < minSize.Height || Window.Current.Bounds.X < minSize.Width)
-            {
-                ApplicationView.GetForCurrentView().TryResizeView(new Size(1420, 800));
-            }
+            Window.Current.CoreWindow.KeyDown += Global_KeyDown;
+            GameCanvas.SizeChanged += (s, _) => RecalculateCanvasSizes();
+
+            RecalculateCanvasSizes();
+            GameEngine.InitializeGameEngine(GameCanvas);
         }
 
 
-        private void Current_SizeChanged(object sender, WindowSizeChangedEventArgs e)
+        private void RecalculateCanvasSizes()
         {
-            bounds = ApplicationView.GetForCurrentView().VisibleBounds;
+            bounds = GameCanvas.ActualSize;
             Scaler.SetScale();
             GameEngine.OnSizeChanged();
         }
@@ -109,7 +105,7 @@ namespace LudoGame
             StartMenu.Visibility = Visibility.Visible;
         }
 
-        public async void PlayBGM(object sender, RoutedEventArgs e)
+        public void PlayBGM(object sender, RoutedEventArgs e)
         {
             Sound.PlayBGMusic();
         }
@@ -146,7 +142,7 @@ namespace LudoGame
 
         private void VolumeSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            Sound.SetVolume(e.NewValue/100);
+            Sound.SetVolume(e.NewValue / 100);
         }
 
         private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)

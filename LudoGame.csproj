@@ -172,6 +172,7 @@
     <Content Include="Assets\Tiles\YellowBase.png" />
     <Content Include="Assets\Tiles\YellowTile.png" />
     <Content Include="Assets\Sounds\pixabay-1-min-piano_arp-4222.mp3" />
+    <Content Include="Assets\UI\UI bakcground.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

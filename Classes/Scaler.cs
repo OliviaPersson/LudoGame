@@ -10,8 +10,8 @@ namespace LudoGame.Classes
         public static void SetScale()
         {
             //Gather display information
-            MainPage.scaleWidth = (float)MainPage.bounds.Width / MainPage.gameWidth;
-            MainPage.scaleHeight = (float)MainPage.bounds.Height / MainPage.gameHeight;
+            MainPage.scaleWidth = (float)MainPage.bounds.X / MainPage.gameWidth;
+            MainPage.scaleHeight = (float)MainPage.bounds.Y / MainPage.gameHeight;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace LudoGame.Classes
         /// </summary>
         public static Transform2DEffect Stretch(CanvasBitmap source)
         {
-            return ScaleImage(source, (float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
+            return ScaleImage(source, (float)(MainPage.bounds.X / source.Size.Width), (float)(MainPage.bounds.Y / source.Size.Height));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace LudoGame.Classes
         /// </summary>
         public static Transform2DEffect Fit(CanvasBitmap source)
         {
-            float scale = MathF.Min((float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
+            float scale = MathF.Min((float)(MainPage.bounds.X / source.Size.Width), (float)(MainPage.bounds.Y / source.Size.Height));
             return ScaleImage(source, scale, scale);
         }
 
@@ -54,7 +54,7 @@ namespace LudoGame.Classes
         /// </summary>
         public static Transform2DEffect Fill(CanvasBitmap source)
         {
-            float scale = MathF.Max((float)(MainPage.bounds.Width / source.Size.Width), (float)(MainPage.bounds.Height / source.Size.Height));
+            float scale = MathF.Max((float)(MainPage.bounds.X / source.Size.Width), (float)(MainPage.bounds.Y / source.Size.Height));
             return ScaleImage(source, scale, scale);
         }
 
