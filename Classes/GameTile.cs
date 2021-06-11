@@ -10,8 +10,6 @@ namespace LudoGame.Classes
 
         public GameRace raceHome;
         public Drawable drawable;
-        public Drawable highlight;
-        public bool isHover = false;
 
         public GameTile nextTile;
         public GameTile nextHomeTile;
