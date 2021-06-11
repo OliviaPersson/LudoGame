@@ -8,14 +8,14 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    FontFamily="Assets/Fonts/unispace.ttf#Unispace"
+    FontFamily="Assets/Fonts/unispace bold.ttf#Unispace"
     RequestedTheme="Dark">
 
     <Page.Resources>
         <Style x:Key="SpaceText" TargetType="ContentControl">
             <Setter Property="Background" Value="{x:Null}" />
             <Setter Property="Foreground" Value="#FF8CA6C8" />
-            <Setter Property="FontFamily" Value="Unispace" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/unispace bold.ttf#Unispace" />
         </Style>
 
         <Style TargetType="Button" BasedOn="{StaticResource SpaceText}">
@@ -23,7 +23,7 @@
 
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="#FF8CA6C8" />
-            <Setter Property="FontFamily" Value="Unispace" />
+            <Setter Property="FontFamily" Value="Assets/Fonts/unispace bold.ttf#Unispace" />
         </Style>
 
         <Style TargetType="StackPanel">
