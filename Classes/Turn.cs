@@ -41,8 +41,10 @@ namespace LudoGame.Classes
         /// </summary>
         public static void EndTurn()
         {
+            
             if (activePlayer == (GameRace)4)
             {
+                Wormhole.MoveWormhole();
                 activePlayer = (GameRace)1;
             }
             else
