@@ -38,16 +38,12 @@ namespace LudoGame.Classes
         public static bool aPieceIsMoving;
         public static CanvasAnimatedControl GameCanvas { get { return _gameCanvas; } }
         public static GameTile[] GameTiles { get { return _gameTiles; } }
-        //public static Player[] players;
 
         private static Dictionary<string, MediaPlayer> _sounds;
         private static Dictionary<string, CanvasBitmap> _sprites;
         private static CanvasAnimatedControl _gameCanvas;
         private static GameTile[] _gameTiles;
 
-        private static Input _input;
-        private static string _fileloction;
-        private static Cards[] _cards;
         private static Wormhole _wormhole;
         private static GameState _saveCurrentState;
 
