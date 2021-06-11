@@ -45,7 +45,7 @@ namespace LudoGame.Classes
                 StartPosition = _gameTiles[ran];
             } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
             GameEngine.wormHole.Position = _gameTiles[ran].Position;
-            GameEngine.wormHole.Position += Vector2Math.Normalized(_gameTiles[ran].Position) *500* (float)GameEngine.GameCanvas.TargetElapsedTime.TotalSeconds;
+            GameEngine.wormHole.Position += Vector2Math.Normalized(_gameTiles[ran].Position) *50* (float)GameEngine.GameCanvas.TargetElapsedTime.TotalSeconds;
             
         }
         public static void CheckIfHitWormhole(GamePiece gamePiece)

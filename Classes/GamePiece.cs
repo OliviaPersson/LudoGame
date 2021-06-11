@@ -87,7 +87,7 @@ namespace LudoGame.Classes
                             CheckIfHitGamePiece(piece);
                             Wormhole.CheckIfHitWormhole(piece);
                         }
-                        
+                       
                     }
                     else
                     {
