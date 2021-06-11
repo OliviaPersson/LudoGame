@@ -34,6 +34,7 @@ namespace LudoGame.Classes
         public static AIPlayer[] aIPlayers = new AIPlayer[3];
         public static Player[] players;
         public static GamePiece[] gamePieces = new GamePiece[16];
+        public static Wormhole wormHole;
         public static bool aPieceIsMoving;
         public static CanvasAnimatedControl GameCanvas { get { return _gameCanvas; } }
         public static GameTile[] GameTiles { get { return _gameTiles; } }
@@ -80,7 +81,8 @@ namespace LudoGame.Classes
                 new Player((GameRace)3, _sprites["yellowGamePiece"], 50, _gameTiles),
                 new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles)
             };
-            Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
+          
+            //Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
             player = players[(int)playerRace - 1];
 
             // assigns the rest of the player races to the 3 ai players
@@ -93,7 +95,7 @@ namespace LudoGame.Classes
                     aiAssigned++;
                 }
             }
-
+            wormHole = Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
             int gamePieceAssigned = 0;
             foreach (Player player in players)
             {

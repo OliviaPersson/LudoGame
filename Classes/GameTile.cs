@@ -90,7 +90,7 @@ namespace LudoGame.Classes
             GameTile previousTile = null;
             GameTile[] homeTiles = null;
             GameTile blackhole = CreateTile(sprites["blackhole"], Vector2.Zero, 1, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), GameRace.None, null);
-            //GameTile wormhole = CreateTile(sprites["blackhole"], new Vector2(2,900) , 0.5f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), GameRace.None, null);
+           // GameTile wormhole = CreateTile(sprites["blackhole"], new Vector2(2,900) , 0.5f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale), GameRace.None, null);
             for (int i = 0; i < gameTileCount; i++)
             {
                 Vector2 tilePosition = new Vector2(MathF.Sin(angle * i + angleOffset) * distance, MathF.Cos(angle * i + angleOffset) * distance);
