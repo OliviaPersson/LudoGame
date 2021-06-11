@@ -34,7 +34,6 @@ namespace LudoGame.Classes
         public static AIPlayer[] aIPlayers = new AIPlayer[3];
         public static Player[] players;
         public static GamePiece[] gamePieces = new GamePiece[16];
-        public static Wormhole wormHole;
         public static bool aPieceIsMoving;
         public static CanvasAnimatedControl GameCanvas { get { return _gameCanvas; } }
         public static GameTile[] GameTiles { get { return _gameTiles; } }
@@ -48,7 +47,6 @@ namespace LudoGame.Classes
         private static Input _input;
         private static string _fileloction;
         private static Cards[] _cards;
-        private static Wormhole _wormhole;
         private static GameState _saveCurrentState;
 
         public static DispatcherTimer timer;
@@ -95,7 +93,7 @@ namespace LudoGame.Classes
                     aiAssigned++;
                 }
             }
-            wormHole = Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
+           Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
             int gamePieceAssigned = 0;
             foreach (Player player in players)
             {

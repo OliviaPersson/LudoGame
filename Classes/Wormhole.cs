@@ -5,74 +5,73 @@ using System.Numerics;
 
 namespace LudoGame.Classes
 {
-    public class Wormhole
+    public static class Wormhole
     {
-        public Vector2 Position { get { return drawable.Position; } set { drawable.Position = value; } }
+        public static Vector2 Position { get { return drawable.Position; } set { drawable.Position = value; } }
         public static GameTile StartPosition  {  get; set;  }
         public static GameTile EndPosition { get; set; }
-        private static CanvasBitmap _sprite { get; set; }
         private  static GameTile[] _gameTiles { get; set; }
         static Random rnd = new Random();
-        public Drawable drawable;
-        public GameTile tile;
-        public Wormhole(Drawable drawable, GameTile tile)
+        public static Drawable drawable;
+        public static void CreateWormHole(GameTile[] gametiles, CanvasBitmap sprite)
         {
-            
-            
-            this.drawable = drawable;
-            this.tile = tile; 
-        }
-        public static Wormhole CreateWormHole(GameTile[] gametiles, CanvasBitmap sprite) {
-            _sprite = sprite;
+
+            drawable = new Drawable(sprite, Vector2.Zero, 0.4f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
+            GameEngine.drawables.Add(drawable);
+
             _gameTiles = gametiles;
-            int ran;
-            do {
-                ran = rnd.Next(gametiles.Length);
-                StartPosition = gametiles[ran];
-            } while (gametiles[ran].raceHome == (GameRace)1 || gametiles[ran].raceHome == (GameRace)2||gametiles[ran].raceHome == (GameRace)3|| gametiles[ran].raceHome == (GameRace)4);
-            
-           return SpawnWormHole(0, sprite, StartPosition);
+            StartPosition = gametiles[0];
+            NewPosition(10);
         }
-        public static  void MoveWormhole()
+
+        private static void NewPosition(int advanceStartPos)
         {
-          
-           
-            
-            int ran;
-            do
+            for (int i = 0; i < advanceStartPos; i++)
             {
-                ran = rnd.Next(_gameTiles.Length);
-                StartPosition = _gameTiles[ran];
-            } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
-            GameEngine.wormHole.Position = _gameTiles[ran].Position;
-            GameEngine.wormHole.Position += Vector2Math.Normalized(_gameTiles[ran].Position) *50* (float)GameEngine.GameCanvas.TargetElapsedTime.TotalSeconds;
-            
-        }
-        public static void CheckIfHitWormhole(GamePiece gamePiece)
-        {
-            int ran;
-            do
-            {
-                ran = rnd.Next(_gameTiles.Length);
-            } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
-            if (gamePiece.tile == StartPosition)
-            {
-                gamePiece.moveToTile = _gameTiles[ran];
+                StartPosition = StartPosition.GetNextTile(0);
             }
+            EndPosition = StartPosition;
+            for (int i = 0; i > -10; i--)
+            {
+                EndPosition = EndPosition.previousTile;
+            }
+
+            int ran = rnd.Next(21);
+            for (int i = 0; i < ran; i++)
+            {
+                EndPosition = EndPosition.GetNextTile(0);
+            }
+        }
+    
+    public static  void MoveWormhole()
+        {
+            int ran = rnd.Next(30);
+            NewPosition(ran);
+            Position = StartPosition.Position;
             foreach (GamePiece otherGamePiece in GameEngine.gamePieces)
             {
                 if (otherGamePiece.tile == StartPosition)
                 {
-                     otherGamePiece.moveToTile = _gameTiles[ran]; 
+                    WarpPiece(otherGamePiece);
                 }
             }
         }
-        private static Wormhole SpawnWormHole(GameRace race, CanvasBitmap sprite,  GameTile baseTile)
+
+        private static void WarpPiece(GamePiece otherGamePiece)
         {
-            Drawable draw = new Drawable(sprite, baseTile.Position, 0.4f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
-            GameEngine.drawables.Add(draw);
-            return new Wormhole(draw, baseTile);
+            otherGamePiece.moveToTile = EndPosition;
+            otherGamePiece.tile = EndPosition;
+            otherGamePiece.Position = EndPosition.Position;
+            GamePiece.CheckIfHitGamePiece(otherGamePiece);
         }
 
+        public static void CheckIfHitWormhole(GamePiece gamePiece)
+        {
+            if (gamePiece.tile == StartPosition)
+            {
+                WarpPiece(gamePiece);
+            }
+            
+        }
     }
 }
