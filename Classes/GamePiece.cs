@@ -110,6 +110,7 @@ namespace LudoGame.Classes
                 {
                     player.GamePieces = player.GamePieces.Where(piece => piece != gamePiece).ToArray();
                     GameEngine.drawables.Remove(gamePiece.drawable);
+                    UI.FinishGamePiece(gamePiece);
 
                     if (player.GamePieces.Length == 0)
                     {

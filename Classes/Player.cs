@@ -8,7 +8,7 @@ namespace LudoGame.Classes
     {
         public GameRace race;
         public GamePiece[] GamePieces { get; set; }
-        public GameTile HomeTile { get; set; }
+        public GameTile baseTile { get; set; }
         public int finishedPieces = 0; //Count finished gamepieces
 
         public Player(GameRace race, CanvasBitmap gamePieceSprite, float inHomeOffset, GameTile[] gameTiles)
@@ -18,8 +18,8 @@ namespace LudoGame.Classes
             {
                 if (gameTiles[i].previousTile == null && gameTiles[i].raceHome == race)
                 {
-                    HomeTile = gameTiles[i];
-                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, HomeTile);
+                    baseTile = gameTiles[i];
+                    GamePieces = GamePiece.CreateGamePieces(race, gamePieceSprite, inHomeOffset, baseTile);
                     break;
                 }
             }

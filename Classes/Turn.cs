@@ -18,6 +18,11 @@ namespace LudoGame.Classes
             if (GameEngine.players != null)
             {
                 Player currentPlayer = GameEngine.players[(int)activePlayer - 1];
+                if (!currentPlayer.baseTile.drawable.isHover)
+                {
+                    currentPlayer.baseTile.drawable.isHover = true;
+                }
+
                 if (currentPlayer != GameEngine.player)
                 {
                     AIPlay(currentPlayer);
@@ -53,8 +58,6 @@ namespace LudoGame.Classes
             {
                 tile.drawable.isHover = false;
             }
-
-            GameEngine.players[(int)activePlayer - 1].GamePieces[0].baseTile.drawable.isHover = true;
         }
 
         /// <summary>
