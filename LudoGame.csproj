@@ -209,6 +209,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <Content Include="Assets\Fonts\unispace bold italic.ttf" />
+    <Content Include="Assets\Fonts\unispace bold.ttf" />
+    <Content Include="Assets\Fonts\unispace italic.ttf" />
+    <Content Include="Assets\Fonts\unispace.ttf" />
     <None Include="Assets\Images\LoadAssets.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -223,6 +227,7 @@
     </None>
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
