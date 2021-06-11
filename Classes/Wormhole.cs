@@ -8,10 +8,10 @@ namespace LudoGame.Classes
     public static class Wormhole
     {
         public static Vector2 Position { get { return drawable.Position; } set { drawable.Position = value; } }
-        public static GameTile StartPosition  {  get; set;  }
+        public static GameTile StartPosition { get; set; }
         public static GameTile EndPosition { get; set; }
-        private  static GameTile[] _gameTiles { get; set; }
-        static Random rnd = new Random();
+        private static GameTile[] _gameTiles { get; set; }
+        private static Random _rnd = new Random();
         public static Drawable drawable;
         public static void CreateWormHole(GameTile[] gametiles, CanvasBitmap sprite)
         {
@@ -36,16 +36,16 @@ namespace LudoGame.Classes
                 EndPosition = EndPosition.previousTile;
             }
 
-            int ran = rnd.Next(21);
+            int ran = _rnd.Next(21);
             for (int i = 0; i < ran; i++)
             {
                 EndPosition = EndPosition.GetNextTile(0);
             }
         }
-    
-    public static  void MoveWormhole()
+
+        public static void MoveWormhole()
         {
-            int ran = rnd.Next(30);
+            int ran = _rnd.Next(30);
             NewPosition(ran);
             Position = StartPosition.Position;
             foreach (GamePiece otherGamePiece in GameEngine.gamePieces)
@@ -71,7 +71,7 @@ namespace LudoGame.Classes
             {
                 WarpPiece(gamePiece);
             }
-            
+
         }
     }
 }

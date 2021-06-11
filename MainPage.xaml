@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     FontFamily="Assets/Fonts/unispace bold.ttf#Unispace"
-    RequestedTheme="Dark">
+    RequestedTheme="Dark" d:DesignWidth="2449" d:DesignHeight="1611">
 
     <Page.Resources>
         <Style x:Key="SpaceText" TargetType="ContentControl">
@@ -46,15 +46,15 @@
         <Grid Name="GameWindow">
             <Grid.RowDefinitions>
                 <RowDefinition Height="4*"/>
-                <RowDefinition MinHeight="200"/>
+                <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
 
             <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" PointerMoved="GameCanvas_PointerMoved"/>
 
             <ListView x:Name="DebugText" Background="#93122138"  IsHitTestVisible="False" Height="120" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Visibility="Collapsed">
-                <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="20" />
-                <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="20" />
-                <TextBlock x:Name="ClickedObject" Text="Not clicked yet" TextWrapping="Wrap" FontSize="20" />
+                <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="16" />
+                <TextBlock x:Name="Ymouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="16" />
+                <TextBlock x:Name="ClickedObject" Text="Not clicked yet" TextWrapping="Wrap" FontSize="16" />
             </ListView>
 
             <StackPanel x:Name="GameUI" Grid.Row="1" Orientation="Horizontal" MinWidth="270" HorizontalAlignment="Center" BorderThickness="3" BorderBrush="#FF18A4C3">
@@ -63,15 +63,15 @@
                 </StackPanel.Background>
 
                 <StackPanel Margin="10,0" VerticalAlignment="Center" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
-                    <TextBlock x:Name="DiceRoll" HorizontalAlignment="Center" FontSize="60">0</TextBlock>
+                    <TextBlock x:Name="DiceRoll" HorizontalAlignment="Center" FontSize="48">0</TextBlock>
                     <Button x:Name="RollTheDice" Background="#82B5591A" Content="Roll Dice" Click="RollDice"/>
                 </StackPanel>
 
-                <StackPanel Margin="10,0" Padding="10,5" VerticalAlignment="Center" Height="156" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
+                <StackPanel Margin="0" Padding="10,5" VerticalAlignment="Center" Height="160" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3" Width="163">
 
-                    <TextBlock FontSize="12" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
+                    <TextBlock  HorizontalTextAlignment="Center" FontSize="12" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
 
-                    <StackPanel Margin="5" Orientation="Horizontal" Background="{x:Null}">
+                    <StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" Background="{x:Null}">
                         <Rectangle Name="RedPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
@@ -94,7 +94,7 @@
                         </Rectangle>
                     </StackPanel>
 
-                    <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
+                    <StackPanel  Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" Background="{x:Null}">
                         <Rectangle Name="GreenPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
@@ -116,7 +116,7 @@
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
-                    <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
+                    <StackPanel  Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" Background="{x:Null}">
                         <Rectangle  Name="YellowPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
@@ -138,7 +138,7 @@
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
-                    <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
+                    <StackPanel  Margin="5" Orientation="Horizontal" HorizontalAlignment="Center" Background="{x:Null}">
                         <Rectangle Name="BluePiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
@@ -162,8 +162,8 @@
                     </StackPanel>
                 </StackPanel>
 
-                <StackPanel Margin="10,0" Padding="10,5" VerticalAlignment="Center" Height="156" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
-                    <TextBlock Margin="10">Cheats</TextBlock>
+                <StackPanel Margin="10,0" VerticalAlignment="Center" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
+                    <TextBlock Margin="10" HorizontalTextAlignment="Center">Cheat</TextBlock>
                     <TextBox x:Name="CheatDice"/>
                     <Button x:Name="CheatRoll" Background="#82B5591A" Content="Set dice" Click="CheatRoll_Click"/>
                 </StackPanel>
@@ -173,7 +173,7 @@
         <Grid x:Name="PauseMenu" Visibility="Collapsed">
             <Grid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource SpaceText}">
-                    <Setter Property="FontSize" Value="40" />
+                    <Setter Property="FontSize" Value="32" />
                 </Style>
             </Grid.Resources>
 
@@ -187,7 +187,7 @@
             <Grid x:Name="PausePanel" Style="{StaticResource MenuBG}">
                 <StackPanel Background="{x:Null}" VerticalAlignment="Center">
                     <Border Margin="0, 80" Padding="0,10">
-                        <TextBlock Text="Pause Menu" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
+                        <TextBlock Text="Pause Menu" FontSize="60" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
                     </Border>
                     <Button x:Name="ResumeBtn" Content="Resume" Margin="10" HorizontalAlignment="Center" Click="PauseButton_Click" />
                     <Button x:Name="SaveBn" Content="Save" Margin="10" HorizontalAlignment="Center" />
@@ -201,7 +201,7 @@
         <Grid x:Name="StartMenu" Visibility="Collapsed">
             <Grid.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource SpaceText}">
-                    <Setter Property="FontSize" Value="40" />
+                    <Setter Property="FontSize" Value="24" />
                 </Style>
             </Grid.Resources>
 
@@ -216,7 +216,7 @@
 
             <StackPanel Grid.Column="0">
                 <Border Margin="0,80" Padding="0,10">
-                    <TextBlock Text="Space Ludo" FontSize="120" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
+                    <TextBlock Text="Space Ludo" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
                 </Border>
                 <Button x:Name="NewGameBtn" Content="New Game" Margin="10" HorizontalAlignment="Center" Click="NewGame_ClickBtn" />
                 <Button x:Name="LoadBtn" Content="Load" Margin="10" HorizontalAlignment="Center" />
@@ -228,13 +228,13 @@
 
                 <StackPanel>
                     <Border Margin="0,20" Padding="0,10">
-                        <TextBlock Text="Options" FontSize="80" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
+                        <TextBlock Text="Options" FontSize="60" TextWrapping="WrapWholeWords" HorizontalAlignment="Center" Foreground="#FF7F99B6" />
                     </Border>
 
                     <StackPanel Orientation="Horizontal" Background="{x:Null}">
                         <StackPanel Margin="20">
                             <Border Margin="20" Width="300">
-                                <TextBlock Text="Volume" FontSize="20" HorizontalAlignment="Center" />
+                                <TextBlock Text="Volume" FontSize="12" HorizontalAlignment="Center" />
                             </Border>
                             <Grid>
                                 <Grid.ColumnDefinitions>
