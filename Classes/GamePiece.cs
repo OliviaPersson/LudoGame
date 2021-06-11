@@ -85,6 +85,7 @@ namespace LudoGame.Classes
                         if (piece.tile == piece.moveToTile)
                         {
                             CheckIfHitGamePiece(piece);
+                            Wormhole.CheckIfHitWormhole(piece);
                         }
                         
                     }

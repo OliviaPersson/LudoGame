@@ -45,26 +45,35 @@ namespace LudoGame.Classes
                 StartPosition = _gameTiles[ran];
             } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
             GameEngine.wormHole.Position = _gameTiles[ran].Position;
-            GameEngine.wormHole.Position += Vector2Math.Normalized(_gameTiles[ran].Position) *1* (float)GameEngine.GameCanvas.TargetElapsedTime.TotalSeconds;
+            GameEngine.wormHole.Position += Vector2Math.Normalized(_gameTiles[ran].Position) *500* (float)GameEngine.GameCanvas.TargetElapsedTime.TotalSeconds;
             
         }
         public static void CheckIfHitWormhole(GamePiece gamePiece)
         {
+            int ran;
+            do
+            {
+                ran = rnd.Next(_gameTiles.Length);
+                StartPosition = _gameTiles[ran];
+            } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
+
             foreach (GamePiece otherGamePiece in GameEngine.gamePieces)
             {
-                if (otherGamePiece.tile == gamePiece.tile && otherGamePiece.race != gamePiece.race)
+               
+                if (otherGamePiece.tile == StartPosition)
                 {
-                    otherGamePiece.tile = otherGamePiece.baseTile;
-                    otherGamePiece.moveToTile = otherGamePiece.tile;
-                    otherGamePiece.Position = otherGamePiece.homePosition;
-                    otherGamePiece.atHomePosition = true;
+                     otherGamePiece.moveToTile = _gameTiles[ran]; 
+                }
+                else if(gamePiece.tile == StartPosition)
+                {
+                    gamePiece.moveToTile = _gameTiles[ran];
                 }
 
             }
         }
         private static Wormhole SpawnWormHole(GameRace race, CanvasBitmap sprite,  GameTile baseTile)
         {
-            Drawable draw = new Drawable(sprite, baseTile.Position, 0.5f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
+            Drawable draw = new Drawable(sprite, baseTile.Position, 0.4f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
             GameEngine.drawables.Add(draw);
             return new Wormhole(draw, baseTile);
         }
