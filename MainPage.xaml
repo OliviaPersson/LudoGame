@@ -8,7 +8,7 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    FontFamily="Unispace"
+    FontFamily="Assets/Fonts/unispace.ttf#Unispace"
     RequestedTheme="Dark">
 
     <Page.Resources>
@@ -49,7 +49,7 @@
                 <RowDefinition MinHeight="200"/>
             </Grid.RowDefinitions>
 
-            <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" PointerMoved="GameCanvas_PointerMoved" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
+            <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" PointerMoved="GameCanvas_PointerMoved"/>
 
             <ListView x:Name="DebugText" Background="#93122138"  IsHitTestVisible="False" Height="120" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Visibility="Collapsed">
                 <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="20" />
@@ -57,7 +57,7 @@
                 <TextBlock x:Name="ClickedObject" Text="Not clicked yet" TextWrapping="Wrap" FontSize="20" />
             </ListView>
 
-            <StackPanel x:Name="GameUI" Grid.Row="1" Orientation="Horizontal" Width="270" HorizontalAlignment="Center" BorderThickness="3" BorderBrush="#FF18A4C3">
+            <StackPanel x:Name="GameUI" Grid.Row="1" Orientation="Horizontal" MinWidth="270" HorizontalAlignment="Center" BorderThickness="3" BorderBrush="#FF18A4C3">
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/UI/UI bakcground.png" Stretch="UniformToFill"/>
                 </StackPanel.Background>
@@ -69,25 +69,25 @@
 
                 <StackPanel Margin="10,0" Padding="10,5" VerticalAlignment="Center" Height="156" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
 
-                    <TextBlock FontSize="10" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
+                    <TextBlock FontSize="12" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
 
                     <StackPanel Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle Name="RedPiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="RedPiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="RedPiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="RedPiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
@@ -95,71 +95,77 @@
                     </StackPanel>
 
                     <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle Name="GreenPiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="GreenPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="GreenPiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="GreenPiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="GreenPiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="GreenPiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="GreenPiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="GreenPiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
                     <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle  Name="YellowPiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="YellowPiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="YellowPiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="YellowPiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
                     <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle Name="BluePiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="BluePiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="BluePiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="BluePiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="10,0" Padding="10,5" VerticalAlignment="Center" Height="156" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
+                    <TextBlock Margin="10">Cheats</TextBlock>
+                    <TextBox x:Name="CheatDice"/>
+                    <Button x:Name="CheatRoll" Background="#82B5591A" Content="Set dice" Click="CheatRoll_Click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

@@ -38,7 +38,6 @@ namespace LudoGame.Classes
         public static bool aPieceIsMoving;
         public static CanvasAnimatedControl GameCanvas { get { return _gameCanvas; } }
         public static GameTile[] GameTiles { get { return _gameTiles; } }
-        //public static Player[] players;
 
         private static Dictionary<string, MediaPlayer> _sounds;
         private static Dictionary<string, CanvasBitmap> _sprites;
@@ -127,6 +126,7 @@ namespace LudoGame.Classes
                 {
                     currentGameState = _saveCurrentState; //Play
                 });
+                //UI.FinishGamePiece(gamePieces[13]);
             }
         }
 
@@ -146,7 +146,8 @@ namespace LudoGame.Classes
         /// </summary>
         public static void OnSizeChanged()
         {
-            foreach (var item in drawables)
+            Drawable[] d = drawables.ToArray();
+            foreach (var item in d)
             {
                 item.CalculateActualPosition();
             }
@@ -204,7 +205,7 @@ namespace LudoGame.Classes
             float tileSpeed = 300;
             if (currentGameState != GameState.InMenu)
             {
-                if (gamePieces[15] != null)
+                if (gamePieces.Length > 0)
                 {
                     if (!GamePiece.TryMovingPiece(tileSpeed))
                     {

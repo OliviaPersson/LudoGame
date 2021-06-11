@@ -9,6 +9,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Shapes;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -35,6 +36,13 @@ namespace LudoGame
 
             RecalculateCanvasSizes();
             GameEngine.InitializeGameEngine(GameCanvas);
+
+            Rectangle[] rectangles = new Rectangle[] { 
+                RedPiece1, RedPiece2, RedPiece3, RedPiece4, 
+                GreenPiece1, GreenPiece2, GreenPiece3, GreenPiece4, 
+                YellowPiece1, YellowPiece2, YellowPiece3, YellowPiece4, 
+                BluePiece1, BluePiece2, BluePiece3, BluePiece4 };
+            UI.Initialize(rectangles);
         }
 
 
@@ -116,7 +124,6 @@ namespace LudoGame
             {
                 int number = Dice.RollDice();
                 DiceRoll.Text = number.ToString();
-                Dice.DiceSave = number; // saves what the dice show
             }
         }
 
@@ -145,8 +152,14 @@ namespace LudoGame
             Sound.SetVolume(e.NewValue / 100);
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
+        private void CheatRoll_Click(object sender, RoutedEventArgs e)
         {
+            if (GameEngine.currentGameState == GameState.PlayerPlaying)
+            {
+                Int32.TryParse(CheatDice.Text, out int cheatRoll);
+                int number = Dice.Cheat(cheatRoll);
+                DiceRoll.Text = number.ToString();
+            }
         }
     }
 }

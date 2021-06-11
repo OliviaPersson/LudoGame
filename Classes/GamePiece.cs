@@ -12,18 +12,14 @@ namespace LudoGame.Classes
         public Vector2 Position { get { return drawable.Position; } set { drawable.Position = value; } }
 
         public GameTile tile;
-        public GameTile currentTile;
         public GameTile tempTile;
         public GameTile moveToTile;
         public GameTile baseTile;
 
         public GameRace race;
-        public bool shield;
-        public bool moving;
+
         public bool atHomePosition = true;
-        public bool isAvailableMove = false;
-        public bool IsOccupied = false;
-        public bool isHover = false;
+
         public Vector2 homePosition;
         public Drawable drawable;
 
@@ -81,13 +77,16 @@ namespace LudoGame.Classes
                     {
                         piece.Position = nextTile.Position;
                         piece.tile = nextTile;
-                        
+
                         if (piece.tile == piece.moveToTile)
                         {
                             CheckIfHitGamePiece(piece);
+                            if (piece.moveToTile.GetNextTile(piece.race) == null)
+                            {
+                                Done(piece);
+                            }
                             Wormhole.CheckIfHitWormhole(piece);
                         }
-                       
                     }
                     else
                     {
@@ -98,6 +97,24 @@ namespace LudoGame.Classes
             }
 
             return aPieceIsMoving;
+        }
+
+        public static void Done(GamePiece gamePiece)
+        {
+            foreach (Player player in GameEngine.players)
+            {
+                if (player.race == gamePiece.race)
+                {
+                    player.GamePieces = player.GamePieces.Where(piece => piece != gamePiece).ToArray();
+                    GameEngine.drawables.Remove(gamePiece.drawable);
+                    UI.FinishGamePiece(gamePiece);
+
+                    if (player.GamePieces.Length == 0)
+                    {
+                        //Player win
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -128,6 +145,7 @@ namespace LudoGame.Classes
         /// <returns>a bool based on if it can move</returns>
         private bool FindAvailableMove(int diceResult, Player player)
         {
+            bool isAvailableMove = false;
             tempTile = tile;
             for (int i = 0; i < diceResult; i++)
             {
@@ -158,7 +176,8 @@ namespace LudoGame.Classes
                     {
                         if (player == GameEngine.player)
                         {
-                            GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
+                            tempTile.drawable.isHover = true;
+                            // GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
                         }
                     }
 
@@ -211,7 +230,6 @@ namespace LudoGame.Classes
             CreateGamePiece(race, sprite, new Vector2(-offset, -offset), baseTile),
             CreateGamePiece(race, sprite, new Vector2(offset, -offset), baseTile),
             CreateGamePiece(race, sprite, new Vector2(-offset, offset), baseTile) };
-           
             return gamePieces;
         }
 
@@ -241,10 +259,9 @@ namespace LudoGame.Classes
                     otherGamePiece.tile = otherGamePiece.baseTile;
                     otherGamePiece.moveToTile = otherGamePiece.tile;
                     otherGamePiece.Position = otherGamePiece.homePosition;
-                   // otherGamePiece.Position = otherGamePiece.;//Prob wont work
+                    // otherGamePiece.Position = otherGamePiece.;//Prob wont work
                     otherGamePiece.atHomePosition = true;
                 }
-
             }
         }
 
