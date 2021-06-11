@@ -127,6 +127,7 @@ namespace LudoGame.Classes
                 {
                     currentGameState = _saveCurrentState; //Play
                 });
+                UI.FinishGamePiece(gamePieces[13]);
             }
         }
 

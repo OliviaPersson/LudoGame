@@ -72,22 +72,22 @@
                     <TextBlock FontSize="10" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
 
                     <StackPanel Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle Name="RedPiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="RedPiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="RedPiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="RedPiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="RedPiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/RedGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
@@ -95,66 +95,66 @@
                     </StackPanel>
 
                     <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle Name="GreenPiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="GreenPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="GreenPiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="GreenPiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="GreenPiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="GreenPiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="GreenPiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="GreenPiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/GreenGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
                     <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle  Name="YellowPiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="YellowPiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="YellowPiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle  Name="YellowPiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle  Name="YellowPiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/YellowGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
                     <StackPanel  Margin="5" Orientation="Horizontal" Background="{x:Null}">
-                        <Rectangle Name="BluePiece1" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece1" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="BluePiece2" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece2" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="BluePiece3" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece3" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>
                         </Rectangle>
-                        <Rectangle Name="BluePiece4" Margin="2" Opacity="0.3" Width="17" Height="17">
+                        <Rectangle Name="BluePiece4" Margin="2" Width="17" Height="17">
                             <Rectangle.Fill>
                                 <ImageBrush ImageSource="/Assets/Pieces/BlueGamePiece.png" Stretch="Uniform"/>
                             </Rectangle.Fill>

@@ -132,6 +132,7 @@
     <Compile Include="Classes\Scaler.cs" />
     <Compile Include="Classes\Sound.cs" />
     <Compile Include="Classes\Turn.cs" />
+    <Compile Include="Classes\UI.cs" />
     <Compile Include="Classes\Vector2Math.cs" />
     <Compile Include="Classes\Win2DDrawingHandler.cs" />
     <Compile Include="Classes\Wormhole.cs" />
