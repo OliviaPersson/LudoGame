@@ -49,7 +49,7 @@
                 <RowDefinition MinHeight="200"/>
             </Grid.RowDefinitions>
 
-            <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" PointerMoved="GameCanvas_PointerMoved" IsTapEnabled="True" Tapped="GameCanvas_Tapped"/>
+            <canvas:CanvasAnimatedControl x:Name="GameCanvas" PointerPressed="GameCanvas_PointerPressed" PointerMoved="GameCanvas_PointerMoved"/>
 
             <ListView x:Name="DebugText" Background="#93122138"  IsHitTestVisible="False" Height="120" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Visibility="Collapsed">
                 <TextBlock x:Name="Xmouseclick" HorizontalAlignment="Left" Text="" TextWrapping="Wrap" FontSize="20" />
@@ -57,7 +57,7 @@
                 <TextBlock x:Name="ClickedObject" Text="Not clicked yet" TextWrapping="Wrap" FontSize="20" />
             </ListView>
 
-            <StackPanel x:Name="GameUI" Grid.Row="1" Orientation="Horizontal" Width="270" HorizontalAlignment="Center" BorderThickness="3" BorderBrush="#FF18A4C3">
+            <StackPanel x:Name="GameUI" Grid.Row="1" Orientation="Horizontal" MinWidth="270" HorizontalAlignment="Center" BorderThickness="3" BorderBrush="#FF18A4C3">
                 <StackPanel.Background>
                     <ImageBrush ImageSource="/Assets/UI/UI bakcground.png" Stretch="UniformToFill"/>
                 </StackPanel.Background>
@@ -160,6 +160,12 @@
                             </Rectangle.Fill>
                         </Rectangle>
                     </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="10,0" Padding="10,5" VerticalAlignment="Center" Height="156" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
+                    <TextBlock Margin="10">Cheats</TextBlock>
+                    <TextBox x:Name="CheatDice"/>
+                    <Button x:Name="CheatRoll" Background="#82B5591A" Content="Set dice" Click="CheatRoll_Click"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

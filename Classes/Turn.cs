@@ -23,6 +23,12 @@ namespace LudoGame.Classes
                     currentPlayer.baseTile.drawable.isHover = true;
                 }
 
+                if (currentPlayer.GamePieces.Length == 0) // skips a player that have no game pieces
+                {
+                    EndTurn();
+                    return;
+                }
+
                 if (currentPlayer != GameEngine.player)
                 {
                     AIPlay(currentPlayer);

@@ -124,7 +124,6 @@ namespace LudoGame
             {
                 int number = Dice.RollDice();
                 DiceRoll.Text = number.ToString();
-                Dice.DiceSave = number; // saves what the dice show
             }
         }
 
@@ -153,8 +152,14 @@ namespace LudoGame
             Sound.SetVolume(e.NewValue / 100);
         }
 
-        private void GameCanvas_Tapped(object sender, TappedRoutedEventArgs e)
+        private void CheatRoll_Click(object sender, RoutedEventArgs e)
         {
+            if (GameEngine.currentGameState == GameState.PlayerPlaying)
+            {
+                Int32.TryParse(CheatDice.Text, out int cheatRoll);
+                int number = Dice.Cheat(cheatRoll);
+                DiceRoll.Text = number.ToString();
+            }
         }
     }
 }
