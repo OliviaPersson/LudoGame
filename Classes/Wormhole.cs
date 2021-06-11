@@ -1,7 +1,7 @@
 ﻿using Microsoft.Graphics.Canvas;
 using System;
 using System.Numerics;
-using System.Numerics;
+
 
 namespace LudoGame.Classes
 {
