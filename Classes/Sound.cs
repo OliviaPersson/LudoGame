@@ -25,5 +25,13 @@ namespace LudoGame.Classes
                 backgroundMusic.Play();
             }
         }
+
+        public static void SetVolume(double volume)
+        {
+            if (backgroundMusic != null)
+            {
+                backgroundMusic.Volume = volume;
+            }
+        }
     }
 }

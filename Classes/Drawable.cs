@@ -99,8 +99,8 @@ namespace LudoGame.Classes
         {
             if (!_setActualPosition)
             {
-                float minBounds = MathF.Min((float)MainPage.bounds.Width, (float)MainPage.bounds.Height);
-                ActualPosition = new Vector2((float)MainPage.bounds.Width / 2 + (Position.X * (minBounds / MainPage.gameWidth / 2) - (ScaledSize.X / 2)), (float)MainPage.bounds.Height / 2 - (Position.Y * (minBounds / MainPage.gameHeight / 2) + (ScaledSize.Y / 2)));
+                float minBounds = MathF.Min((float)MainPage.bounds.X, (float)MainPage.bounds.Y);
+                ActualPosition = new Vector2((float)MainPage.bounds.X / 2 + (Position.X * (minBounds / MainPage.gameWidth / 2) - (ScaledSize.X / 2)), (float)MainPage.bounds.Y / 2 - (Position.Y * (minBounds / MainPage.gameHeight / 2) + (ScaledSize.Y / 2)));
             }
         }
     }

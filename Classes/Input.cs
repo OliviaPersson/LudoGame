@@ -47,10 +47,6 @@ namespace LudoGame.Classes
                 if (returned is GamePiece)
                 {
                     GameEngine.player.MovePiece((GamePiece)returned);
-                    if (GameEngine.player.turnDone)
-                    {
-                        Turn.EndTurn();
-                    }
                 }
 
                 if (returned is GamePiece) objectDescription = "GamePiece";
