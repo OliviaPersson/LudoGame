@@ -55,19 +55,16 @@ namespace LudoGame.Classes
             {
                 ran = rnd.Next(_gameTiles.Length);
             } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
-
+            if (gamePiece.tile == StartPosition)
+            {
+                gamePiece.moveToTile = _gameTiles[ran];
+            }
             foreach (GamePiece otherGamePiece in GameEngine.gamePieces)
             {
-               
                 if (otherGamePiece.tile == StartPosition)
                 {
                      otherGamePiece.moveToTile = _gameTiles[ran]; 
                 }
-                else if(gamePiece.tile == StartPosition)
-                {
-                    gamePiece.moveToTile = _gameTiles[ran];
-                }
-
             }
         }
         private static Wormhole SpawnWormHole(GameRace race, CanvasBitmap sprite,  GameTile baseTile)
