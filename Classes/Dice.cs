@@ -8,6 +8,12 @@ namespace LudoGame.Classes
 
         private static Random num = new Random();
 
+        public static int Cheat(int desiredRoll)
+        {
+            DiceSave = desiredRoll;
+            return DiceSave;
+        }
+
         /// <summary>
         /// Randomizes a new dice roll,
         /// this is saved in DiceSave

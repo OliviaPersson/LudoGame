@@ -85,8 +85,11 @@ namespace LudoGame.Classes
                         if (piece.tile == piece.moveToTile)
                         {
                             CheckIfHitGamePiece(piece);
+                            if (piece.moveToTile.GetNextTile(piece.race) == null)
+                            {
+                                Done(piece);
+                            }
                         }
-                        
                     }
                     else
                     {
@@ -97,6 +100,24 @@ namespace LudoGame.Classes
             }
 
             return aPieceIsMoving;
+        }
+
+        public static void Done(GamePiece gamePiece)
+        {
+            foreach (Player player in GameEngine.players)
+            {
+                if (player.race == gamePiece.race)
+                {
+                    player.GamePieces = player.GamePieces.Where(piece => piece != gamePiece).ToArray();
+                    GameEngine.drawables.Remove(gamePiece.drawable);
+                    UI.FinishGamePiece(gamePiece);
+
+                    if (player.GamePieces.Length == 0)
+                    {
+                        //Player win
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -157,7 +178,8 @@ namespace LudoGame.Classes
                     {
                         if (player == GameEngine.player)
                         {
-                            GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
+                            tempTile.drawable.isHover = true;
+                           // GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
                         }
                     }
 

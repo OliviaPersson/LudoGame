@@ -127,7 +127,7 @@ namespace LudoGame.Classes
                 {
                     currentGameState = _saveCurrentState; //Play
                 });
-                UI.FinishGamePiece(gamePieces[13]);
+                //UI.FinishGamePiece(gamePieces[13]);
             }
         }
 
@@ -147,7 +147,8 @@ namespace LudoGame.Classes
         /// </summary>
         public static void OnSizeChanged()
         {
-            foreach (var item in drawables)
+            Drawable[] d = drawables.ToArray();
+            foreach (var item in d)
             {
                 item.CalculateActualPosition();
             }
@@ -205,7 +206,7 @@ namespace LudoGame.Classes
             float tileSpeed = 300;
             if (currentGameState != GameState.InMenu)
             {
-                if (gamePieces[15] != null)
+                if (gamePieces.Length > 0)
                 {
                     if (!GamePiece.TryMovingPiece(tileSpeed))
                     {

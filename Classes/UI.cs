@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Shapes;
+using Windows.ApplicationModel.Core;
 
 namespace LudoGame.Classes
 {
@@ -51,7 +52,7 @@ namespace LudoGame.Classes
 
         public static async void FinishGamePiece(GamePiece piece)
         {
-            await Window.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
                 _finishedGamePieces.Add(piece);
 
