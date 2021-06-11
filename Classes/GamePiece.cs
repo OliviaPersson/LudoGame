@@ -12,18 +12,14 @@ namespace LudoGame.Classes
         public Vector2 Position { get { return drawable.Position; } set { drawable.Position = value; } }
 
         public GameTile tile;
-        public GameTile currentTile;
         public GameTile tempTile;
         public GameTile moveToTile;
         public GameTile baseTile;
 
         public GameRace race;
-        public bool shield;
-        public bool moving;
+
         public bool atHomePosition = true;
-        public bool isAvailableMove = false;
-        public bool IsOccupied = false;
-        public bool isHover = false;
+
         public Vector2 homePosition;
         public Drawable drawable;
 
@@ -81,7 +77,7 @@ namespace LudoGame.Classes
                     {
                         piece.Position = nextTile.Position;
                         piece.tile = nextTile;
-                        
+
                         if (piece.tile == piece.moveToTile)
                         {
                             CheckIfHitGamePiece(piece);
@@ -148,6 +144,7 @@ namespace LudoGame.Classes
         /// <returns>a bool based on if it can move</returns>
         private bool FindAvailableMove(int diceResult, Player player)
         {
+            bool isAvailableMove = false;
             tempTile = tile;
             for (int i = 0; i < diceResult; i++)
             {
@@ -179,7 +176,7 @@ namespace LudoGame.Classes
                         if (player == GameEngine.player)
                         {
                             tempTile.drawable.isHover = true;
-                           // GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
+                            // GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
                         }
                     }
 
@@ -261,7 +258,7 @@ namespace LudoGame.Classes
                     otherGamePiece.tile = otherGamePiece.baseTile;
                     otherGamePiece.moveToTile = otherGamePiece.tile;
                     otherGamePiece.Position = otherGamePiece.homePosition;
-                   // otherGamePiece.Position = otherGamePiece.;//Prob wont work
+                    // otherGamePiece.Position = otherGamePiece.;//Prob wont work
                     otherGamePiece.atHomePosition = true;
                 }
             }

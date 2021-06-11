@@ -8,7 +8,7 @@
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-    FontFamily="Unispace"
+    FontFamily="Assets/Fonts/unispace.ttf#Unispace"
     RequestedTheme="Dark">
 
     <Page.Resources>
@@ -69,7 +69,7 @@
 
                 <StackPanel Margin="10,0" Padding="10,5" VerticalAlignment="Center" Height="156" Background="#93122138"  BorderThickness="3" BorderBrush="#FF18A4C3">
 
-                    <TextBlock FontSize="10" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
+                    <TextBlock FontSize="12" TextWrapping="WrapWholeWords">Finished pieces</TextBlock>
 
                     <StackPanel Margin="5" Orientation="Horizontal" Background="{x:Null}">
                         <Rectangle Name="RedPiece1" Margin="2" Width="17" Height="17">
