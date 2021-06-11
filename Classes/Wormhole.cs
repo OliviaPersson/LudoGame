@@ -54,7 +54,6 @@ namespace LudoGame.Classes
             do
             {
                 ran = rnd.Next(_gameTiles.Length);
-                StartPosition = _gameTiles[ran];
             } while (_gameTiles[ran].raceHome == (GameRace)1 || _gameTiles[ran].raceHome == (GameRace)2 || _gameTiles[ran].raceHome == (GameRace)3 || _gameTiles[ran].raceHome == (GameRace)4);
 
             foreach (GamePiece otherGamePiece in GameEngine.gamePieces)
