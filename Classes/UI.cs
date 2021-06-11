@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Shapes;
 
@@ -48,56 +49,59 @@ namespace LudoGame.Classes
             }
         }
 
-        public static void FinishGamePiece(GamePiece piece)
+        public static async void FinishGamePiece(GamePiece piece)
         {
-            _finishedGamePieces.Add(piece);
-
-            // change opacity of the next UI element
-            switch (piece.race)
+            await Window.Current.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
             {
-                case GameRace.Red:
-                    foreach (var item in _redElements)
-                    {
-                        if (item.Opacity != 1)
+                _finishedGamePieces.Add(piece);
+
+                // change opacity of the next UI element
+                switch (piece.race)
+                {
+                    case GameRace.Red:
+                        foreach (var item in _redElements)
                         {
-                            item.Opacity = 1;
-                            break;
+                            if (item.Opacity != 1)
+                            {
+                                item.Opacity = 1;
+                                break;
+                            }
                         }
-                    }
-                    break;
-                case GameRace.Green:
-                    foreach (var item in _greenElements)
-                    {
-                        if (item.Opacity != 1)
+                        break;
+                    case GameRace.Green:
+                        foreach (var item in _greenElements)
                         {
-                            item.Opacity = 1;
-                            break;
+                            if (item.Opacity != 1)
+                            {
+                                item.Opacity = 1;
+                                break;
+                            }
                         }
-                    }
-                    break;
-                case GameRace.Yellow:
-                    foreach (var item in _yellowElements)
-                    {
-                        if (item.Opacity != 1)
+                        break;
+                    case GameRace.Yellow:
+                        foreach (var item in _yellowElements)
                         {
-                            item.Opacity = 1;
-                            break;
+                            if (item.Opacity != 1)
+                            {
+                                item.Opacity = 1;
+                                break;
+                            }
                         }
-                    }
-                    break;
-                case GameRace.Blue:
-                    foreach (var item in _blueElements)
-                    {
-                        if (item.Opacity != 1)
+                        break;
+                    case GameRace.Blue:
+                        foreach (var item in _blueElements)
                         {
-                            item.Opacity = 1;
-                            break;
+                            if (item.Opacity != 1)
+                            {
+                                item.Opacity = 1;
+                                break;
+                            }
                         }
-                    }
-                    break;
-                default:
-                    break;
-            }
+                        break;
+                    default:
+                        break;
+                }
+            });
         }
     }
 }
