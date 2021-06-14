@@ -149,21 +149,28 @@ namespace LudoGame.Classes
             tempTile = tile;
             for (int i = 0; i < diceResult; i++)
             {
-                foreach (GamePiece otherPiece in player.GamePieces) // Loop trough players gamepieces
+                if (player.GamePieces.Length > 1)
                 {
-                    if (otherPiece == this)
+                    foreach (GamePiece otherPiece in player.GamePieces) // Loop trough players gamepieces
                     {
-                        continue;
-                    }
+                        if (otherPiece == this)
+                        {
+                            continue;
+                        }
 
-                    if (tempTile.GetNextTile(race) == otherPiece.tile) //Check that the next tile is not occupide by  gamepiece
-                    {
-                        return false;
+                        if (tempTile.GetNextTile(race) == otherPiece.tile) //Check that the next tile is not occupide by  gamepiece
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            isAvailableMove = true;
+                        }
                     }
-                    else
-                    {
-                        isAvailableMove = true;
-                    }
+                }
+                else
+                {
+                    isAvailableMove = true;
                 }
 
                 if (isAvailableMove)
@@ -180,7 +187,6 @@ namespace LudoGame.Classes
                             // GameEngine.drawables[1].isHover = true; // Blackhole hover if player can finish a gamepiece
                         }
                     }
-
                 }
             }
 
