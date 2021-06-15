@@ -16,7 +16,7 @@ namespace LudoGame.Classes
         public static void CreateWormHole(GameTile[] gametiles, CanvasBitmap sprite)
         {
 
-            drawable = new Drawable(sprite, Vector2.Zero, 0.4f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
+            drawable = new Drawable(sprite, Vector2.Zero, 0.1f, (bitmap, scale) => Scaler.ImgUniform(bitmap, scale));
             GameEngine.drawables.Add(drawable);
 
             _gameTiles = gametiles;

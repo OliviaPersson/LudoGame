@@ -6,16 +6,12 @@
       "NameID": "background"
     },
     {
-      "FileName": "menubg.png",
-      "NameID": "menubg"
-    },
-    {
       "FileName": "blackhole.png",
       "NameID": "blackhole"
     },
     {
-      "FileName": "blackholehighligteffect.png",
-      "NameID": "blackholehighlighteffect"
+      "FileName": "wormhole.png",
+      "NameID": "wormhole"
     }
   ]
 }

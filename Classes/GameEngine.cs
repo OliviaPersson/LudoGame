@@ -93,7 +93,7 @@ namespace LudoGame.Classes
                     aiAssigned++;
                 }
             }
-           Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
+           Wormhole.CreateWormHole(_gameTiles, _sprites["wormhole"]);
             int gamePieceAssigned = 0;
             foreach (Player player in players)
             {
