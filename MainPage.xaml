@@ -41,7 +41,7 @@
 
     <Grid x:Name="grid">
         <Grid.Background>
-            <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/background2.jpg"/>
+            <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/Images/Stars.png"/>
         </Grid.Background>
         <Grid Name="GameWindow">
             <Grid.RowDefinitions>

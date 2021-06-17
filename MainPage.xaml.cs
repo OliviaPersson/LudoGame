@@ -75,9 +75,7 @@ namespace LudoGame
 
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
-            GameEngine.GameModeSwitch(GameCanvas);
-
-            if (GameEngine.currentGameState == GameState.InMenu)
+            if (GameEngine.currentGameState != GameState.InMenu)
             {
                 PauseMenu.Visibility = Visibility.Visible;
             }
@@ -86,6 +84,7 @@ namespace LudoGame
                 PauseMenu.Visibility = Visibility.Collapsed;
             }
 
+            GameEngine.GameModeSwitch(GameCanvas);
         }
 
         private void ExitBtn_Click(object sender, RoutedEventArgs e)
@@ -95,7 +94,7 @@ namespace LudoGame
 
         private void NewGame_ClickBtn(object sender, RoutedEventArgs e)
         {
-            var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+            _ = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
                 GameEngine.currentGameState = GameState.PlayerPlaying;
             });
@@ -105,7 +104,7 @@ namespace LudoGame
 
         private void MainMenuBtn_Click(object sender, RoutedEventArgs e)
         {
-            var action = GameCanvas.RunOnGameLoopThreadAsync(() =>
+            _ = GameCanvas.RunOnGameLoopThreadAsync(() =>
             {
                 GameEngine.currentGameState = GameState.InMenu;
             });

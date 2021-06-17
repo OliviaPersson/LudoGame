@@ -147,9 +147,8 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Images\background2.jpg" />
-    <Content Include="Assets\Images\bg.png" />
     <Content Include="Assets\Images\blackhole.png" />
+    <Content Include="Assets\Images\Stars.png" />
     <Content Include="Assets\Images\wormhole.png" />
     <Content Include="Assets\Pieces\BlueGamePiece.png" />
     <Content Include="Assets\Pieces\GreenGamePiece.png" />

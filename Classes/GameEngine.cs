@@ -32,9 +32,9 @@ namespace LudoGame.Classes
         public static List<Drawable> drawables = new List<Drawable>();
         public static GameState currentGameState = 0;
         public static Player player;
-        public static AIPlayer[] aIPlayers = new AIPlayer[3];
+        public static AIPlayer[] aIPlayers;
         public static Player[] players;
-        public static GamePiece[] gamePieces = new GamePiece[16];
+        public static GamePiece[] gamePieces;
         public static bool aPieceIsMoving;
         public static CanvasAnimatedControl GameCanvas { get { return _gameCanvas; } }
         public static GameTile[] GameTiles { get { return _gameTiles; } }
@@ -62,7 +62,6 @@ namespace LudoGame.Classes
             _gameCanvas = canvas;
             _gameCanvas.CreateResources += (sender, _) => CreateResources(sender);
             _gameCanvas.Draw += (sender, drawArgs) => Draw(sender, drawArgs);
-            currentGameState = GameState.PlayerPlaying;
         }
 
         /// <summary>
@@ -71,6 +70,10 @@ namespace LudoGame.Classes
         /// <param name="playerRace">The race of the player</param>
         public static void StartGame(GameRace playerRace)
         {
+            currentGameState = GameState.PlayerPlaying;
+            drawables = new List<Drawable>();
+            aIPlayers = new AIPlayer[3];
+            gamePieces = new GamePiece[16];
             _gameTiles = GameTile.CreateGameTiles(Sprites);
             //Changed so that all players is in the same player array
             players = new Player[] {
@@ -80,7 +83,6 @@ namespace LudoGame.Classes
                 new Player((GameRace)4, _sprites["blueGamePiece"], 50, _gameTiles)
             };
           
-            //Wormhole.CreateWormHole(_gameTiles, _sprites["blackhole"]);
             player = players[(int)playerRace - 1];
 
             // assigns the rest of the player races to the 3 ai players
@@ -93,7 +95,9 @@ namespace LudoGame.Classes
                     aiAssigned++;
                 }
             }
+
            Wormhole.CreateWormHole(_gameTiles, _sprites["wormhole"]);
+
             int gamePieceAssigned = 0;
             foreach (Player player in players)
             {
@@ -110,19 +114,19 @@ namespace LudoGame.Classes
         /// Used pause the game when the pause menu is brought up
         /// </summary>
         /// <param name="canvas"></param>
-        public static void GameModeSwitch(CanvasAnimatedControl canvas)
+        public static async void GameModeSwitch(CanvasAnimatedControl canvas)
         {
             if (currentGameState != GameState.InMenu)
             {
                 _saveCurrentState = currentGameState;
-                var action = canvas.RunOnGameLoopThreadAsync(() =>
+                await canvas.RunOnGameLoopThreadAsync(() =>
                 {
                     currentGameState = GameState.InMenu;
                 });
             }
             else
             {
-                var action = canvas.RunOnGameLoopThreadAsync(() =>
+                await canvas.RunOnGameLoopThreadAsync(() =>
                 {
                     currentGameState = _saveCurrentState; //Play
                 });
@@ -202,7 +206,7 @@ namespace LudoGame.Classes
         /// </summary>
         public static void Update()
         {
-            float tileSpeed = 300;
+            float tileSpeed = 600;
             if (currentGameState != GameState.InMenu)
             {
                 if (gamePieces.Length > 0)
